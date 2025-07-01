@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { Header } from '@/components/navigation/Header'
-import { ActiveTrips, DashboardSidebar, QuickActions } from '@/components/dashboard'
+import { ActiveTrips, DashboardSidebar, QuickActions, Recommendations } from '@/components/dashboard'
 import { Suspense } from 'react'
 
 export const metadata: Metadata = {
@@ -37,6 +37,9 @@ export default function DashboardPage() {
             </Suspense>
             <Suspense fallback={<DashboardLoading />}>
               <ActiveTrips />
+            </Suspense>
+            <Suspense fallback={<DashboardLoading />}>
+              <Recommendations />
             </Suspense>
           </div>
 
