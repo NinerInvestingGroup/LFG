@@ -10,10 +10,13 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
 import { AuthLayout } from "./auth-layout"
-import { Eye, EyeOff, Mail, User, Lock, Check, X, Loader2, Shield, Zap, Globe } from "lucide-react"
+import { Eye, EyeOff, Mail, User, Lock, Check, X, Loader2, Shield, Zap, Globe, CheckCircle } from "lucide-react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { signUp } from "@/lib/auth"
 
 export function SignupPage() {
+  const router = useRouter()
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -26,6 +29,8 @@ export function SignupPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [authError, setAuthError] = useState<string>("")
+  const [isSuccess, setIsSuccess] = useState(false)
 
   const travelStyles = [
     "Adventure Seeker",
@@ -56,9 +61,12 @@ export function SignupPage() {
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
 
-    // Clear error when user starts typing
+    // Clear errors when user starts typing
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: "" }))
+    }
+    if (authError) {
+      setAuthError("")
     }
   }
 
@@ -105,19 +113,89 @@ export function SignupPage() {
     if (!validateForm()) return
 
     setIsLoading(true)
+    setAuthError("")
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    try {
+      const result = await signUp({
+        email: formData.email,
+        password: formData.password,
+        fullName: formData.fullName,
+        travelStyle: formData.travelStyle,
+      })
 
-    setIsLoading(false)
-    // Handle successful signup
+      if (result.success) {
+        setIsSuccess(true)
+        // Redirect to confirmation page or dashboard after a short delay
+        setTimeout(() => {
+          router.push('/auth/confirm-email')
+        }, 2000)
+      } else {
+        setAuthError(result.error || "An error occurred during signup")
+      }
+    } catch (error) {
+      setAuthError("An unexpected error occurred. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const handleSocialSignup = (provider: string) => {
-    console.log(`Signing up with ${provider}`)
+    setAuthError(`${provider} signup is coming soon! Please use email signup for now.`)
   }
 
   const passwordStrength = getPasswordStrength(formData.password)
+
+  // Success state
+  if (isSuccess) {
+    return (
+      <AuthLayout
+        title="Account Created Successfully!"
+        subtitle="Check your email to verify your account"
+      >
+        <div className="text-center space-y-6">
+          <div className="w-16 h-16 bg-success-50 rounded-full flex items-center justify-center mx-auto">
+            <CheckCircle className="w-8 h-8 text-success" />
+          </div>
+          
+          <div className="space-y-2">
+            <p className="text-neutral-600">
+              We've sent a verification email to <strong>{formData.email}</strong>
+            </p>
+            <p className="text-sm text-neutral-500">
+              Please check your email and click the verification link to activate your account.
+            </p>
+          </div>
+
+          <div className="bg-neutral-50 rounded-lg p-4 space-y-3">
+            <h4 className="font-medium text-neutral-900">What's next?</h4>
+            <div className="text-sm text-neutral-600 space-y-1">
+              <p>1. Check your email inbox (and spam folder)</p>
+              <p>2. Click the verification link</p>
+              <p>3. Start planning your first epic trip!</p>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <Link href="/auth/login">
+              <button className="w-full bg-primary hover:bg-primary-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors">
+                Continue to Login
+              </button>
+            </Link>
+            
+            <p className="text-sm text-neutral-500">
+              Didn't receive the email?{" "}
+              <button 
+                onClick={() => setIsSuccess(false)}
+                className="text-primary hover:underline"
+              >
+                Try again
+              </button>
+            </p>
+          </div>
+        </div>
+      </AuthLayout>
+    )
+  }
 
   return (
     <AuthLayout
@@ -141,6 +219,16 @@ export function SignupPage() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Authentication Error */}
+        {authError && (
+          <div className="bg-destructive-50 border border-destructive-200 rounded-lg p-4">
+            <div className="flex items-center gap-2">
+              <X className="w-4 h-4 text-destructive flex-shrink-0" />
+              <p className="text-sm text-destructive font-medium">{authError}</p>
+            </div>
+          </div>
+        )}
+
         {/* Full Name */}
         <div className="space-y-2">
           <Label htmlFor="fullName">Full Name</Label>

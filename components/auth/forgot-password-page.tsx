@@ -7,8 +7,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { AuthLayout } from "./auth-layout"
-import { Mail, ArrowLeft, CheckCircle, Loader2 } from "lucide-react"
+import { Mail, ArrowLeft, CheckCircle, Loader2, X } from "lucide-react"
 import Link from "next/link"
+import { resetPassword } from "@/lib/auth"
 
 export function ForgotPasswordPage() {
   const [email, setEmail] = useState("")
@@ -37,11 +38,19 @@ export function ForgotPasswordPage() {
     setError("")
     setIsLoading(true)
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-
-    setIsLoading(false)
-    setIsSubmitted(true)
+    try {
+      const result = await resetPassword(email)
+      
+      if (result.success) {
+        setIsSubmitted(true)
+      } else {
+        setError(result.error || "Failed to send reset email")
+      }
+    } catch (error) {
+      setError("An unexpected error occurred. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   if (isSubmitted) {
