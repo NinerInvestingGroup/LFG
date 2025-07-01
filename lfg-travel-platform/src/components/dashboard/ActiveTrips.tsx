@@ -122,7 +122,7 @@ export function ActiveTrips({ className }: ActiveTripsProps) {
   }
 
   const handleCreateTrip = () => {
-    router.push('/create-trip')
+    router.push('/dashboard/create-trip')
   }
 
   const handleViewAllTrips = () => {

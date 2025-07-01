@@ -42,6 +42,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   
   const supabase = createClient()
 
+  // If Supabase is not configured, just set loading to false and continue
+  if (!supabase) {
+    if (loading) {
+      setLoading(false)
+    }
+    const value = {
+      user: null,
+      profile: null,
+      session: null,
+      loading: false,
+      signUp: async () => { throw new Error('Supabase not configured') },
+      signIn: async () => { throw new Error('Supabase not configured') },
+      signOut: async () => { throw new Error('Supabase not configured') },
+      updateProfile: async () => { throw new Error('Supabase not configured') },
+    }
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  }
+
   // Function to get user's profile from the database
   const fetchProfile = async (userId: string) => {
     try {

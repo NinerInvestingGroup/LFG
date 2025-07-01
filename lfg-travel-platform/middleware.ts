@@ -61,7 +61,6 @@ export async function middleware(request: NextRequest) {
   const protectedRoutes = [
     '/dashboard',
     '/trips',
-    '/create-trip',
     '/profile',
     '/settings',
     '/messages',

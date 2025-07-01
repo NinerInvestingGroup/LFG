@@ -1,0 +1,27 @@
+
+> lfg-travel-platform@1.0.0 dev
+> next dev --turbopack
+
+ ⚠ Port 3000 is in use, using available port 3002 instead.
+   ▲ Next.js 15.3.4 (Turbopack)
+   - Local:        http://localhost:3002
+   - Network:      http://172.17.0.2:3002
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Compiled middleware in 286ms
+ ✓ Ready in 1065ms
+ ○ Compiling /dashboard/create-trip ...
+Error: Cannot apply unknown utility class `bg-neutral-100`. Are you using CSS modules or similar and missing `@reference`? https://tailwindcss.com/docs/functions-and-directives#reference-directive
+    [2m[at onInvalidCandidate (/workspace/lfg-travel-platform/node_modules/tailwindcss/dist/lib.js:18:1312)][0m
+    [2m[at ge (/workspace/lfg-travel-platform/node_modules/tailwindcss/dist/lib.js:13:29803)][0m
+    [2m[at /workspace/lfg-travel-platform/node_modules/tailwindcss/dist/lib.js:18:373][0m
+    [2m[at I (/workspace/lfg-travel-platform/node_modules/tailwindcss/dist/lib.js:3:1656)][0m
+    [2m[at je (/workspace/lfg-travel-platform/node_modules/tailwindcss/dist/lib.js:18:172)][0m
+    [2m[at bi (/workspace/lfg-travel-platform/node_modules/tailwindcss/dist/lib.js:35:780)][0m
+    [2m[at process.processTicksAndRejections (node:internal/process/task_queues:105:5)][0m
+    [2m[at async yi (/workspace/lfg-travel-platform/node_modules/tailwindcss/dist/lib.js:35:1123)][0m
+    [2m[at async _r (/workspace/lfg-travel-platform/node_modules/@tailwindcss/node/dist/index.js:10:3384)][0m
+    [2m[at async p (/workspace/lfg-travel-platform/node_modules/@tailwindcss/postcss/dist/index.js:10:4019)][0m
+ ✓ Compiled /dashboard/create-trip in 2.1s
+ GET /dashboard/create-trip 200 in 2400ms
