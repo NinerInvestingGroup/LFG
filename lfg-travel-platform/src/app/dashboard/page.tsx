@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import { Header } from '@/components/navigation/Header'
 import { ActiveTrips, DashboardSidebar, QuickActions, Recommendations, TravelIntelligence } from '@/components/dashboard'
+import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
+import { UserWelcome } from '@/components/auth/UserWelcome'
 import { Suspense } from 'react'
 
 export const metadata: Metadata = {
@@ -19,15 +21,18 @@ function DashboardLoading() {
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-neutral-50">
-      <Header notifications={5} />
-      <main className="container mx-auto container-padding section-padding">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-neutral-900 mb-2">Dashboard</h1>
-          <p className="text-neutral-600">
-            Welcome back! Here&apos;s what&apos;s happening with your adventures.
-          </p>
-        </div>
+    <ProtectedRoute>
+      <div className="min-h-screen bg-neutral-50">
+        <Header notifications={5} />
+        <main className="container mx-auto container-padding section-padding">
+          <UserWelcome />
+          
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-neutral-900 mb-2">Dashboard</h1>
+            <p className="text-neutral-600">
+              Here&apos;s what&apos;s happening with your adventures.
+            </p>
+          </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Content */}
@@ -55,5 +60,6 @@ export default function DashboardPage() {
         </div>
       </main>
     </div>
+    </ProtectedRoute>
   )
 }

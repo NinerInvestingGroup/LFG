@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/Badge"
 import { Eye, EyeOff, Mail, User, Lock, Check, X, Loader2, Shield, Zap, Globe } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from 'next/navigation'
+import { useAuth } from '@/contexts/AuthContext'
 import { createClient } from '@/lib/supabase'
 
 export function SignupForm() {
@@ -27,7 +28,8 @@ export function SignupForm() {
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   const router = useRouter()
-  const supabase = createClient()
+  const { signUp } = useAuth()
+  const supabase = createClient() // Only needed for social auth
 
   const travelStyles = [
     "Adventure Seeker",
@@ -109,26 +111,16 @@ export function SignupForm() {
     setIsLoading(true)
 
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password,
-        options: {
-          data: {
-            full_name: formData.fullName,
-            travel_style: formData.travelStyle,
-          },
-          emailRedirectTo: `${window.location.origin}/verify-email`
-        }
+      // Use our AuthContext signUp function
+      await signUp(formData.email, formData.password, {
+        full_name: formData.fullName,
+        travel_style: [formData.travelStyle],
       })
 
-      if (error) {
-        setErrors({ general: error.message })
-      } else if (data.user) {
-        // Redirect to email verification
-        router.push('/verify-email')
-      }
-    } catch {
-      setErrors({ general: "An unexpected error occurred. Please try again." })
+      // Redirect to email verification
+      router.push('/verify-email')
+    } catch (error) {
+      setErrors({ general: error instanceof Error ? error.message : "An unexpected error occurred. Please try again." })
     } finally {
       setIsLoading(false)
     }

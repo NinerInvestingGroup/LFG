@@ -8,6 +8,7 @@ import { Checkbox } from "@/components/ui/Checkbox"
 import { Eye, EyeOff, Mail, Lock, Loader2, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from 'next/navigation'
+import { useAuth } from '@/contexts/AuthContext'
 import { createClient } from '@/lib/supabase'
 
 export function LoginForm() {
@@ -21,7 +22,8 @@ export function LoginForm() {
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   const router = useRouter()
-  const supabase = createClient()
+  const { signIn } = useAuth()
+  const supabase = createClient() // Only needed for social auth
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -62,23 +64,13 @@ export function LoginForm() {
     setIsLoading(true)
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: formData.email,
-        password: formData.password,
-      })
-
-      if (error) {
-        setErrors({ general: error.message })
-      } else if (data.user) {
-        // Check if email is verified
-        if (!data.user.email_confirmed_at) {
-          router.push('/verify-email')
-        } else {
-          router.push('/dashboard')
-        }
-      }
-    } catch {
-      setErrors({ general: "An unexpected error occurred. Please try again." })
+      // Use our AuthContext signIn function
+      await signIn(formData.email, formData.password)
+      
+      // Redirect to dashboard on successful login
+      router.push('/dashboard')
+    } catch (error) {
+      setErrors({ general: error instanceof Error ? error.message : "An unexpected error occurred. Please try again." })
     } finally {
       setIsLoading(false)
     }

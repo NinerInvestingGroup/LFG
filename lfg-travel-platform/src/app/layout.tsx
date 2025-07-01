@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter, Poppins } from 'next/font/google'
 import './globals.css'
 import { APP_CONFIG } from '@/shared/constants'
+import { AuthProvider } from '@/contexts/AuthContext'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -63,9 +64,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <body className={`${inter.className} antialiased`}>
-        <div className="min-h-screen bg-background text-foreground">
-          {children}
-        </div>
+        <AuthProvider>
+          <div className="min-h-screen bg-background text-foreground">
+            {children}
+          </div>
+        </AuthProvider>
       </body>
     </html>
   )
