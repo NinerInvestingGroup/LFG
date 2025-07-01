@@ -16,7 +16,7 @@ export function Footer() {
               <span className="text-xl font-bold">LFG</span>
             </div>
             <p className="text-neutral-400">
-              Let&apos;s F***ing Go! The world&apos;s first unified social travel ecosystem for epic group adventures.
+              Let's F***ing Go! The world's first unified social travel ecosystem for epic group adventures.
             </p>
             <div className="flex space-x-4">
               <Button size="sm" variant="ghost" className="text-neutral-400 hover:text-white p-2">
@@ -39,27 +39,27 @@ export function Footer() {
             <h3 className="text-lg font-semibold">Product</h3>
             <ul className="space-y-2 text-neutral-400">
               <li>
-                <a href="#features" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-white transition-colors">
                   Features
                 </a>
               </li>
               <li>
-                <a href="/pricing" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-white transition-colors">
                   Pricing
                 </a>
               </li>
               <li>
-                <a href="/mobile" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-white transition-colors">
                   Mobile App
                 </a>
               </li>
               <li>
-                <a href="/advisors" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-white transition-colors">
                   Travel Advisors
                 </a>
               </li>
               <li>
-                <a href="/api" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-white transition-colors">
                   API
                 </a>
               </li>
@@ -71,27 +71,27 @@ export function Footer() {
             <h3 className="text-lg font-semibold">Company</h3>
             <ul className="space-y-2 text-neutral-400">
               <li>
-                <a href="/about" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-white transition-colors">
                   About Us
                 </a>
               </li>
               <li>
-                <a href="/careers" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-white transition-colors">
                   Careers
                 </a>
               </li>
               <li>
-                <a href="/press" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-white transition-colors">
                   Press
                 </a>
               </li>
               <li>
-                <a href="/blog" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-white transition-colors">
                   Blog
                 </a>
               </li>
               <li>
-                <a href="/community" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-white transition-colors">
                   Community
                 </a>
               </li>
@@ -134,13 +134,13 @@ export function Footer() {
         <div className="border-t border-neutral-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="text-neutral-400 text-sm">© 2024 LFG Travel, Inc. All rights reserved.</div>
           <div className="flex space-x-6 text-sm text-neutral-400 mt-4 md:mt-0">
-            <a href="/privacy" className="hover:text-white transition-colors">
+            <a href="#" className="hover:text-white transition-colors">
               Privacy Policy
             </a>
-            <a href="/terms" className="hover:text-white transition-colors">
+            <a href="#" className="hover:text-white transition-colors">
               Terms of Service
             </a>
-            <a href="/cookies" className="hover:text-white transition-colors">
+            <a href="#" className="hover:text-white transition-colors">
               Cookie Policy
             </a>
           </div>
