@@ -7,13 +7,13 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { AuthLayout } from "./auth-layout"
-import { Mail, ArrowLeft, Loader2, CheckCircle } from "lucide-react"
+import { Mail, ArrowLeft, CheckCircle, Loader2 } from "lucide-react"
 import Link from "next/link"
 
 export function ForgotPasswordPage() {
   const [email, setEmail] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState("")
 
   const validateEmail = (email: string) => {
@@ -23,12 +23,12 @@ export function ForgotPasswordPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
+    
     if (!email.trim()) {
       setError("Email is required")
       return
     }
-
+    
     if (!validateEmail(email)) {
       setError("Please enter a valid email address")
       return
@@ -41,46 +41,43 @@ export function ForgotPasswordPage() {
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
     setIsLoading(false)
-    setIsSuccess(true)
+    setIsSubmitted(true)
   }
 
-  const handleInputChange = (value: string) => {
-    setEmail(value)
-    if (error) {
-      setError("")
-    }
-  }
-
-  if (isSuccess) {
+  if (isSubmitted) {
     return (
-      <AuthLayout title="Check Your Email" subtitle="We've sent password reset instructions to your email">
+      <AuthLayout
+        title="Check Your Email"
+        subtitle="We've sent password reset instructions to your email address"
+      >
         <div className="text-center space-y-6">
-          <div className="w-16 h-16 bg-success-100 rounded-full flex items-center justify-center mx-auto">
+          <div className="w-16 h-16 bg-success-50 rounded-full flex items-center justify-center mx-auto">
             <CheckCircle className="w-8 h-8 text-success" />
           </div>
-
+          
           <div className="space-y-2">
-            <p className="text-neutral-600">We've sent a password reset link to:</p>
-            <p className="font-medium text-neutral-900">{email}</p>
+            <p className="text-neutral-600">
+              If an account with <strong>{email}</strong> exists, you'll receive password reset instructions shortly.
+            </p>
+            <p className="text-sm text-neutral-500">
+              Don't see the email? Check your spam folder or try again.
+            </p>
           </div>
 
-          <div className="bg-neutral-50 rounded-lg p-4 text-sm text-neutral-600">
-            <p className="mb-2">Didn't receive the email? Check your spam folder or:</p>
-            <Button variant="link" className="p-0 h-auto text-primary" onClick={() => setIsSuccess(false)}>
-              Try a different email address
-            </Button>
-          </div>
-
-          <div className="space-y-3">
+          <div className="space-y-4">
             <Button
-              className="w-full bg-primary hover:bg-primary-600 text-white font-semibold min-h-[44px]"
-              onClick={() => window.open("mailto:", "_blank")}
+              onClick={() => {
+                setIsSubmitted(false)
+                setEmail("")
+              }}
+              variant="outline"
+              className="w-full"
             >
-              Open Email App
+              Try Different Email
             </Button>
-
-            <Link href="/login">
-              <Button variant="outline" className="w-full min-h-[44px] border-2 bg-transparent">
+            
+            <Link href="/auth/login">
+              <Button className="w-full bg-primary hover:bg-primary-600">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Login
               </Button>
@@ -94,9 +91,10 @@ export function ForgotPasswordPage() {
   return (
     <AuthLayout
       title="Reset Your Password"
-      subtitle="Enter your email address and we'll send you a link to reset your password"
+      subtitle="Enter your email address and we'll send you instructions to reset your password"
     >
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Email */}
         <div className="space-y-2">
           <Label htmlFor="email">Email Address</Label>
           <div className="relative">
@@ -106,7 +104,10 @@ export function ForgotPasswordPage() {
               type="email"
               placeholder="Enter your email address"
               value={email}
-              onChange={(e) => handleInputChange(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value)
+                if (error) setError("")
+              }}
               className={`pl-10 min-h-[44px] ${error ? "border-destructive focus:ring-destructive" : ""}`}
               autoFocus
             />
@@ -114,13 +115,7 @@ export function ForgotPasswordPage() {
           {error && <p className="text-sm text-destructive">{error}</p>}
         </div>
 
-        <div className="bg-neutral-50 rounded-lg p-4 text-sm text-neutral-600">
-          <p>
-            We'll send you an email with instructions to reset your password. The link will expire in 24 hours for
-            security.
-          </p>
-        </div>
-
+        {/* Submit Button */}
         <Button
           type="submit"
           className="w-full bg-primary hover:bg-primary-600 text-white font-semibold min-h-[44px]"
@@ -129,20 +124,45 @@ export function ForgotPasswordPage() {
           {isLoading ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              Sending Reset Link...
+              Sending Instructions...
             </>
           ) : (
-            "Send Reset Link"
+            "Send Reset Instructions"
           )}
         </Button>
 
+        {/* Back to Login */}
         <div className="text-center">
-          <Link href="/login" className="inline-flex items-center text-sm text-neutral-600 hover:text-neutral-800">
+          <Link
+            href="/auth/login"
+            className="inline-flex items-center text-sm text-neutral-600 hover:text-primary transition-colors"
+          >
             <ArrowLeft className="w-4 h-4 mr-1" />
             Back to Login
           </Link>
         </div>
       </form>
+
+      {/* Help Section */}
+      <div className="mt-8 pt-6 border-t border-neutral-200">
+        <div className="text-center space-y-3">
+          <h3 className="text-sm font-medium text-neutral-900">Need Help?</h3>
+          <div className="space-y-2 text-sm text-neutral-600">
+            <p>
+              Having trouble? Contact our support team at{" "}
+              <a href="mailto:support@lfgetaway.com" className="text-primary hover:underline">
+                support@lfgetaway.com
+              </a>
+            </p>
+            <p>
+              Don't have an account?{" "}
+              <Link href="/auth/signup" className="text-primary hover:underline font-medium">
+                Sign up free
+              </Link>
+            </p>
+          </div>
+        </div>
+      </div>
     </AuthLayout>
   )
 }
