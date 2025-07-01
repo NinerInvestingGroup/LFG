@@ -329,6 +329,74 @@ export interface Database {
           joined_at?: string
         }
       }
+      photos: {
+        Row: {
+          id: string
+          trip_id: string
+          uploader_id: string
+          file_name: string
+          file_path: string
+          file_size: number
+          mime_type: string
+          width: number | null
+          height: number | null
+          caption: string | null
+          location: string | null
+          taken_at: string | null
+          upload_progress: number
+          status: 'uploading' | 'processing' | 'ready' | 'error'
+          storage_bucket: string
+          public_url: string | null
+          thumbnail_url: string | null
+          metadata: Json | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          trip_id: string
+          uploader_id: string
+          file_name: string
+          file_path: string
+          file_size: number
+          mime_type: string
+          width?: number | null
+          height?: number | null
+          caption?: string | null
+          location?: string | null
+          taken_at?: string | null
+          upload_progress?: number
+          status?: 'uploading' | 'processing' | 'ready' | 'error'
+          storage_bucket?: string
+          public_url?: string | null
+          thumbnail_url?: string | null
+          metadata?: Json | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          trip_id?: string
+          uploader_id?: string
+          file_name?: string
+          file_path?: string
+          file_size?: number
+          mime_type?: string
+          width?: number | null
+          height?: number | null
+          caption?: string | null
+          location?: string | null
+          taken_at?: string | null
+          upload_progress?: number
+          status?: 'uploading' | 'processing' | 'ready' | 'error'
+          storage_bucket?: string
+          public_url?: string | null
+          thumbnail_url?: string | null
+          metadata?: Json | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
       reviews: {
         Row: {
           id: string
@@ -374,6 +442,7 @@ export interface Database {
       activity_category: 'accommodation' | 'transport' | 'food' | 'sightseeing' | 'shopping' | 'entertainment' | 'other'
       activity_status: 'planned' | 'confirmed' | 'completed' | 'cancelled'
       activity_participant_status: 'interested' | 'confirmed' | 'declined'
+      photo_status: 'uploading' | 'processing' | 'ready' | 'error'
     }
     CompositeTypes: {
       [_ in never]: never
