@@ -20,7 +20,7 @@ function DashboardLoading() {
 export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-neutral-50">
-      <Header />
+      <Header notifications={5} />
       <main className="container mx-auto container-padding section-padding">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-neutral-900 mb-2">Dashboard</h1>

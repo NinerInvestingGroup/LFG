@@ -40,7 +40,7 @@ export function ActiveTrips({ className }: ActiveTripsProps) {
   const [error, setError] = useState<string | null>(null)
   
   const router = useRouter()
-  const supabase = createClient()
+  // const supabase = createClient() // TODO: Uncomment when implementing real data fetching
 
   // Calculate countdown from date range
   const calculateCountdown = (dateRange: string): string => {
