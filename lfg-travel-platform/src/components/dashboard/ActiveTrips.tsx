@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar"
 import { Progress } from "@/components/ui/Progress"
 import { Eye, MessageCircle, Plus, Calendar, MapPin, Users, ArrowRight, Plane, PlusCircle } from "lucide-react"
 import Image from "next/image"
-import { createClient } from '@/lib/supabase'
+// import { createClient } from '@/lib/supabase' // TODO: Uncomment when implementing real data fetching
 import { useRouter } from 'next/navigation'
 
 interface TripParticipant {
