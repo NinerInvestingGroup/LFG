@@ -106,7 +106,7 @@ export function EmailVerificationForm() {
   return (
     <div className="text-center space-y-6">
       <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto">
-        <Mail className="w-8 h-8 text-primary" />
+        {isVerified ? <CheckCircle className="w-8 h-8 text-accent" /> : <Mail className="w-8 h-8 text-primary" />}
       </div>
 
       <div className="space-y-4">
