@@ -168,6 +168,79 @@ export interface Database {
           created_at?: string
         }
       }
+      expenses: {
+        Row: {
+          id: string
+          trip_id: string
+          payer_id: string
+          amount: number
+          description: string
+          category: 'food' | 'transport' | 'accommodation' | 'activities' | 'shopping' | 'other'
+          expense_date: string
+          split_type: 'equal' | 'custom'
+          split_details: Json | null
+          receipt_url: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          trip_id: string
+          payer_id: string
+          amount: number
+          description: string
+          category?: 'food' | 'transport' | 'accommodation' | 'activities' | 'shopping' | 'other'
+          expense_date?: string
+          split_type?: 'equal' | 'custom'
+          split_details?: Json | null
+          receipt_url?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          trip_id?: string
+          payer_id?: string
+          amount?: number
+          description?: string
+          category?: 'food' | 'transport' | 'accommodation' | 'activities' | 'shopping' | 'other'
+          expense_date?: string
+          split_type?: 'equal' | 'custom'
+          split_details?: Json | null
+          receipt_url?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      expense_splits: {
+        Row: {
+          id: string
+          expense_id: string
+          participant_id: string
+          amount_owed: number
+          paid: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          expense_id: string
+          participant_id: string
+          amount_owed: number
+          paid?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          expense_id?: string
+          participant_id?: string
+          amount_owed?: number
+          paid?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+      }
       reviews: {
         Row: {
           id: string
@@ -208,6 +281,8 @@ export interface Database {
       trip_status: 'draft' | 'active' | 'full' | 'completed' | 'cancelled'
       participant_status: 'pending' | 'approved' | 'declined' | 'left'
       message_type: 'direct' | 'trip_chat' | 'system'
+      expense_category: 'food' | 'transport' | 'accommodation' | 'activities' | 'shopping' | 'other'
+      split_type: 'equal' | 'custom'
     }
     CompositeTypes: {
       [_ in never]: never
