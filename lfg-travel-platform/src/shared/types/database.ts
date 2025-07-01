@@ -241,6 +241,94 @@ export interface Database {
           updated_at?: string
         }
       }
+      activities: {
+        Row: {
+          id: string
+          trip_id: string
+          creator_id: string
+          title: string
+          description: string | null
+          location: string | null
+          category: 'accommodation' | 'transport' | 'food' | 'sightseeing' | 'shopping' | 'entertainment' | 'other'
+          start_date: string
+          end_date: string | null
+          start_time: string | null
+          end_time: string | null
+          cost_per_person: number | null
+          max_participants: number | null
+          current_participants: number
+          booking_url: string | null
+          notes: string | null
+          status: 'planned' | 'confirmed' | 'completed' | 'cancelled'
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          trip_id: string
+          creator_id: string
+          title: string
+          description?: string | null
+          location?: string | null
+          category?: 'accommodation' | 'transport' | 'food' | 'sightseeing' | 'shopping' | 'entertainment' | 'other'
+          start_date: string
+          end_date?: string | null
+          start_time?: string | null
+          end_time?: string | null
+          cost_per_person?: number | null
+          max_participants?: number | null
+          current_participants?: number
+          booking_url?: string | null
+          notes?: string | null
+          status?: 'planned' | 'confirmed' | 'completed' | 'cancelled'
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          trip_id?: string
+          creator_id?: string
+          title?: string
+          description?: string | null
+          location?: string | null
+          category?: 'accommodation' | 'transport' | 'food' | 'sightseeing' | 'shopping' | 'entertainment' | 'other'
+          start_date?: string
+          end_date?: string | null
+          start_time?: string | null
+          end_time?: string | null
+          cost_per_person?: number | null
+          max_participants?: number | null
+          current_participants?: number
+          booking_url?: string | null
+          notes?: string | null
+          status?: 'planned' | 'confirmed' | 'completed' | 'cancelled'
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      activity_participants: {
+        Row: {
+          id: string
+          activity_id: string
+          participant_id: string
+          status: 'interested' | 'confirmed' | 'declined'
+          joined_at: string
+        }
+        Insert: {
+          id?: string
+          activity_id: string
+          participant_id: string
+          status?: 'interested' | 'confirmed' | 'declined'
+          joined_at?: string
+        }
+        Update: {
+          id?: string
+          activity_id?: string
+          participant_id?: string
+          status?: 'interested' | 'confirmed' | 'declined'
+          joined_at?: string
+        }
+      }
       reviews: {
         Row: {
           id: string
@@ -283,6 +371,9 @@ export interface Database {
       message_type: 'direct' | 'trip_chat' | 'system'
       expense_category: 'food' | 'transport' | 'accommodation' | 'activities' | 'shopping' | 'other'
       split_type: 'equal' | 'custom'
+      activity_category: 'accommodation' | 'transport' | 'food' | 'sightseeing' | 'shopping' | 'entertainment' | 'other'
+      activity_status: 'planned' | 'confirmed' | 'completed' | 'cancelled'
+      activity_participant_status: 'interested' | 'confirmed' | 'declined'
     }
     CompositeTypes: {
       [_ in never]: never
