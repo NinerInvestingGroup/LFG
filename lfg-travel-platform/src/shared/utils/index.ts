@@ -1,6 +1,8 @@
 import { format, isAfter, isBefore, parseISO } from "date-fns"
 
-// Date utilities
+/* -------------------------------------------------------------------------- */
+/*                               DATE UTILITIES                               */
+/* -------------------------------------------------------------------------- */
 export const dateUtils = {
   formatDate: (date: string | Date, formatStr = "MMM dd, yyyy") => {
     const dateObj = typeof date === "string" ? parseISO(date) : date
@@ -11,13 +13,9 @@ export const dateUtils = {
     return dateUtils.formatDate(date, "MMM dd, yyyy HH:mm")
   },
 
-  isUpcoming: (date: string) => {
-    return isAfter(parseISO(date), new Date())
-  },
+  isUpcoming: (date: string) => isAfter(parseISO(date), new Date()),
 
-  isPast: (date: string) => {
-    return isBefore(parseISO(date), new Date())
-  },
+  isPast: (date: string) => isBefore(parseISO(date), new Date()),
 
   getDurationInDays: (startDate: string, endDate: string) => {
     const start = parseISO(startDate)
@@ -27,224 +25,208 @@ export const dateUtils = {
   },
 }
 
-// String utilities
+/* -------------------------------------------------------------------------- */
+/*                              STRING UTILITIES                              */
+/* -------------------------------------------------------------------------- */
 export const stringUtils = {
-  truncate: (text: string, maxLength: number) => {
-    if (text.length <= maxLength) return text
-    return text.substring(0, maxLength) + "..."
-  },
+  truncate: (text: string, maxLength: number) => (text.length <= maxLength ? text : `${text.substring(0, maxLength)}…`),
 
-  capitalizeFirst: (text: string) => {
-    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
-  },
+  capitalizeFirst: (text: string) => `${text.charAt(0).toUpperCase()}${text.slice(1).toLowerCase()}`,
 
-  slugify: (text: string) => {
-    return text
+  slugify: (text: string) =>
+    text
       .toLowerCase()
       .replace(/[^\w ]+/g, "")
-      .replace(/ +/g, "-")
-  },
+      .replace(/ +/g, "-"),
 
-  generateUsername: (fullName: string) => {
-    return (
-      fullName
-        .toLowerCase()
-        .replace(/\s+/g, "")
-        .replace(/[^a-z0-9]/g, "") + Math.floor(Math.random() * 1000)
-    )
-  },
+  generateUsername: (fullName: string) =>
+    `${fullName
+      .toLowerCase()
+      .replace(/\s+/g, "")
+      .replace(/[^a-z0-9]/g, "")}${Math.floor(Math.random() * 1000)}`,
 }
 
-// Number utilities
+/* -------------------------------------------------------------------------- */
+/*                              NUMBER UTILITIES                              */
+/* -------------------------------------------------------------------------- */
 export const numberUtils = {
-  formatCurrency: (amount: number, currency = "USD") => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency,
-    }).format(amount)
-  },
+  formatCurrency: (amount: number, currency = "USD") =>
+    new Intl.NumberFormat("en-US", { style: "currency", currency }).format(amount),
 
-  formatNumber: (num: number) => {
-    return new Intl.NumberFormat("en-US").format(num)
-  },
+  formatNumber: (num: number) => new Intl.NumberFormat("en-US").format(num),
 
-  clamp: (value: number, min: number, max: number) => {
-    return Math.min(Math.max(value, min), max)
-  },
+  clamp: (value: number, min: number, max: number) => Math.min(Math.max(value, min), max),
 }
 
-// Array utilities
+/* -------------------------------------------------------------------------- */
+/*                               ARRAY UTILITIES                              */
+/* -------------------------------------------------------------------------- */
 export const arrayUtils = {
-  unique: <T>(array: T[]) => [...new Set(array)],
-  
-  shuffle: <T>(array: T[]) => {\
+  unique: (array: any[]) => [...new Set(array)],
+
+  shuffle: (array: any[]) => {
     const shuffled = [...array]
-    for (let i = shuffled.length - 1; i > 0; i--) {\
+    for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
       ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
     }
     return shuffled
   },
-\
-  groupBy: <T, K extends string | number | symbol>(array: T[], key: (item: T) => K) => {\
-    return array.reduce((groups, item) => {\
+
+  groupBy: (array: any[], key: any) =>
+    array.reduce((groups: any, item: any) => {
       const group = key(item)
-      groups[group] = groups[group] || []
-      groups[group].push(item)
-      return groups\
-    }, {} as Record<K, T[]>)
-  },
+      ;(groups[group] ||= []).push(item)
+      return groups
+    }, {}),
 }
 
-// Validation utilities
-export const validation = {\
-  isEmail: (email: string) => {\
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    return emailRegex.test(email)
-  },
+/* -------------------------------------------------------------------------- */
+/*                             VALIDATION UTILITIES                           */
+/* -------------------------------------------------------------------------- */
+export const validation = {
+  isEmail: (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
 
-  isStrongPassword: (password: string) => {
-    // At least 8 characters, 1 uppercase, 1 lowercase, 1 number\
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/
-    return passwordRegex.test(password)
-  },
+  // ≥8 chars, 1 uppercase, 1 lowercase, 1 number
+  isStrongPassword: (password: string) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/.test(password),
 
-  // Phone number: optional leading +, then at least 10 of digits, spaces, dashes or parentheses
-  isPhoneNumber: (phone: string) => {\
-    const phoneRegex = /^\+?[0-9\s\-()]{10,}$/
-    return phoneRegex.test(phone)
-  },
+  // Optional “+”, then at least 10 digits / (, ), space, or -
+  isPhoneNumber: (phone: string) => /^\+?[0-9()\s-]{10,}$/.test(phone),
 
-  isUrl: (url: string) => {\
+  isUrl: (url: string) => {
     try {
-      new URL(url)\
+      new URL(url)
       return true
-    } catch {\
+    } catch {
       return false
     }
   },
 }
 
-// Trip utilities
-export const tripUtils = {\
-  getStatusColor: (status: TripStatus) => {\
-    const colors = {\
-      draft: 'gray',
-      active: 'blue',
-      full: 'yellow',
-      completed: 'green',
-      cancelled: 'red',
-    }
-    return colors[status] || 'gray'
-  },
+/* -------------------------------------------------------------------------- */
+/*                              TRIP UTILITIES                               */
+/* -------------------------------------------------------------------------- */
+export const tripUtils = {
+  getStatusColor: (status: string) =>
+    (
+      ({
+        draft: "gray",
+        active: "blue",
+        full: "yellow",
+        completed: "green",
+        cancelled: "red",
+      }) as const
+    )[status] || "gray",
 
-  getParticipantStatusColor: (status: ParticipantStatus) => {\
-    const colors = {\
-      pending: 'yellow',
-      approved: 'green',
-      declined: 'red',
-      left: 'gray',
-    }
-    return colors[status] || 'gray'
-  },
-\
-  canJoinTrip: (trip: { organizer_id: string; status: string; current_participants: number; max_participants: number }, currentUserId?: string) => {\
+  getParticipantStatusColor: (status: string) =>
+    (
+      ({
+        pending: "yellow",
+        approved: "green",
+        declined: "red",
+        left: "gray",
+      }) as const
+    )[status] || "gray",
+
+  canJoinTrip: (
+    trip: {
+      organizer_id: string
+      status: string
+      current_participants: number
+      max_participants: number
+    },
+    currentUserId?: string,
+  ) => {
     if (!currentUserId) return false
     if (trip.organizer_id === currentUserId) return false
-    if (trip.status !== 'active') return false
+    if (trip.status !== "active") return false
     if (trip.current_participants >= trip.max_participants) return false
     return true
   },
 
-  calculateBudgetRange: (budgetMin?: number, budgetMax?: number) => {\
-    if (!budgetMin && !budgetMax) return 'Budget not specified'
-    if (budgetMin && budgetMax) {\
-      return `${numberUtils.formatCurrency(budgetMin)} - ${numberUtils.formatCurrency(budgetMax)}`
-    }
-    if (budgetMin) return `From ${numberUtils.formatCurrency(budgetMin)}`
-    if (budgetMax) return `Up to ${numberUtils.formatCurrency(budgetMax)}`
-    return 'Budget not specified'
+  calculateBudgetRange: (budgetMin?: number, budgetMax?: number) => {
+    if (!budgetMin && !budgetMax) return "Budget not specified"
+    if (budgetMin && budgetMax) return `${budgetMin} – ${budgetMax}`
+    if (budgetMin) return `From ${budgetMin}`
+    return `Up to ${budgetMax}`
   },
 }
 
-// Local storage utilities (client-side only)
-export const storage = {\
-  set: (key: string, value: unknown) => {\
-    if (typeof window === 'undefined') return
+/* -------------------------------------------------------------------------- */
+/*                       LOCAL-STORAGE (CLIENT ONLY)                          */
+/* -------------------------------------------------------------------------- */
+export const storage = {
+  set: (key: string, value: unknown) => {
+    if (typeof window === "undefined") return
     try {
       localStorage.setItem(key, JSON.stringify(value))
-    } catch (error) {
-      console.error('Error saving to localStorage:', error)
+    } catch (err) {
+      console.error("Error saving to localStorage:", err)
     }
   },
 
-  get: <T>(key: string, defaultValue?: T): T | null => {\
-    if (typeof window === 'undefined') return defaultValue || null
-    try {\
+  get: (key: string, defaultValue?: any): any | null => {
+    if (typeof window === "undefined") return defaultValue ?? null
+    try {
       const item = localStorage.getItem(key)
-      return item ? JSON.parse(item) : defaultValue || null
-    } catch (error) {
-      console.error('Error reading from localStorage:', error)\
-      return defaultValue || null
+      return item ? JSON.parse(item) : (defaultValue ?? null)
+    } catch (err) {
+      console.error("Error reading from localStorage:", err)
+      return defaultValue ?? null
     }
   },
 
-  remove: (key: string) => {\
-    if (typeof window === 'undefined') return
+  remove: (key: string) => {
+    if (typeof window === "undefined") return
     try {
       localStorage.removeItem(key)
-    } catch (error) {
-      console.error('Error removing from localStorage:', error)
+    } catch (err) {
+      console.error("Error removing from localStorage:", err)
     }
   },
 
-  clear: () => {\
-    if (typeof window === 'undefined') return
+  clear: () => {
+    if (typeof window === "undefined") return
     try {
       localStorage.clear()
-    } catch (error) {
-      console.error('Error clearing localStorage:', error)
+    } catch (err) {
+      console.error("Error clearing localStorage:", err)
     }
   },
 }
 
-// Image utilities
-export const imageUtils = {\
-  getImageUrl: (path: string, bucket: string = 'images') => {
-    if (!path) return '/images/placeholder.jpg'
-    if (path.startsWith('http')) return path
+/* -------------------------------------------------------------------------- */
+/*                              IMAGE UTILITIES                               */
+/* -------------------------------------------------------------------------- */
+export const imageUtils = {
+  getImageUrl: (path: string, bucket = "images") => {
+    if (!path) return "/images/placeholder.jpg"
+    if (path.startsWith("http")) return path
     return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${bucket}/${path}`
   },
 
-  getAvatarUrl: (path?: string) => {
-    return imageUtils.getImageUrl(path || '', 'avatars') || '/images/default-avatar.png'
-  },
+  getAvatarUrl: (path?: string) => imageUtils.getImageUrl(path || "", "avatars"),
 
-  generatePlaceholder: (width: number, height: number, text?: string) => {
-    return `https://via.placeholder.com/${width}x${height}?text=${encodeURIComponent(text || 'LFG')}`
-  },
+  generatePlaceholder: (w: number, h: number, text = "LFG") =>
+    `https://via.placeholder.com/${w}x${h}?text=${encodeURIComponent(text)}`,
 }
 
-// URL utilities
+/* -------------------------------------------------------------------------- */
+/*                               URL UTILITIES                                */
+/* -------------------------------------------------------------------------- */
 export const urlUtils = {
   buildSearchParams: (params: Record<string, unknown>) => {
     const searchParams = new URLSearchParams()
-    
     Object.entries(params).forEach(([key, value]) => {
-      if (value !== undefined && value !== null && value !== '') {
-        if (Array.isArray(value)) {
-          value.forEach(v => searchParams.append(key, v.toString()))
-        } else {
-          searchParams.set(key, value.toString())
-        }
-      }
+      if (value === undefined || value === null || value === "") return
+      if (Array.isArray(value)) value.forEach((v) => searchParams.append(key, String(v)))
+      else searchParams.set(key, String(value))
     })
-    
     return searchParams.toString()
   },
 
-  getBaseUrl: () => {
-    if (typeof window !== 'undefined') return window.location.origin
-    return process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
-  },
+  getBaseUrl: () =>
+    (typeof window !== "undefined" && window.location.origin) ||
+    process.env.NEXT_PUBLIC_APP_URL ||
+    "http://localhost:3000",
 }
