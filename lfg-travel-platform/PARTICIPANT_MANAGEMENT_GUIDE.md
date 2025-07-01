@@ -50,13 +50,13 @@ Think of your participant management like organizing a party:
 - Set up real-time listening for changes
 
 **Key functions**:
-```javascript
+\`\`\`javascript
 participantService.inviteByEmail()        // Send email invitation
 participantService.getTripParticipants()  // Get all trip participants
 participantService.respondToInvitation()  // Accept/decline invitation
 participantService.removeParticipant()    // Remove someone from trip
 participantService.getUserInvitations()   // Get user's pending invitations
-```
+\`\`\`
 
 ### **2. Participant Hooks (`src/hooks/useParticipants.ts`)**
 **What it does**: Makes participant operations easy to use in components
@@ -67,13 +67,13 @@ participantService.getUserInvitations()   // Get user's pending invitations
 - Update automatically when data changes
 
 **Key hooks**:
-```javascript
+\`\`\`javascript
 useTripParticipants(tripId)    // Get participants for a trip
 useSendInvitation()            // Send email invitations
 useRSVP()                      // Accept/decline invitations
 useUserInvitations()           // Get user's pending invitations
 useParticipantActions()        // Remove participants, etc.
-```
+\`\`\`
 
 ### **3. UI Components**
 
@@ -117,10 +117,10 @@ useParticipantActions()        // Remove participants, etc.
 ## 🚀 **How to Test Your Participant Management**
 
 ### **Step 1: Start Your App**
-```bash
+\`\`\`bash
 cd lfg-travel-platform
 npm run dev
-```
+\`\`\`
 
 ### **Step 2: Test Participant Features**
 
@@ -280,13 +280,13 @@ To implement real email sending, you would:
 
 ### **Component Hierarchy**
 
-```
+\`\`\`
 ParticipantTest Page
 ├── ParticipantList (shows trip participants)
 ├── InviteForm (send email invitations)
 ├── RSVPCard (respond to invitations)
 └── Navigation (switch between features)
-```
+\`\`\`
 
 ## 🚀 **Next Steps**
 

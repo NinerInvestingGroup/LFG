@@ -40,7 +40,7 @@ Successfully integrated your v0.dev AI Recommendations component into the LFG tr
 ## 🏗️ Technical Implementation
 
 ### Component Structure
-```typescript
+\`\`\`typescript
 interface Recommendation {
   id: string
   type: "trip" | "buddy" | "destination" | "event" | "service"
@@ -52,7 +52,7 @@ interface Recommendation {
   cta: string
   href?: string // Navigation route
 }
-```
+\`\`\`
 
 ### Navigation Integration
 - **Routing**: Automatic navigation to specific pages on click
@@ -81,7 +81,7 @@ The component currently uses realistic mock data for demonstration:
 The component is prepared for Supabase with commented implementation:
 
 ### Database Schema Requirements
-```sql
+\`\`\`sql
 -- User travel profiles for AI personalization
 CREATE TABLE user_travel_profiles (
   user_id UUID REFERENCES auth.users(id),
@@ -98,10 +98,10 @@ CREATE TABLE recommendation_interactions (
   action TEXT,
   timestamp TIMESTAMP DEFAULT NOW()
 );
-```
+\`\`\`
 
 ### AI Functions
-```typescript
+\`\`\`typescript
 // Supabase Edge Function for AI recommendations
 supabase.functions.invoke('generate-recommendations', {
   body: { 
@@ -110,18 +110,18 @@ supabase.functions.invoke('generate-recommendations', {
     limit: 4 
   }
 })
-```
+\`\`\`
 
 ## 📱 Dashboard Integration
 Added to main dashboard layout positioned after QuickActions and ActiveTrips:
 
-```tsx
+\`\`\`tsx
 <div className="lg:col-span-2 space-y-6">
   <QuickActions />
   <ActiveTrips />
   <Recommendations />  // ← New component
 </div>
-```
+\`\`\`
 
 ## 🎨 Design System Alignment
 - **Colors**: Uses LFG brand colors (primary, secondary, accent)

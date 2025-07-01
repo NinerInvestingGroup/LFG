@@ -1,15 +1,14 @@
-import { format, isAfter, isBefore, parseISO } from 'date-fns'
-import { TripStatus, ParticipantStatus } from '../types'
+import { format, isAfter, isBefore, parseISO } from "date-fns"
 
 // Date utilities
 export const dateUtils = {
-  formatDate: (date: string | Date, formatStr: string = 'MMM dd, yyyy') => {
-    const dateObj = typeof date === 'string' ? parseISO(date) : date
+  formatDate: (date: string | Date, formatStr = "MMM dd, yyyy") => {
+    const dateObj = typeof date === "string" ? parseISO(date) : date
     return format(dateObj, formatStr)
   },
 
   formatDateTime: (date: string | Date) => {
-    return dateUtils.formatDate(date, 'MMM dd, yyyy HH:mm')
+    return dateUtils.formatDate(date, "MMM dd, yyyy HH:mm")
   },
 
   isUpcoming: (date: string) => {
@@ -32,7 +31,7 @@ export const dateUtils = {
 export const stringUtils = {
   truncate: (text: string, maxLength: number) => {
     if (text.length <= maxLength) return text
-    return text.substring(0, maxLength) + '...'
+    return text.substring(0, maxLength) + "..."
   },
 
   capitalizeFirst: (text: string) => {
@@ -42,29 +41,31 @@ export const stringUtils = {
   slugify: (text: string) => {
     return text
       .toLowerCase()
-      .replace(/[^\w ]+/g, '')
-      .replace(/ +/g, '-')
+      .replace(/[^\w ]+/g, "")
+      .replace(/ +/g, "-")
   },
 
   generateUsername: (fullName: string) => {
-    return fullName
-      .toLowerCase()
-      .replace(/\s+/g, '')
-      .replace(/[^a-z0-9]/g, '') + Math.floor(Math.random() * 1000)
+    return (
+      fullName
+        .toLowerCase()
+        .replace(/\s+/g, "")
+        .replace(/[^a-z0-9]/g, "") + Math.floor(Math.random() * 1000)
+    )
   },
 }
 
 // Number utilities
 export const numberUtils = {
-  formatCurrency: (amount: number, currency: string = 'USD') => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
+  formatCurrency: (amount: number, currency = "USD") => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
       currency,
     }).format(amount)
   },
 
   formatNumber: (num: number) => {
-    return new Intl.NumberFormat('en-US').format(num)
+    return new Intl.NumberFormat("en-US").format(num)
   },
 
   clamp: (value: number, min: number, max: number) => {
@@ -76,57 +77,58 @@ export const numberUtils = {
 export const arrayUtils = {
   unique: <T>(array: T[]) => [...new Set(array)],
   
-  shuffle: <T>(array: T[]) => {
+  shuffle: <T>(array: T[]) => {\
     const shuffled = [...array]
-    for (let i = shuffled.length - 1; i > 0; i--) {
+    for (let i = shuffled.length - 1; i > 0; i--) {\
       const j = Math.floor(Math.random() * (i + 1))
       ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
     }
     return shuffled
   },
-
-  groupBy: <T, K extends string | number | symbol>(array: T[], key: (item: T) => K) => {
-    return array.reduce((groups, item) => {
+\
+  groupBy: <T, K extends string | number | symbol>(array: T[], key: (item: T) => K) => {\
+    return array.reduce((groups, item) => {\
       const group = key(item)
       groups[group] = groups[group] || []
       groups[group].push(item)
-      return groups
+      return groups\
     }, {} as Record<K, T[]>)
   },
 }
 
 // Validation utilities
-export const validation = {
-  isEmail: (email: string) => {
+export const validation = {\
+  isEmail: (email: string) => {\
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return emailRegex.test(email)
   },
 
   isStrongPassword: (password: string) => {
-    // At least 8 characters, 1 uppercase, 1 lowercase, 1 number
+    // At least 8 characters, 1 uppercase, 1 lowercase, 1 number\
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/
     return passwordRegex.test(password)
   },
 
-  isPhoneNumber: (phone: string) => {
-    const phoneRegex = /^\+?[\d\s\-\(\)]{10,}$/
+  // Phone number: optional leading +, then at least 10 of digits, spaces, dashes or parentheses
+  isPhoneNumber: (phone: string) => {\
+    const phoneRegex = /^\+?[0-9\s\-()]{10,}$/
     return phoneRegex.test(phone)
   },
 
-  isUrl: (url: string) => {
+  isUrl: (url: string) => {\
     try {
-      new URL(url)
+      new URL(url)\
       return true
-    } catch {
+    } catch {\
       return false
     }
   },
 }
 
 // Trip utilities
-export const tripUtils = {
-  getStatusColor: (status: TripStatus) => {
-    const colors = {
+export const tripUtils = {\
+  getStatusColor: (status: TripStatus) => {\
+    const colors = {\
       draft: 'gray',
       active: 'blue',
       full: 'yellow',
@@ -136,8 +138,8 @@ export const tripUtils = {
     return colors[status] || 'gray'
   },
 
-  getParticipantStatusColor: (status: ParticipantStatus) => {
-    const colors = {
+  getParticipantStatusColor: (status: ParticipantStatus) => {\
+    const colors = {\
       pending: 'yellow',
       approved: 'green',
       declined: 'red',
@@ -145,8 +147,8 @@ export const tripUtils = {
     }
     return colors[status] || 'gray'
   },
-
-  canJoinTrip: (trip: { organizer_id: string; status: string; current_participants: number; max_participants: number }, currentUserId?: string) => {
+\
+  canJoinTrip: (trip: { organizer_id: string; status: string; current_participants: number; max_participants: number }, currentUserId?: string) => {\
     if (!currentUserId) return false
     if (trip.organizer_id === currentUserId) return false
     if (trip.status !== 'active') return false
@@ -154,9 +156,9 @@ export const tripUtils = {
     return true
   },
 
-  calculateBudgetRange: (budgetMin?: number, budgetMax?: number) => {
+  calculateBudgetRange: (budgetMin?: number, budgetMax?: number) => {\
     if (!budgetMin && !budgetMax) return 'Budget not specified'
-    if (budgetMin && budgetMax) {
+    if (budgetMin && budgetMax) {\
       return `${numberUtils.formatCurrency(budgetMin)} - ${numberUtils.formatCurrency(budgetMax)}`
     }
     if (budgetMin) return `From ${numberUtils.formatCurrency(budgetMin)}`
@@ -166,8 +168,8 @@ export const tripUtils = {
 }
 
 // Local storage utilities (client-side only)
-export const storage = {
-  set: (key: string, value: unknown) => {
+export const storage = {\
+  set: (key: string, value: unknown) => {\
     if (typeof window === 'undefined') return
     try {
       localStorage.setItem(key, JSON.stringify(value))
@@ -176,18 +178,18 @@ export const storage = {
     }
   },
 
-  get: <T>(key: string, defaultValue?: T): T | null => {
+  get: <T>(key: string, defaultValue?: T): T | null => {\
     if (typeof window === 'undefined') return defaultValue || null
-    try {
+    try {\
       const item = localStorage.getItem(key)
       return item ? JSON.parse(item) : defaultValue || null
     } catch (error) {
-      console.error('Error reading from localStorage:', error)
+      console.error('Error reading from localStorage:', error)\
       return defaultValue || null
     }
   },
 
-  remove: (key: string) => {
+  remove: (key: string) => {\
     if (typeof window === 'undefined') return
     try {
       localStorage.removeItem(key)
@@ -196,7 +198,7 @@ export const storage = {
     }
   },
 
-  clear: () => {
+  clear: () => {\
     if (typeof window === 'undefined') return
     try {
       localStorage.clear()
@@ -207,7 +209,7 @@ export const storage = {
 }
 
 // Image utilities
-export const imageUtils = {
+export const imageUtils = {\
   getImageUrl: (path: string, bucket: string = 'images') => {
     if (!path) return '/images/placeholder.jpg'
     if (path.startsWith('http')) return path

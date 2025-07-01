@@ -103,7 +103,7 @@ Visit `/design-system` in your development environment to see all components in 
 
 ### Importing Components
 
-```typescript
+\`\`\`typescript
 // Individual components
 import { ColorPalette, TypographyScale, LFGButtons } from '@/components/design-system'
 
@@ -111,21 +111,21 @@ import { ColorPalette, TypographyScale, LFGButtons } from '@/components/design-s
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
-```
+\`\`\`
 
 ### Color Usage
 
-```typescript
+\`\`\`typescript
 // Tailwind classes
 className="bg-primary text-white"          // Primary button
 className="text-secondary"                 // Secondary text
 className="border-accent"                  // Success border
 className="bg-danger hover:bg-danger-600" // Danger state
-```
+\`\`\`
 
 ### Typography Usage
 
-```typescript
+\`\`\`typescript
 // Heading styles
 className="text-4xl font-bold tracking-tight lg:text-5xl" // H1
 className="text-2xl font-semibold"                        // H3
@@ -134,7 +134,7 @@ className="text-2xl font-semibold"                        // H3
 className="text-lg leading-7"     // Body large
 className="text-base leading-6"   // Body
 className="text-sm leading-5"     // Body small
-```
+\`\`\`
 
 ## 🎯 Design Principles
 
@@ -162,13 +162,13 @@ className="text-sm leading-5"     // Body small
 
 ## 📱 Responsive Breakpoints
 
-```css
+\`\`\`css
 sm: 640px   // Small tablets and large phones
 md: 768px   // Tablets
 lg: 1024px  // Small laptops
 xl: 1280px  // Large laptops
 2xl: 1536px // Large screens
-```
+\`\`\`
 
 ## 🔧 Development Guidelines
 

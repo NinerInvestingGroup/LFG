@@ -41,7 +41,7 @@ Successfully integrated a sophisticated v0.dev ActiveTrips component into the LF
 ## Technical Implementation
 
 ### Component Architecture
-```
+\`\`\`
 Dashboard Page
 ├── Header (Navigation)
 ├── Dashboard Title & Description
@@ -55,7 +55,7 @@ Dashboard Page
     └── Sidebar (1 column)
         ├── Quick Stats Widget
         └── Upcoming Deadlines Widget
-```
+\`\`\`
 
 ### Created Components
 
@@ -73,7 +73,7 @@ Dashboard Page
 - **Supabase Ready**: Prepared for real database integration
 
 ### Mock Data Structure
-```typescript
+\`\`\`typescript
 interface Trip {
   id: string
   title: string
@@ -86,7 +86,7 @@ interface Trip {
   progress: number
   status: "Planning" | "Confirmed" | "Active"
 }
-```
+\`\`\`
 
 ### Sample Trips Included
 1. **Epic Southeast Asia Adventure**
@@ -128,12 +128,12 @@ interface Trip {
 ## Key Features Implemented
 
 ### 🔄 **Dynamic Countdown Calculation**
-```typescript
+\`\`\`typescript
 const calculateCountdown = (dateRange: string): string => {
   // Extracts dates and calculates days remaining
   // Handles edge cases: today, past dates, invalid formats
 }
-```
+\`\`\`
 
 ### 🎨 **Status Color Coding**
 - **Planning**: Secondary yellow for active planning
@@ -155,7 +155,7 @@ const calculateCountdown = (dateRange: string): string => {
 ## Supabase Integration Preparation
 
 ### Database Schema Ready
-```sql
+\`\`\`sql
 -- Trips table structure
 trips (
   id, title, destination, cover_image, 
@@ -171,16 +171,16 @@ trip_participants (
 profiles (
   id, full_name, avatar_url
 )
-```
+\`\`\`
 
 ### Commented Supabase Queries
-```typescript
+\`\`\`typescript
 // Ready-to-use Supabase queries for:
 // - User authentication check
 // - Trip data fetching with participants
 // - Real-time trip updates
 // - Participant profile loading
-```
+\`\`\`
 
 ## File Changes Made
 

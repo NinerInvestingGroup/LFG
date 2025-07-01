@@ -7,7 +7,7 @@ Your comprehensive v0.dev trip creation system has been successfully integrated 
 ## 📁 Component Structure
 
 ### Trip Creation Components
-```
+\`\`\`
 src/components/trip-creation/
 ├── TripCreationWizard.tsx        # Main wizard orchestrator
 └── steps/
@@ -16,22 +16,22 @@ src/components/trip-creation/
     ├── SquadAssembly.tsx         # Step 3: Invitations and team setup
     ├── ReviewCreate.tsx          # Step 4: Final review and creation
     └── SuccessState.tsx          # Celebration and next steps
-```
+\`\`\`
 
 ### Supporting UI Components
-```
+\`\`\`
 src/components/ui/
 ├── Calendar.tsx                  # Custom date picker
 ├── Popover.tsx                   # Dropdown containers
 ├── Slider.tsx                    # Budget range selector
 ├── Switch.tsx                    # Toggle controls
 └── Textarea.tsx                  # Multi-line text input
-```
+\`\`\`
 
 ### Route Integration
-```
+\`\`\`
 src/app/create-trip/page.tsx      # Main route: /create-trip
-```
+\`\`\`
 
 ## 🎯 Features Implemented
 
@@ -134,22 +134,22 @@ src/app/create-trip/page.tsx      # Main route: /create-trip
 5. **Celebrate**: Enjoy the success experience!
 
 ### Component Usage
-```tsx
+\`\`\`tsx
 import { TripCreationWizard } from '@/components/trip-creation/TripCreationWizard'
 
 // Use in any page or component
 <TripCreationWizard />
-```
+\`\`\`
 
 ### Individual Step Components
-```tsx
+\`\`\`tsx
 import { TripBasics } from '@/components/trip-creation/steps/TripBasics'
 import { TripSettings } from '@/components/trip-creation/steps/TripSettings'
 // etc.
 
 // Use steps individually if needed
 <TripBasics tripData={data} updateTripData={updateFn} />
-```
+\`\`\`
 
 ## 🔗 Integration Points
 
@@ -160,7 +160,7 @@ import { TripSettings } from '@/components/trip-creation/steps/TripSettings'
 - **User Management**: Ready for authentication integration
 
 ### API Endpoints to Implement
-```typescript
+\`\`\`typescript
 // Trip creation
 POST /api/trips
 // Draft saving
@@ -169,7 +169,7 @@ POST /api/trips/draft
 POST /api/upload/trip-cover
 // Send invitations
 POST /api/invitations/send
-```
+\`\`\`
 
 ### Database Schema Integration
 The `TripData` interface is designed to work seamlessly with your existing Supabase schema. All fields map directly to your trips table structure.

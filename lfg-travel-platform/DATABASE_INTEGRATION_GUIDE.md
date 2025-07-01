@@ -48,13 +48,13 @@ Think of your database integration like a restaurant:
 - Set up real-time listening for changes
 
 **Key functions**:
-```javascript
+\`\`\`javascript
 tripService.createTrip(tripData)     // Saves a new trip
 tripService.getUserTrips()           // Gets all user's trips  
 tripService.updateTrip(id, changes)  // Updates trip details
 tripService.deleteTrip(id)           // Removes a trip
 tripService.subscribeToTrips()       // Listen for real-time changes
-```
+\`\`\`
 
 ### **2. React Hooks (`src/hooks/useTrips.ts`)**
 **What it does**: Makes database operations easy to use in your components
@@ -65,12 +65,12 @@ tripService.subscribeToTrips()       // Listen for real-time changes
 - Automatically refresh when data changes
 
 **Key hooks**:
-```javascript
+\`\`\`javascript
 useTrips()           // Get all trips for current user
 useCreateTrip()      // Get function to create new trips
 useDeleteTrip()      // Get function to delete trips
 useTripActions()     // Get functions to join/leave trips
-```
+\`\`\`
 
 ### **3. Updated Components**
 - **Trip Creation Wizard**: Now actually saves to database instead of pretending
@@ -88,10 +88,10 @@ useTripActions()     // Get functions to join/leave trips
 ## 🚀 **How to Test Your Database Integration**
 
 ### **Step 1: Start Your App**
-```bash
+\`\`\`bash
 cd lfg-travel-platform
 npm run dev
-```
+\`\`\`
 
 ### **Step 2: Test Database Operations**
 

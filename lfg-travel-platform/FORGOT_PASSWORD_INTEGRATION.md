@@ -4,12 +4,12 @@
 
 ### 📁 **File Structure Created**
 
-```
+\`\`\`
 src/app/(auth)/forgot-password/
 ├── page.tsx                          # ← Main page component (Server Component)
 └── components/
     └── ForgotPasswordForm.tsx        # ← Client component with Supabase integration
-```
+\`\`\`
 
 ### 🔧 **Integration Details**
 
@@ -66,17 +66,17 @@ Your beautiful v0.dev design is maintained exactly:
 ### 🚀 **Usage & Navigation**
 
 #### **From Login Page**:
-```typescript
+\`\`\`typescript
 // Already implemented in your login page
 <Link href="/forgot-password" className="font-medium text-primary-600 hover:text-primary-500">
   Forgot your password?
 </Link>
-```
+\`\`\`
 
 #### **Direct Access**:
-```
+\`\`\`
 http://localhost:3000/forgot-password
-```
+\`\`\`
 
 #### **Success Flow**:
 - Form submission → Success state → Email sent → User clicks email link → Redirect to `/reset-password`
@@ -100,13 +100,13 @@ For full functionality, ensure your Supabase project has:
 ### 💻 **Integration with Auth Flow**
 
 #### **Login Page Integration**:
-```typescript
+\`\`\`typescript
 // Already working - login page has forgot password link
 <Link href="/forgot-password">Forgot your password?</Link>
-```
+\`\`\`
 
 #### **Next Steps - Reset Password Page**:
-```typescript
+\`\`\`typescript
 // Future implementation for /reset-password page
 // This page will handle the actual password reset after email click
 const handlePasswordReset = async (newPassword: string) => {
@@ -114,7 +114,7 @@ const handlePasswordReset = async (newPassword: string) => {
     password: newPassword
   })
 }
-```
+\`\`\`
 
 ### 🎯 **Features Implemented**
 

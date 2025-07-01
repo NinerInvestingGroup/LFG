@@ -65,10 +65,10 @@ This document explains the complete authentication system implemented for your L
 ## 🚀 **How to Test Your Authentication**
 
 ### **Step 1: Start Your Development Server**
-```bash
+\`\`\`bash
 cd lfg-travel-platform
 npm run dev
-```
+\`\`\`
 
 ### **Step 2: Test the Authentication Flow**
 

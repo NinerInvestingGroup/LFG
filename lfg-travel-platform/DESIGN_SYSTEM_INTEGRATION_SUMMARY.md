@@ -44,14 +44,14 @@ Your v0.dev design system has been successfully integrated into the LFG travel p
 Visit `/design-system` in your development environment to see all components in action.
 
 ### **Import Components**
-```typescript
+\`\`\`typescript
 // Import individual components
 import { ColorPalette, LFGButtons, LFGCards } from '@/components/design-system'
 
 // Import UI primitives  
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
-```
+\`\`\`
 
 ## 🎨 Design Token System
 
@@ -62,19 +62,19 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 - **Semantic**: `danger-500`, `warning-500`, `neutral-50` to `neutral-900`
 
 ### **Typography Classes**
-```css
+\`\`\`css
 text-4xl font-bold tracking-tight lg:text-5xl  /* H1 */
 text-3xl font-semibold tracking-tight          /* H2 */  
 text-2xl font-semibold                         /* H3 */
 text-lg leading-7                              /* Body Large */
 text-base leading-6                            /* Body */
 text-sm leading-5                              /* Body Small */
-```
+\`\`\`
 
 ## 🚀 Next Steps
 
 ### **1. Start Using Components**
-```typescript
+\`\`\`typescript
 // Example: Using a trip card
 import { LFGCards } from '@/components/design-system'
 
@@ -85,7 +85,7 @@ export function MyTripPage() {
     </div>
   )
 }
-```
+\`\`\`
 
 ### **2. Follow Design Guidelines**
 - Use consistent spacing (4, 8, 12, 16, 24, 32px increments)
@@ -132,7 +132,7 @@ export function MyTripPage() {
 ## 🔧 Technical Details
 
 ### **File Structure**
-```
+\`\`\`
 src/
 ├── components/
 │   ├── design-system/
@@ -158,7 +158,7 @@ src/
 └── app/
     └── design-system/
         └── page.tsx
-```
+\`\`\`
 
 ### **Dependencies**
 - Next.js 14+ ✅

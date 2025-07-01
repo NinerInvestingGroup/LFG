@@ -48,26 +48,26 @@ Your v0.dev landing page components have been successfully integrated into your 
 
 ### Import Structure
 All components use the correct import paths for your project:
-```typescript
+\`\`\`typescript
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
-```
+\`\`\`
 
 ### Component Export
 Your `src/components/landing/index.ts` properly exports all components:
-```typescript
+\`\`\`typescript
 export { HeroSection } from './HeroSection'
 export { FeaturesSection } from './FeaturesSection'
 export { HowItWorksSection } from './HowItWorksSection'
 export { CommunityShowcaseSection } from './CommunityShowcaseSection'
 export { SocialProofSection } from './SocialProofSection'
 export { Footer } from './Footer'
-```
+\`\`\`
 
 ### Page Integration
 Your main landing page (`src/app/page.tsx`) automatically uses all updated components:
-```typescript
+\`\`\`typescript
 export default function HomePage() {
   return (
     <>
@@ -80,7 +80,7 @@ export default function HomePage() {
     </>
   )
 }
-```
+\`\`\`
 
 ## 🎨 **Design Improvements**
 

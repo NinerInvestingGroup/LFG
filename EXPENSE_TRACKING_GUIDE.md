@@ -32,7 +32,7 @@ Imagine you're on a trip with friends. Someone pays for dinner ($120), another p
 
 ### **Database Structure**
 
-```sql
+\`\`\`sql
 -- Main expenses table
 expenses (
   id, trip_id, payer_id, amount, description, 
@@ -43,7 +43,7 @@ expenses (
 expense_splits (
   id, expense_id, participant_id, amount_owed, paid
 )
-```
+\`\`\`
 
 ### **Service Layer** (`expenseService.ts`)
 The core business logic handling:
@@ -70,7 +70,7 @@ Easy-to-use React state management:
 
 ### **How Equal Splitting Works**
 
-```typescript
+\`\`\`typescript
 // Example: $120 dinner for 4 people
 const totalAmount = 120
 const participants = 4
@@ -85,11 +85,11 @@ participants.forEach(participant => {
     paid: participant.id === payer.id // Payer already paid
   })
 })
-```
+\`\`\`
 
 ### **Balance Calculation Algorithm**
 
-```typescript
+\`\`\`typescript
 // For each participant:
 const totalPaid = sum(expenses.where(payer_id === participant.id))
 const totalOwed = sum(expense_splits.where(participant_id === participant.id))
@@ -98,13 +98,13 @@ const netBalance = totalPaid - totalOwed
 // Positive balance = owed money
 // Negative balance = owes money  
 // Zero balance = even
-```
+\`\`\`
 
 ### **Settlement Algorithm**
 
 Our settlement algorithm uses a **greedy matching approach** to minimize the number of payments needed:
 
-```typescript
+\`\`\`typescript
 function generateSettlements(balances) {
   const creditors = balances.filter(b => b.netBalance > 0) // Owed money
   const debtors = balances.filter(b => b.netBalance < 0)   // Owes money
@@ -135,12 +135,12 @@ function generateSettlements(balances) {
   
   return settlements
 }
-```
+\`\`\`
 
 ## 🔐 Security Features
 
 ### **Participant-Only Access**
-```typescript
+\`\`\`typescript
 // Only trip participants can view/add expenses
 const participant = await supabase
   .from('trip_participants')
@@ -153,7 +153,7 @@ const participant = await supabase
 if (!participant) {
   return { error: 'Only trip participants can access expenses' }
 }
-```
+\`\`\`
 
 ### **Payer Validation**
 - Only expense creators can delete their expenses
@@ -163,7 +163,7 @@ if (!participant) {
 ## 🎨 User Interface Features
 
 ### **Expense Categories**
-```typescript
+\`\`\`typescript
 const categories = [
   { id: 'food', label: 'Food & Dining', icon: '🍽️', color: 'orange' },
   { id: 'transport', label: 'Transportation', icon: '🚗', color: 'blue' },
@@ -172,7 +172,7 @@ const categories = [
   { id: 'shopping', label: 'Shopping', icon: '🛍️', color: 'pink' },
   { id: 'other', label: 'Other', icon: '💰', color: 'gray' }
 ]
-```
+\`\`\`
 
 ### **Smart UI Behaviors**
 - **Loading States**: Skeleton screens during data loading
@@ -192,18 +192,18 @@ Comprehensive testing interface featuring:
 - **Settlement Testing** - Verify algorithm correctness
 
 ### **Test Cases Covered**
-```typescript
+\`\`\`typescript
 const testExpenses = {
   small: { amount: 25.50, description: 'Coffee for the group' },
   medium: { amount: 120.00, description: 'Taxi to airport' },
   large: { amount: 300.00, description: 'Group dinner at restaurant' }
 }
-```
+\`\`\`
 
 ## 📱 Usage Examples
 
 ### **Basic Usage in Components**
-```tsx
+\`\`\`tsx
 import { useExpenseManager } from '@/hooks/useExpenses'
 
 function TripExpenses({ tripId }) {
@@ -240,10 +240,10 @@ function TripExpenses({ tripId }) {
     </div>
   )
 }
-```
+\`\`\`
 
 ### **Adding Expenses**
-```tsx
+\`\`\`tsx
 // Simple expense addition
 const result = await addExpense({
   tripId: 'trip-123',
@@ -258,7 +258,7 @@ if (result.success) {
 } else {
   console.error('Error:', result.error)
 }
-```
+\`\`\`
 
 ## 🚀 Key Features Delivered
 
@@ -302,7 +302,7 @@ if (result.success) {
 - **✅ UI Components** - Uses established design system
 
 ### **Navigation Integration**
-```typescript
+\`\`\`typescript
 // Expense pages integrated into trip navigation
 /trips/[tripId]/expenses  // Dedicated expense page
 /expense-test             // Testing interface
@@ -311,7 +311,7 @@ if (result.success) {
 <Button href={`/trips/${tripId}/expenses`}>
   Manage Expenses
 </Button>
-```
+\`\`\`
 
 ## 🎯 Success Metrics
 

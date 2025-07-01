@@ -16,7 +16,7 @@ The LFG Travel Platform now includes a comprehensive activity planning and itine
 ### Database Schema
 
 **Activities Table:**
-```sql
+\`\`\`sql
 activities (
   id: uuid PRIMARY KEY,
   trip_id: uuid FOREIGN KEY,
@@ -38,10 +38,10 @@ activities (
   created_at: timestamp,
   updated_at: timestamp
 )
-```
+\`\`\`
 
 **Activity Participants Table:**
-```sql
+\`\`\`sql
 activity_participants (
   id: uuid PRIMARY KEY,
   activity_id: uuid FOREIGN KEY,
@@ -49,7 +49,7 @@ activity_participants (
   status: activity_participant_status ENUM,
   joined_at: timestamp
 )
-```
+\`\`\`
 
 **Enums:**
 - `activity_category`: accommodation, transport, food, sightseeing, shopping, entertainment, other
@@ -137,17 +137,17 @@ Activities are automatically organized into **daily itineraries**:
 ## 🛠️ **Technical Implementation**
 
 ### Service Layer (`activityService.ts`)
-```javascript
+\`\`\`javascript
 // Core functions
 activityService.createActivity(activityData)     // Create new activity
 activityService.getTripActivities(tripId)        // Load all activities
 activityService.getTripItinerary(tripId)         // Organize by day
 activityService.joinActivity(activityId)         // Join activity
 activityService.getActivityStats(tripId)         // Calculate statistics
-```
+\`\`\`
 
 ### React Hooks (`useActivities.ts`)
-```javascript
+\`\`\`javascript
 // Individual hooks
 useTripActivities(tripId)     // Load activities
 useTripItinerary(tripId)      // Daily organization
@@ -156,18 +156,18 @@ useActivityActions()          // Join/leave/update/delete
 
 // Combined hook
 useActivityManager(tripId)    // Complete system
-```
+\`\`\`
 
 ### UI Components
-```javascript
+\`\`\`javascript
 <ItineraryInterface tripId={tripId} />           // Main interface
 <AddActivityModal onSubmit={handleSubmit} />     // Activity creation
-```
+\`\`\`
 
 ## 🚀 **Usage Examples**
 
 ### 1. **Display Trip Itinerary**
-```jsx
+\`\`\`jsx
 import { ItineraryInterface } from '@/components/activities/ItineraryInterface'
 
 function TripPage({ tripId }) {
@@ -178,10 +178,10 @@ function TripPage({ tripId }) {
     </div>
   )
 }
-```
+\`\`\`
 
 ### 2. **Create Activity Programmatically**
-```javascript
+\`\`\`javascript
 const { addActivity } = useActivityManager(tripId)
 
 const createSampleActivity = async () => {
@@ -201,10 +201,10 @@ const createSampleActivity = async () => {
     console.log('Activity created!')
   }
 }
-```
+\`\`\`
 
 ### 3. **Load Activity Statistics**
-```javascript
+\`\`\`javascript
 const { stats } = useActivityStats(tripId)
 
 // stats.totalActivities     - Total number of activities
@@ -212,7 +212,7 @@ const { stats } = useActivityStats(tripId)
 // stats.averageCostPerDay  - Average spending per day
 // stats.categoryCounts     - Activities by category
 // stats.participationRate - How many people join activities
-```
+\`\`\`
 
 ## 📱 **User Interface**
 

@@ -39,7 +39,7 @@ Successfully integrated a sophisticated v0.dev dashboard header component into t
 ## Technical Implementation
 
 ### Component Architecture
-```
+\`\`\`
 Header Component (Smart Authentication)
 ├── Unauthenticated State
 │   ├── Logo + LFG Brand
@@ -58,7 +58,7 @@ Header Component (Smart Authentication)
     └── Mobile Sections
         ├── Mobile Search Bar
         └── Bottom Tab Navigation
-```
+\`\`\`
 
 ### Created Components
 
@@ -75,17 +75,17 @@ Header Component (Smart Authentication)
 - **Supabase Integration**: Real-time auth status checking
 
 ### User Data Structure
-```typescript
+\`\`\`typescript
 interface DashboardUser {
   name: string
   firstName: string
   avatar: string
   isOnline: boolean
 }
-```
+\`\`\`
 
 ### Navigation Structure
-```typescript
+\`\`\`typescript
 const navigationItems = [
   { id: "dashboard", label: "Dashboard", icon: Home, href: "/dashboard" },
   { id: "trips", label: "Trips", icon: Plane, href: "/trips" },
@@ -93,12 +93,12 @@ const navigationItems = [
   { id: "messages", label: "Messages", icon: MessageSquare, href: "/messages" },
   { id: "profile", label: "Profile", icon: User, href: "/profile" },
 ]
-```
+\`\`\`
 
 ## Key Features Implemented
 
 ### 🔄 **Smart Active Tab Detection**
-```typescript
+\`\`\`typescript
 useEffect(() => {
   const currentPath = pathname || ""
   const activeItem = navigationItems.find(item => 
@@ -108,10 +108,10 @@ useEffect(() => {
     setActiveTab(activeItem.id)
   }
 }, [pathname])
-```
+\`\`\`
 
 ### 🔐 **Supabase Authentication Integration**
-```typescript
+\`\`\`typescript
 const checkAuth = async () => {
   const { data: { user: authUser } } = await supabase.auth.getUser()
   if (authUser) {
@@ -120,7 +120,7 @@ const checkAuth = async () => {
     // Configure personalized greeting
   }
 }
-```
+\`\`\`
 
 ### 🎨 **Professional Visual Design**
 - **Sticky Header**: `sticky top-0 z-50` for persistent navigation
@@ -138,15 +138,15 @@ const checkAuth = async () => {
 ## Dashboard Integration
 
 ### Props Interface
-```typescript
+\`\`\`typescript
 interface DashboardHeaderProps {
   user?: DashboardUser      // Optional: override auto-detected user
   notifications?: number    // Optional: notification count
 }
-```
+\`\`\`
 
 ### Usage Example
-```tsx
+\`\`\`tsx
 // Dashboard page with notifications
 <Header notifications={5} />
 
@@ -163,7 +163,7 @@ interface DashboardHeaderProps {
 
 // Auto-detection mode (default)
 <Header />
-```
+\`\`\`
 
 ## Navigation Flow Integration
 

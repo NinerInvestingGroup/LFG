@@ -39,7 +39,7 @@ Your project already has these common v0.dev dependencies:
 
 When integrating a v0.dev component, update these imports:
 
-```typescript
+\`\`\`typescript
 // Change v0.dev imports from:
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -47,13 +47,13 @@ import { Button } from "@/components/ui/button"
 // To your project structure:
 import { cn } from "@/shared/utils/cn"
 import { Button } from "@/components/ui/Button"
-```
+\`\`\`
 
 ### 3. TypeScript Integration
 
 Add proper TypeScript types:
 
-```typescript
+\`\`\`typescript
 // Add to your component props
 interface YourComponentProps {
   // Add specific props for your use case
@@ -62,17 +62,17 @@ interface YourComponentProps {
   user?: Profile;
   trip?: Trip;
 }
-```
+\`\`\`
 
 ### 4. Supabase Integration
 
 Integrate with your existing services:
 
-```typescript
+\`\`\`typescript
 import { useProfile } from '@/shared/hooks/useProfile'
 import { useTrips } from '@/shared/hooks/useTrips'
 import { tripService } from '@/shared/services/tripService'
-```
+\`\`\`
 
 ## Component Placement Examples
 
@@ -102,7 +102,7 @@ Your project is already configured with:
 
 Create a test page to verify the component works:
 
-```typescript
+\`\`\`typescript
 // src/app/test-v0-component/page.tsx
 import YourV0Component from '@/components/[category]/YourV0Component'
 
@@ -114,7 +114,7 @@ export default function TestV0Component() {
     </div>
   )
 }
-```
+\`\`\`
 
 ## Common Issues and Solutions
 

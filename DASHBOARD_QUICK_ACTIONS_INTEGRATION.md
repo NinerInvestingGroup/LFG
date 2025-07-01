@@ -49,7 +49,7 @@ Successfully integrated a sophisticated v0.dev QuickActions component into the L
 ## Technical Implementation
 
 ### Component Architecture
-```
+\`\`\`
 QuickActions Card
 ├── Header Section
 │   ├── Title: "Quick Actions"
@@ -63,10 +63,10 @@ QuickActions Card
     ├── Hover Effects
     ├── Loading States
     └── Navigation Integration
-```
+\`\`\`
 
 ### TypeScript Interfaces
-```typescript
+\`\`\`typescript
 interface QuickAction {
   id: string
   title: string
@@ -80,10 +80,10 @@ interface QuickAction {
 interface QuickActionsProps {
   className?: string
 }
-```
+\`\`\`
 
 ### Action Configuration
-```typescript
+\`\`\`typescript
 const actions: QuickAction[] = [
   {
     id: "create-trip",
@@ -96,12 +96,12 @@ const actions: QuickAction[] = [
   },
   // ... other actions
 ]
-```
+\`\`\`
 
 ## Key Features Implemented
 
 ### 🎨 **Dynamic Styling System**
-```typescript
+\`\`\`typescript
 const getButtonStyles = (variant: string, size: string) => {
   const variantStyles = {
     primary: "bg-primary hover:bg-primary-600 text-white",
@@ -115,17 +115,17 @@ const getButtonStyles = (variant: string, size: string) => {
     medium: "h-16 text-base font-medium",
   }
 }
-```
+\`\`\`
 
 ### 🔄 **Interactive State Management**
-```typescript
+\`\`\`typescript
 const handleActionClick = async (action: QuickAction) => {
   setIsLoading(action.id)
   await new Promise(resolve => setTimeout(resolve, 200)) // UX delay
   router.push(action.href)
   console.log(`Quick action clicked: ${action.id} -> ${action.href}`)
 }
-```
+\`\`\`
 
 ### 📱 **Responsive Design**
 - **Mobile**: Single column layout for touch-friendly interaction
@@ -148,11 +148,11 @@ const handleActionClick = async (action: QuickAction) => {
 - **Connect with Travelers**: `/discover` → Community discovery page
 
 ### Loading Experience
-```typescript
+\`\`\`typescript
 // Loading states with visual feedback
 {isActionLoading ? 'Loading...' : action.title}
 {isActionLoading ? 'animate-pulse' : 'group-hover:scale-110'}
-```
+\`\`\`
 
 ## Dashboard Integration
 
@@ -166,14 +166,14 @@ const handleActionClick = async (action: QuickAction) => {
 **After**: Quick action center → ActiveTrips → Enhanced user flow
 
 ### Suspense Integration
-```tsx
+\`\`\`tsx
 <Suspense fallback={<DashboardLoading />}>
   <QuickActions />
 </Suspense>
 <Suspense fallback={<DashboardLoading />}>
   <ActiveTrips />
 </Suspense>
-```
+\`\`\`
 
 ## File Changes Made
 
@@ -251,9 +251,9 @@ const handleActionClick = async (action: QuickAction) => {
 ## Analytics Integration
 
 ### Action Tracking
-```typescript
+\`\`\`typescript
 console.log(`Quick action clicked: ${action.id} -> ${action.href}`)
-```
+\`\`\`
 
 ### Metrics to Track
 - **Click Rates**: Which actions are most popular

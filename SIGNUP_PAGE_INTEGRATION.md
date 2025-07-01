@@ -40,7 +40,7 @@ Successfully integrated a comprehensive v0.dev signup component into the LFG tra
 ## Technical Implementation
 
 ### Component Architecture
-```
+\`\`\`
 SignupPage (Server Component)
 ├── AuthLayout (Layout wrapper)
 ├── Suspense (Loading boundary)
@@ -50,7 +50,7 @@ SignupPage (Server Component)
     ├── Password Strength Meter
     ├── Social Login Buttons (3)
     └── Navigation Links
-```
+\`\`\`
 
 ### Supabase Integration
 - **Account Creation**: `supabase.auth.signUp()` with metadata

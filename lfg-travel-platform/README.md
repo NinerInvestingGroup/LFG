@@ -26,7 +26,7 @@ A modern social travel coordination platform built with Next.js 14, TypeScript, 
 
 ## 📁 Project Structure
 
-```
+\`\`\`
 lfg-travel-platform/
 ├── public/                     # Static assets
 │   ├── icons/                 # App icons
@@ -63,7 +63,7 @@ lfg-travel-platform/
 ├── tsconfig.json           # TypeScript configuration
 ├── .env.local.example      # Environment variables template
 └── README.md               # Project documentation
-```
+\`\`\`
 
 ## 🛠 Getting Started
 
@@ -76,34 +76,34 @@ lfg-travel-platform/
 ### Installation
 
 1. **Clone the repository**
-   ```bash
+   \`\`\`bash
    git clone <repository-url>
    cd lfg-travel-platform
-   ```
+   \`\`\`
 
 2. **Install dependencies**
-   ```bash
+   \`\`\`bash
    npm install
-   ```
+   \`\`\`
 
 3. **Set up environment variables**
-   ```bash
+   \`\`\`bash
    cp .env.local.example .env.local
-   ```
+   \`\`\`
    
    Fill in your environment variables:
-   ```env
+   \`\`\`env
    NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
    SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
    NEXT_PUBLIC_APP_URL=http://localhost:3000
-   ```
+   \`\`\`
 
 4. **Set up the database**
    
    Create the following tables in your Supabase database:
 
-   ```sql
+   \`\`\`sql
    -- Profiles table
    CREATE TABLE profiles (
      id UUID REFERENCES auth.users ON DELETE CASCADE PRIMARY KEY,
@@ -177,12 +177,12 @@ lfg-travel-platform/
      created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
      UNIQUE(trip_id, reviewer_id, reviewee_id)
    );
-   ```
+   \`\`\`
 
 5. **Run the development server**
-   ```bash
+   \`\`\`bash
    npm run dev
-   ```
+   \`\`\`
 
 6. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)

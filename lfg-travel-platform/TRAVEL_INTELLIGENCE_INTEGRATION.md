@@ -45,7 +45,7 @@ Successfully integrated your v0.dev Travel Intelligence component into the LFG t
 ## 🏗️ Technical Implementation
 
 ### Component Architecture
-```typescript
+\`\`\`typescript
 interface IntelligenceItem {
   id: string
   type: "weather" | "price" | "advisory" | "flight" | "currency"
@@ -56,7 +56,7 @@ interface IntelligenceItem {
   timestamp: string
   metadata?: IntelligenceMetadata
 }
-```
+\`\`\`
 
 ### Alert Component Structure
 Created new `Alert.tsx` component following project patterns:
@@ -106,7 +106,7 @@ Realistic intelligence alerts for demonstration:
 Component prepared for real-time intelligence with commented implementation:
 
 ### Database Schema Requirements
-```sql
+\`\`\`sql
 -- Travel intelligence alerts
 CREATE TABLE travel_intelligence_alerts (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -141,10 +141,10 @@ CREATE TABLE intelligence_interactions (
   action TEXT,
   timestamp TIMESTAMP DEFAULT NOW()
 );
-```
+\`\`\`
 
 ### Edge Functions
-```typescript
+\`\`\`typescript
 // Weather intelligence function
 supabase.functions.invoke('get-weather-intelligence', {
   body: { user_id: user.id }
@@ -162,18 +162,18 @@ supabase.functions.invoke('get-price-alerts', {
 supabase.functions.invoke('get-travel-advisories', {
   body: { user_id: user.id }
 })
-```
+\`\`\`
 
 ## 📱 Dashboard Integration
 Positioned as primary sidebar component above DashboardSidebar:
 
-```tsx
+\`\`\`tsx
 {/* Sidebar */}
 <div className="space-y-6">
   <TravelIntelligence />  // ← New intelligence hub
   <DashboardSidebar />    // ← Original sidebar
 </div>
-```
+\`\`\`
 
 **Why Sidebar Placement**:
 - **Always Visible**: Critical alerts immediately accessible

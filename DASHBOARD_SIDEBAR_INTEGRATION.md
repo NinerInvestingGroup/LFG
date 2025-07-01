@@ -46,7 +46,7 @@ Successfully integrated a comprehensive v0.dev dashboard sidebar component into 
 ## Technical Implementation
 
 ### Component Architecture
-```
+\`\`\`
 DashboardSidebar
 ├── Pending Invitations Card
 │   ├── Header with Badge Count
@@ -65,10 +65,10 @@ DashboardSidebar
 │   └── 2x2 Grid of Metrics
 └── Emergency Contacts Card
     └── Contact List with Call Buttons
-```
+\`\`\`
 
 ### Data Interfaces
-```typescript
+\`\`\`typescript
 interface PendingInvitation {
   id: string
   tripTitle: string
@@ -93,7 +93,7 @@ interface UserStats {
   achievements: number
   countriesVisited: number
 }
-```
+\`\`\`
 
 ### Sample Data Included
 **Pending Invitations**:
@@ -113,7 +113,7 @@ interface UserStats {
 ## Key Features Implemented
 
 ### 🔄 **Interactive State Management**
-```typescript
+\`\`\`typescript
 const handleInvitationResponse = async (id: string, response: "accept" | "decline") => {
   // Remove from UI immediately
   setPendingInvitations(prev => prev.filter(inv => inv.id !== id))
@@ -127,16 +127,16 @@ const handleFriendRequest = async (id: string, response: "accept" | "decline") =
     setStats(prev => ({ ...prev, friendsConnected: prev.friendsConnected + 1 }))
   }
 }
-```
+\`\`\`
 
 ### 📱 **Emergency Contact Integration**
-```typescript
+\`\`\`typescript
 const handleEmergencyCall = (phone: string) => {
   if (typeof window !== 'undefined') {
     window.open(`tel:${phone}`, "_self")
   }
 }
-```
+\`\`\`
 
 ### 🎯 **Navigation Integration**
 - **View All Invitations**: Routes to `/invitations`
@@ -155,26 +155,26 @@ const handleEmergencyCall = (phone: string) => {
 **After**: Comprehensive 4-section sidebar with full interactivity
 
 ### Props Interface
-```typescript
+\`\`\`typescript
 interface DashboardSidebarProps {
   className?: string  // Optional styling override
 }
-```
+\`\`\`
 
 ### Usage Integration
-```tsx
+\`\`\`tsx
 // Dashboard page integration
 <div className="space-y-6">
   <Suspense fallback={<DashboardLoading />}>
     <DashboardSidebar />
   </Suspense>
 </div>
-```
+\`\`\`
 
 ## Supabase Integration Preparation
 
 ### Database Schema Ready
-```sql
+\`\`\`sql
 -- Trip invitations
 trip_invitations (
   id, trip_id, invited_user_id, organizer_id,
@@ -192,16 +192,16 @@ user_stats (
   user_id, trips_planned, friends_connected,
   achievements, countries_visited, updated_at
 )
-```
+\`\`\`
 
 ### Commented Supabase Queries
-```typescript
+\`\`\`typescript
 // Ready-to-use queries for:
 // - Fetching pending trip invitations with trip details
 // - Loading friend requests with profile information
 // - Getting user statistics and metrics
 // - Updating invitation/request statuses
-```
+\`\`\`
 
 ## File Changes Made
 

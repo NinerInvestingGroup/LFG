@@ -59,13 +59,13 @@ Think of your chat system like a **radio communication network**:
 - Manage message permissions and security
 
 **Key functions**:
-```javascript
+\`\`\`javascript
 chatService.sendMessage()           // Send message to trip chat
 chatService.getTripMessages()       // Load chat history
 chatService.subscribeToMessages()   // Listen for new messages in real-time
 chatService.markMessagesAsRead()    // Mark messages as seen
 chatService.getUnreadCount()        // Count unread messages
-```
+\`\`\`
 
 ### **2. Chat Hooks (`src/hooks/useChat.ts`)**
 **What it does**: Makes chat functionality easy to use in React components
@@ -77,13 +77,13 @@ chatService.getUnreadCount()        // Count unread messages
 - Manage auto-scrolling and UI behavior
 
 **Key hooks**:
-```javascript
+\`\`\`javascript
 useTripChat(tripId)           // Get all messages for a trip
 useSendMessage()              // Send messages with loading states
 useAutoScroll(messages)       // Smart auto-scroll behavior
 useChatNotifications()        // Track unread messages across trips
 useMessageActions()           // Delete messages and other actions
-```
+\`\`\`
 
 ### **3. Chat Interface (`src/components/chat/ChatInterface.tsx`)**
 **What it does**: The complete chat UI that users interact with
@@ -120,10 +120,10 @@ useMessageActions()           // Delete messages and other actions
 ## 🚀 **How to Test Your Real-time Chat**
 
 ### **Step 1: Start Your App**
-```bash
+\`\`\`bash
 cd lfg-travel-platform
 npm run dev
-```
+\`\`\`
 
 ### **Step 2: Test Chat Features**
 
@@ -301,7 +301,7 @@ Your chat data is stored in the **messages table**:
 
 ### **Component Hierarchy**
 
-```
+\`\`\`
 Chat Test Page
 ├── Chat Interface (main chat UI)
 │   ├── Message List (scrollable message history)
@@ -310,7 +310,7 @@ Chat Test Page
 │   └── Auto-scroll Handler
 ├── Notification System (unread counts)
 └── Real-time Subscriptions (live updates)
-```
+\`\`\`
 
 ## 🚀 **Next Steps**
 

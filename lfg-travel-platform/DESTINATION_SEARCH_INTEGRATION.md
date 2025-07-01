@@ -46,13 +46,13 @@ Your LFG Travel Platform now has a comprehensive destination search system with 
 ## 🛠 **Technical Architecture**
 
 ### Security Implementation
-```
+\`\`\`
 Client Request → API Route (Server) → Google Places API
                 ↓
          Rate Limiting + Validation
                 ↓
          Filtered Results → Client
-```
+\`\`\`
 
 ### Data Flow
 1. **User types** in search box (debounced)
@@ -70,13 +70,13 @@ Client Request → API Route (Server) → Google Places API
 1. **Open your `.env.local` file** (already created for you)
 2. **Replace the placeholder** with your actual API key:
 
-```bash
+\`\`\`bash
 # Replace this line:
 GOOGLE_PLACES_API_KEY=your_google_places_api_key_here
 
 # With your actual key:
 GOOGLE_PLACES_API_KEY=AIzaSyC4E1Dz_S0QAhYyLX9Y5g7F3K9L2M8N6P0
-```
+\`\`\`
 
 ### Step 2: Test Your Integration
 
@@ -88,7 +88,7 @@ GOOGLE_PLACES_API_KEY=AIzaSyC4E1Dz_S0QAhYyLX9Y5g7F3K9L2M8N6P0
 ## 🎨 **Component Usage**
 
 ### Basic Integration
-```tsx
+\`\`\`tsx
 import DestinationSearch from '@/components/destination/DestinationSearch'
 import { Destination } from '@/services/googlePlacesService'
 
@@ -113,10 +113,10 @@ function CreateTripForm() {
     </div>
   )
 }
-```
+\`\`\`
 
 ### Advanced Integration with Form
-```tsx
+\`\`\`tsx
 function TripCreationWizard() {
   const [formData, setFormData] = useState({
     title: '',
@@ -174,12 +174,12 @@ function TripCreationWizard() {
     </form>
   )
 }
-```
+\`\`\`
 
 ## 📊 **API Reference**
 
 ### Destination Object Structure
-```typescript
+\`\`\`typescript
 interface Destination {
   id: string                    // Unique identifier
   name: string                  // Display name (e.g., "Paris")
@@ -195,10 +195,10 @@ interface Destination {
   placeId?: string              // Google Places ID (if from API)
   formatted_address?: string    // Google-formatted address
 }
-```
+\`\`\`
 
 ### Search API Endpoint
-```typescript
+\`\`\`typescript
 POST /api/destinations/search
 
 Request Body:
@@ -222,7 +222,7 @@ Response:
     }
   }
 }
-```
+\`\`\`
 
 ## 🎯 **Features Overview**
 
@@ -315,14 +315,14 @@ Navigate to: `http://localhost:3000/destination-test`
 ## 🚀 **Production Deployment**
 
 ### Environment Variables
-```bash
+\`\`\`bash
 # Required for Google Places API
 GOOGLE_PLACES_API_KEY=your_actual_api_key
 
 # Optional: Custom limits
 GOOGLE_PLACES_DAILY_LIMIT=2000
 GOOGLE_PLACES_PER_MINUTE_LIMIT=150
-```
+\`\`\`
 
 ### API Key Security (Production)
 1. **Restrict API Key** in Google Cloud Console
@@ -342,7 +342,7 @@ GOOGLE_PLACES_PER_MINUTE_LIMIT=150
 ### Updating Your Trip Form
 Your existing trip creation form can now use the destination search:
 
-```tsx
+\`\`\`tsx
 // In your trip creation component
 import DestinationSearch from '@/components/destination/DestinationSearch'
 
@@ -365,7 +365,7 @@ const tripData = {
   destination_place_id: destination?.placeId,
   // ... other form fields
 }
-```
+\`\`\`
 
 ## 🎯 **What's Working Now**
 

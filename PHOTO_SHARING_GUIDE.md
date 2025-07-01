@@ -46,7 +46,7 @@ Imagine having a shared photo album for each trip where everyone can:
 ## 🏗️ **System Architecture**
 
 ### **Database Schema**
-```sql
+\`\`\`sql
 -- Photos table
 CREATE TABLE photos (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -73,10 +73,10 @@ CREATE TABLE photos (
 
 -- Photo status enum
 CREATE TYPE photo_status AS ENUM ('uploading', 'processing', 'ready', 'error');
-```
+\`\`\`
 
 ### **Storage Organization**
-```
+\`\`\`
 📁 Supabase Storage: 'photos' bucket
 ├── 📁 trips/
 │   └── 📁 [tripId]/
@@ -86,10 +86,10 @@ CREATE TYPE photo_status AS ENUM ('uploading', 'processing', 'ready', 'error');
 │       └── 📁 thumbnails/      # Preview images
 │           ├── 1703123456-abc123.jpg
 │           └── 1703123789-def456.jpg
-```
+\`\`\`
 
 ### **Component Structure**
-```
+\`\`\`
 📂 src/components/photos/
 ├── 📄 PhotoInterface.tsx       # Main photo management interface
 ├── 📄 PhotoGallery.tsx         # Gallery display with grid/list views
@@ -105,17 +105,17 @@ CREATE TYPE photo_status AS ENUM ('uploading', 'processing', 'ready', 'error');
 📂 src/app/
 ├── 📄 photo-test/page.tsx      # Testing interface
 └── 📄 trips/[tripId]/photos/page.tsx  # Trip photos page
-```
+\`\`\`
 
 ## 🚀 **Getting Started**
 
 ### **1. Database Setup**
 The photos table is already included in your database schema. If you need to add it manually:
 
-```sql
+\`\`\`sql
 -- Add photos table (already included in database.ts)
 -- See the database schema section above
-```
+\`\`\`
 
 ### **2. Supabase Storage Setup**
 1. **Create Storage Bucket**:
@@ -124,7 +124,7 @@ The photos table is already included in your database schema. If you need to add
    - Set to public access
 
 2. **Configure Policies**:
-```sql
+\`\`\`sql
 -- Allow trip participants to view photos
 CREATE POLICY "Trip participants can view photos" ON storage.objects
 FOR SELECT USING (
@@ -147,12 +147,12 @@ FOR INSERT WITH CHECK (
     AND status = 'approved'
   )
 );
-```
+\`\`\`
 
 ### **3. Add Photo Navigation**
 Update your trip navigation to include photos:
 
-```tsx
+\`\`\`tsx
 // In your trip layout or navigation component
 <Link href={`/trips/${tripId}/photos`}>
   <Button variant="outline">
@@ -160,7 +160,7 @@ Update your trip navigation to include photos:
     Photos
   </Button>
 </Link>
-```
+\`\`\`
 
 ## 📱 **Usage Guide**
 
@@ -205,7 +205,7 @@ Update your trip navigation to include photos:
 ### **Photo Service Functions**
 
 #### **Upload Photo**
-```typescript
+\`\`\`typescript
 const result = await photoService.uploadPhoto({
   tripId: 'trip-uuid',
   file: selectedFile,
@@ -214,31 +214,31 @@ const result = await photoService.uploadPhoto({
   takenAt: '2024-03-15',
   onProgress: (progress) => console.log(`${progress}% complete`)
 });
-```
+\`\`\`
 
 #### **Get Trip Photos**
-```typescript
+\`\`\`typescript
 const { data: photos, error } = await photoService.getTripPhotos('trip-uuid');
-```
+\`\`\`
 
 #### **Delete Photo**
-```typescript
+\`\`\`typescript
 const { error } = await photoService.deletePhoto('photo-uuid');
-```
+\`\`\`
 
 #### **Update Photo**
-```typescript
+\`\`\`typescript
 const { error } = await photoService.updatePhotoCaption(
   'photo-uuid',
   'Updated caption',
   'Updated location'
 );
-```
+\`\`\`
 
 ### **React Hooks**
 
 #### **Complete Photo Management**
-```typescript
+\`\`\`typescript
 const photoManager = usePhotoManager('trip-uuid');
 
 // Access all functionality
@@ -252,10 +252,10 @@ const {
   loading,         // Loading states
   hasPhotos        // Boolean if photos exist
 } = photoManager;
-```
+\`\`\`
 
 #### **Individual Hooks**
-```typescript
+\`\`\`typescript
 // Just photo gallery
 const { photos, loading, error } = useTripPhotos('trip-uuid');
 
@@ -264,12 +264,12 @@ const { uploadPhoto, progress, loading } = useUploadPhoto();
 
 // Just photo statistics
 const { stats, formatFileSize } = usePhotoStats('trip-uuid');
-```
+\`\`\`
 
 ## 🎨 **Component Usage**
 
 ### **Main Photo Interface**
-```tsx
+\`\`\`tsx
 import { PhotoInterface } from '@/components/photos/PhotoInterface';
 
 <PhotoInterface 
@@ -277,10 +277,10 @@ import { PhotoInterface } from '@/components/photos/PhotoInterface';
   tripTitle="Amazing Bali Adventure"
   organizerIds={['organizer-uuid']}
 />
-```
+\`\`\`
 
 ### **Gallery Only**
-```tsx
+\`\`\`tsx
 import { PhotoGallery } from '@/components/photos/PhotoGallery';
 
 <PhotoGallery
@@ -292,10 +292,10 @@ import { PhotoGallery } from '@/components/photos/PhotoGallery';
   currentUserId="user-uuid"
   tripOrganizerIds={['organizer-uuid']}
 />
-```
+\`\`\`
 
 ### **Upload Modal**
-```tsx
+\`\`\`tsx
 import { PhotoUploadModal } from '@/components/photos/PhotoUploadModal';
 
 <PhotoUploadModal
@@ -306,7 +306,7 @@ import { PhotoUploadModal } from '@/components/photos/PhotoUploadModal';
   progress={uploadProgress}
   error={uploadError}
 />
-```
+\`\`\`
 
 ## 📊 **File Upload Process**
 
@@ -337,7 +337,7 @@ Visit `/photo-test` for a comprehensive testing interface:
 - **Analytics**: Monitor system statistics
 
 ### **Test Functions**
-```typescript
+\`\`\`typescript
 // Test photo upload validation
 const validation = photoManager.validateFile(testFile);
 
@@ -346,7 +346,7 @@ await photoManager.refreshAll();
 
 // Test gallery functionality
 photoManager.gallery.openViewer(0);
-```
+\`\`\`
 
 ## 🔒 **Security Features**
 
@@ -379,7 +379,7 @@ photoManager.gallery.openViewer(0);
 ## 🚀 **Integration Examples**
 
 ### **Add to Trip Pages**
-```tsx
+\`\`\`tsx
 // In trip page layout
 import { PhotoInterface } from '@/components/photos/PhotoInterface';
 
@@ -397,10 +397,10 @@ export default function TripPage({ params }: { params: { tripId: string } }) {
     </div>
   );
 }
-```
+\`\`\`
 
 ### **Dashboard Photo Summary**
-```tsx
+\`\`\`tsx
 // Show recent photos on dashboard
 const { photos } = useTripPhotos(tripId);
 const recentPhotos = photos.slice(0, 6);
@@ -416,7 +416,7 @@ return (
     ))}
   </div>
 );
-```
+\`\`\`
 
 ## 🎯 **Best Practices**
 
@@ -439,7 +439,7 @@ return (
 ### **Common Issues**
 
 #### **Upload Failures**
-```typescript
+\`\`\`typescript
 // Check file validation
 const validation = photoManager.validateFile(file);
 if (!validation.isValid) {
@@ -453,7 +453,7 @@ const { data: participant } = await supabase
   .eq('trip_id', tripId)
   .eq('user_id', userId)
   .single();
-```
+\`\`\`
 
 #### **Photos Not Loading**
 - **Check Permissions**: Ensure user is trip participant
@@ -468,7 +468,7 @@ const { data: participant } = await supabase
 - **Memory Usage**: Clear old photo references when navigating
 
 ### **Debug Information**
-```typescript
+\`\`\`typescript
 // Get system status
 const debugInfo = {
   photosLoaded: photoManager.photos.length,
@@ -482,7 +482,7 @@ const debugInfo = {
   }
 };
 console.log('Photo System Debug:', debugInfo);
-```
+\`\`\`
 
 ## 📈 **Analytics & Monitoring**
 
@@ -494,7 +494,7 @@ The system provides comprehensive analytics:
 - **Activity Patterns**: Analyze upload frequency and timing
 
 ### **Custom Analytics**
-```typescript
+\`\`\`typescript
 // Get detailed photo statistics
 const stats = await photoService.getPhotoStats(tripId);
 
@@ -505,7 +505,7 @@ const customMetrics = {
   mostPopularLocation: /* analyze location data */,
   uploadTrends: /* analyze upload patterns */
 };
-```
+\`\`\`
 
 ## 🔄 **Future Enhancements**
 

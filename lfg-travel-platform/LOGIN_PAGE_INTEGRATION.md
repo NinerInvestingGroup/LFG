@@ -4,7 +4,7 @@
 
 ### 📁 **File Structure Updated**
 
-```
+\`\`\`
 src/app/(auth)/login/
 ├── page.tsx                          # ← Updated main page component
 └── components/
@@ -12,7 +12,7 @@ src/app/(auth)/login/
 
 src/components/ui/
 └── Checkbox.tsx                      # ← NEW: Added for remember me functionality
-```
+\`\`\`
 
 ### 🔧 **Integration Details**
 
@@ -86,14 +86,14 @@ Your beautiful v0.dev design is maintained exactly:
 ### 🚀 **Usage & Navigation**
 
 #### **Existing Integration**:
-```typescript
+\`\`\`typescript
 // All existing links to /login continue to work
 // Forgot password link leads to /forgot-password
 // Signup link leads to /signup
-```
+\`\`\`
 
 #### **Enhanced Features**:
-```typescript
+\`\`\`typescript
 // Remember me functionality
 formData.rememberMe // boolean state
 
@@ -102,7 +102,7 @@ showPassword // boolean state with Eye/EyeOff icons
 
 // Social login options
 handleSocialLogin('google' | 'facebook' | 'apple')
-```
+\`\`\`
 
 ### 🔧 **Supabase Configuration Required**
 
@@ -123,7 +123,7 @@ For full functionality, ensure your Supabase project has:
 ### 💻 **Enhanced Component Features**
 
 #### **Form Validation**:
-```typescript
+\`\`\`typescript
 // Real-time email validation
 validateEmail(email) // regex validation
 
@@ -136,10 +136,10 @@ formData: {
 
 // Error state management
 errors: Record<string, string>
-```
+\`\`\`
 
 #### **Authentication Integration**:
-```typescript
+\`\`\`typescript
 // Email/password login
 await supabase.auth.signInWithPassword({
   email: formData.email,
@@ -153,7 +153,7 @@ await supabase.auth.signInWithOAuth({
     redirectTo: `${window.location.origin}/dashboard`,
   },
 })
-```
+\`\`\`
 
 ### 🎯 **Features Implemented**
 

@@ -4,12 +4,12 @@
 
 ### 📁 **File Structure Created**
 
-```
+\`\`\`
 src/app/(auth)/verify-email/
 ├── page.tsx                          # ← Main page component (Server Component)
 └── components/
     └── EmailVerificationForm.tsx     # ← Client component with Supabase integration
-```
+\`\`\`
 
 ### 🔧 **Integration Details**
 
@@ -79,26 +79,26 @@ src/app/(auth)/verify-email/
 ### 🚀 **Usage Scenarios**
 
 #### **Scenario 1: Direct Visit**
-```
+\`\`\`
 /verify-email
-```
+\`\`\`
 - Shows general verification instructions
 - Detects user's email if logged in
 - Provides resend functionality
 
 #### **Scenario 2: Email Link Click**
-```
+\`\`\`
 /verify-email?token=abc123&type=email
-```
+\`\`\`
 - Automatically processes verification token
 - Shows success/error feedback
 - Redirects to dashboard on success
 
 #### **Scenario 3: Post-Signup Redirect**
-```javascript
+\`\`\`javascript
 // After signup, redirect to verification
 router.push('/verify-email')
-```
+\`\`\`
 
 ### 🔧 **Supabase Configuration Required**
 
@@ -111,7 +111,7 @@ For full functionality, ensure your Supabase project has:
 ### 💻 **Code Examples**
 
 #### **Basic Integration in Signup Flow**:
-```typescript
+\`\`\`typescript
 // In your signup form
 const { data, error } = await supabase.auth.signUp({
   email: email,
@@ -124,17 +124,17 @@ const { data, error } = await supabase.auth.signUp({
 if (data.user && !error) {
   router.push('/verify-email')
 }
-```
+\`\`\`
 
 #### **Manual Verification Check**:
-```typescript
+\`\`\`typescript
 const { data: { user } } = await supabase.auth.getUser()
 if (user?.email_confirmed_at) {
   // User is verified
 } else {
   // User needs verification
 }
-```
+\`\`\`
 
 ### 🎯 **Features Implemented**
 
@@ -161,7 +161,7 @@ You can easily customize:
 
 Update your signup page to redirect here:
 
-```typescript
+\`\`\`typescript
 // In your signup form component
 const handleSignup = async (email: string, password: string) => {
   const { data, error } = await supabase.auth.signUp({
@@ -176,7 +176,7 @@ const handleSignup = async (email: string, password: string) => {
     router.push('/verify-email')
   }
 }
-```
+\`\`\`
 
 ### 📋 **Testing Checklist**
 

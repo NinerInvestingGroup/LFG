@@ -4,7 +4,7 @@
 
 ### 📁 **File Placement & Structure**
 
-```
+\`\`\`
 src/
 ├── components/
 │   ├── layouts/                    # ← NEW: Layout components
@@ -19,18 +19,18 @@ src/
 └── public/
     └── images/                    # ← NEW: Image directory
         └── README.md              # Image requirements
-```
+\`\`\`
 
 ### 🔧 **Integration Changes Made**
 
 1. **Import Path Updates**:
-   ```typescript
+   \`\`\`typescript
    // Changed from v0.dev format:
    import { Card, CardContent } from "@/components/ui/card"
    
    // To your project format:
    import { Card, CardContent } from "@/components/ui/Card"
-   ```
+   \`\`\`
 
 2. **TypeScript Fixes**:
    - Fixed apostrophe escaping for Next.js: `Let's` → `Let&apos;s`
@@ -61,7 +61,7 @@ src/
 ### 📱 **Usage Examples**
 
 #### Basic Usage:
-```typescript
+\`\`\`typescript
 import { AuthLayout } from '@/components/layouts/AuthLayout'
 
 export default function MyAuthPage() {
@@ -71,7 +71,7 @@ export default function MyAuthPage() {
     </AuthLayout>
   )
 }
-```
+\`\`\`
 
 #### Current Implementation:
 - **Login Page** (`/login`): Full login form with remember me, forgot password
@@ -80,13 +80,13 @@ export default function MyAuthPage() {
 
 ### 🔗 **Component Props**
 
-```typescript
+\`\`\`typescript
 interface AuthLayoutProps {
   children: React.ReactNode  // Form content to display
   title: string             // Main heading (e.g., "Welcome Back")
   subtitle?: string         // Optional subheading
 }
-```
+\`\`\`
 
 ### 🖼️ **Image Setup**
 
