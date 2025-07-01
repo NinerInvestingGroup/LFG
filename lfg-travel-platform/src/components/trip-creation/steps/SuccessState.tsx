@@ -21,9 +21,10 @@ import type { TripData } from "../TripCreationWizard"
 
 interface SuccessStateProps {
   tripData: TripData
+  tripId?: string | null
 }
 
-export function SuccessState({ tripData }: SuccessStateProps) {
+export function SuccessState({ tripData, tripId }: SuccessStateProps) {
   const [showConfetti, setShowConfetti] = useState(true)
 
   useEffect(() => {
@@ -62,7 +63,13 @@ export function SuccessState({ tripData }: SuccessStateProps) {
       description: "Access your complete trip management hub",
       icon: ArrowRight,
       color: "bg-gradient-to-r from-primary to-secondary hover:from-primary-600 hover:to-secondary-600 text-white",
-      action: () => console.log("Go to dashboard"),
+      action: () => {
+        if (tripId) {
+          window.location.href = `/trips/${tripId}`
+        } else {
+          window.location.href = '/dashboard'
+        }
+      },
     },
   ]
 

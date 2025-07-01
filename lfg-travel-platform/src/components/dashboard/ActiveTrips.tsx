@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
@@ -8,8 +8,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar"
 import { Progress } from "@/components/ui/Progress"
 import { Eye, MessageCircle, Plus, Calendar, MapPin, Users, ArrowRight, Plane, PlusCircle } from "lucide-react"
 import Image from "next/image"
-// import { createClient } from '@/lib/supabase' // TODO: Uncomment when implementing real data fetching
 import { useRouter } from 'next/navigation'
+import { useTrips } from '@/hooks/useTrips'
+import { TripWithParticipants } from '@/services/tripService'
+import { format, differenceInDays } from 'date-fns'
 
 interface TripParticipant {
   id: string
@@ -34,125 +36,65 @@ interface ActiveTripsProps {
   className?: string
 }
 
-export function ActiveTrips({ className }: ActiveTripsProps) {
-  const [trips, setTrips] = useState<Trip[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+// Helper function to convert database trip to display format
+function convertDatabaseTripToDisplayTrip(dbTrip: TripWithParticipants): Trip {
+  const startDate = new Date(dbTrip.start_date)
+  const endDate = new Date(dbTrip.end_date)
   
-  const router = useRouter()
-  // const supabase = createClient() // TODO: Uncomment when implementing real data fetching
-
-  // Calculate countdown from date range
-  const calculateCountdown = (dateRange: string): string => {
-    try {
-      // Extract start date from range (e.g., "Mar 15-28, 2024" -> "Mar 15, 2024")
-      const startDateStr = dateRange.split('-')[0] + ', ' + dateRange.split(', ')[1]
-      const startDate = new Date(startDateStr)
-      const now = new Date()
-      const diffTime = startDate.getTime() - now.getTime()
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-      
-      if (diffDays < 0) return "Trip in progress"
-      if (diffDays === 0) return "Departure today!"
-      if (diffDays === 1) return "1 day to go"
-      return `${diffDays} days to go`
-    } catch {
-      return "Date TBD"
-    }
+  // Calculate countdown
+  const now = new Date()
+  const diffTime = startDate.getTime() - now.getTime()
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+  
+  let countdown = "Trip in progress"
+  if (diffDays < 0) countdown = "Trip in progress"
+  else if (diffDays === 0) countdown = "Departure today!"
+  else if (diffDays === 1) countdown = "1 day to go"
+  else countdown = `${diffDays} days to go`
+  
+  // Format date range
+  const dateRange = `${format(startDate, "MMM d")}-${format(endDate, "d, yyyy")}`
+  
+  // Convert participants
+  const participants: TripParticipant[] = dbTrip.participants
+    .filter(p => p.status === 'approved')
+    .slice(0, 4)
+    .map(p => ({
+      id: p.profile.id,
+      name: p.profile.full_name || 'Unknown',
+      avatar: p.profile.avatar_url || '/images/avatars/default.jpg'
+    }))
+  
+  // Calculate progress (this is a rough estimate based on trip creation date)
+  const daysSinceCreation = differenceInDays(now, new Date(dbTrip.created_at))
+  const daysUntilTrip = Math.max(0, diffDays)
+  const totalPlanningTime = daysSinceCreation + daysUntilTrip
+  const progress = totalPlanningTime > 0 ? Math.min(100, Math.round((daysSinceCreation / totalPlanningTime) * 100)) : 0
+  
+  return {
+    id: dbTrip.id,
+    title: dbTrip.title,
+    destination: dbTrip.destination,
+    coverImage: (dbTrip.images && dbTrip.images.length > 0) ? dbTrip.images[0] : '/images/travel-background.jpg',
+    dateRange,
+    countdown,
+    participants,
+    totalParticipants: dbTrip.max_participants,
+    progress: Math.max(progress, 20), // Minimum 20% progress
+    status: dbTrip.status === 'active' ? 'Active' : dbTrip.status === 'draft' ? 'Planning' : 'Confirmed'
   }
+}
 
-  // Mock data for development - replace with real Supabase query
-  const mockTrips: Trip[] = [
-    {
-      id: "1",
-      title: "Epic Southeast Asia Adventure",
-      destination: "Thailand, Vietnam, Cambodia",
-      coverImage: "/images/trips/southeast-asia.jpg",
-      dateRange: "Mar 15-28, 2024",
-      countdown: "42 days to go",
-      participants: [
-        { id: "1", name: "Sarah Chen", avatar: "/images/avatars/sarah.jpg" },
-        { id: "2", name: "Mike Johnson", avatar: "/images/avatars/mike.jpg" },
-        { id: "3", name: "Emma Wilson", avatar: "/images/avatars/emma.jpg" },
-        { id: "4", name: "David Kim", avatar: "/images/avatars/david.jpg" },
-      ],
-      totalParticipants: 8,
-      progress: 75,
-      status: "Planning",
-    },
-    {
-      id: "2",
-      title: "European Summer Festival Tour",
-      destination: "Spain, France, Netherlands",
-      coverImage: "/images/trips/europe-festivals.jpg",
-      dateRange: "Jun 10-25, 2024",
-      countdown: "128 days to go",
-      participants: [
-        { id: "5", name: "Alex Rodriguez", avatar: "/images/avatars/alex.jpg" },
-        { id: "6", name: "Lisa Park", avatar: "/images/avatars/lisa.jpg" },
-        { id: "7", name: "Tom Brown", avatar: "/images/avatars/tom.jpg" },
-      ],
-      totalParticipants: 12,
-      progress: 45,
-      status: "Confirmed",
-    },
-    {
-      id: "3",
-      title: "African Safari Experience",
-      destination: "Kenya, Tanzania",
-      coverImage: "/images/trips/african-safari.jpg",
-      dateRange: "Aug 5-15, 2024",
-      countdown: "185 days to go",
-      participants: [
-        { id: "8", name: "Maria Santos", avatar: "/images/avatars/maria.jpg" },
-        { id: "9", name: "James Wilson", avatar: "/images/avatars/james.jpg" },
-      ],
-      totalParticipants: 6,
-      progress: 20,
-      status: "Active",
-    },
-  ]
+export function ActiveTrips({ className }: ActiveTripsProps) {
+  const router = useRouter()
+  
+  // Use our database hook to get real trips
+  const { trips: dbTrips, loading: isLoading, error, refetch } = useTrips()
+  
+  // Convert database trips to display format
+  const trips = dbTrips?.map(convertDatabaseTripToDisplayTrip) || []
 
-  useEffect(() => {
-    const fetchTrips = async () => {
-      try {
-        setIsLoading(true)
-        
-        // TODO: Replace with actual Supabase query
-        // const { data: { user } } = await supabase.auth.getUser()
-        // if (!user) {
-        //   router.push('/login')
-        //   return
-        // }
 
-        // const { data: tripsData, error: tripsError } = await supabase
-        //   .from('trips')
-        //   .select(`
-        //     *,
-        //     trip_participants (
-        //       profiles (id, full_name, avatar_url)
-        //     )
-        //   `)
-        //   .eq('status', 'active')
-        //   .order('created_at', { ascending: false })
-
-        // For now, use mock data with calculated countdowns
-        const tripsWithCountdown = mockTrips.map(trip => ({
-          ...trip,
-          countdown: calculateCountdown(trip.dateRange)
-        }))
-
-        setTrips(tripsWithCountdown)
-      } catch (err) {
-        setError('Failed to load trips')
-        console.error('Error fetching trips:', err)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    fetchTrips()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -180,7 +122,7 @@ export function ActiveTrips({ className }: ActiveTripsProps) {
   }
 
   const handleCreateTrip = () => {
-    router.push('/trips/create')
+    router.push('/create-trip')
   }
 
   const handleViewAllTrips = () => {

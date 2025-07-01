@@ -10,6 +10,9 @@ import { SquadAssembly } from "./steps/SquadAssembly"
 import { ReviewCreate } from "./steps/ReviewCreate"
 import { SuccessState } from "./steps/SuccessState"
 import { X, ArrowLeft, ArrowRight, Save } from "lucide-react"
+import { useCreateTrip } from "@/hooks/useTrips"
+import { useRouter } from "next/navigation"
+import { TripInsert } from "@/services/tripService"
 
 export interface TripData {
   // Step 1 - Basics
@@ -67,10 +70,14 @@ const initialTripData: TripData = {
 export function TripCreationWizard() {
   const [currentStep, setCurrentStep] = useState(1)
   const [tripData, setTripData] = useState<TripData>(initialTripData)
-  const [isLoading, setIsLoading] = useState(false)
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
   const [showExitConfirm, setShowExitConfirm] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const [createdTripId, setCreatedTripId] = useState<string | null>(null)
+  
+  // Use our database hook for creating trips
+  const { createTrip, loading: isLoading, error: createError } = useCreateTrip()
+  const router = useRouter()
 
   const totalSteps = 4
   const progress = (currentStep / totalSteps) * 100
@@ -131,20 +138,52 @@ export function TripCreationWizard() {
   }
 
   const handleSaveDraft = async () => {
-    setIsLoading(true)
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setIsLoading(false)
-    setHasUnsavedChanges(false)
-    console.log("Draft saved")
+    // Convert our TripData to database format
+    const tripInsertData = {
+      title: tripData.name,
+      description: tripData.description || null,
+      destination: tripData.destination,
+      start_date: tripData.startDate?.toISOString().split('T')[0] || '',
+      end_date: tripData.endDate?.toISOString().split('T')[0] || '',
+      max_participants: tripData.maxParticipants,
+      budget_min: tripData.budgetRange[0],
+      budget_max: tripData.budgetRange[1],
+      trip_type: tripData.tripType,
+      difficulty_level: 'moderate', // Default value
+      tags: tripData.travelStyles,
+      status: 'draft' as const, // Save as draft
+    } as TripInsert
+
+    const result = await createTrip(tripInsertData)
+    if (result) {
+      setHasUnsavedChanges(false)
+      console.log("Draft saved successfully")
+    }
   }
 
   const handleCreateTrip = async () => {
-    setIsLoading(true)
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-    setIsLoading(false)
-    setIsSuccess(true)
+    // Convert our TripData to database format
+    const tripInsertData = {
+      title: tripData.name,
+      description: tripData.description || null,
+      destination: tripData.destination,
+      start_date: tripData.startDate?.toISOString().split('T')[0] || '',
+      end_date: tripData.endDate?.toISOString().split('T')[0] || '',
+      max_participants: tripData.maxParticipants,
+      budget_min: tripData.budgetRange[0],
+      budget_max: tripData.budgetRange[1],
+      trip_type: tripData.tripType,
+      difficulty_level: 'moderate', // Default value
+      tags: tripData.travelStyles,
+      status: 'active' as const, // Create as active trip
+    } as TripInsert
+
+    const result = await createTrip(tripInsertData)
+    if (result) {
+      setCreatedTripId(result.id)
+      setIsSuccess(true)
+      setHasUnsavedChanges(false)
+    }
   }
 
   const renderStep = () => {
@@ -171,7 +210,7 @@ export function TripCreationWizard() {
   }
 
   if (isSuccess) {
-    return <SuccessState tripData={tripData} />
+    return <SuccessState tripData={tripData} tripId={createdTripId} />
   }
 
   return (
