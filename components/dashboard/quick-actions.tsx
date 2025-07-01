@@ -3,8 +3,21 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { PlusCircle, Hash, UserCheck, Users } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 export function QuickActions() {
+  const router = useRouter()
+  
+  const handleAction = (actionId: string) => {
+    switch (actionId) {
+      case "create-trip":
+        router.push("/dashboard/create-trip")
+        break
+      default:
+        console.log(`Action: ${actionId}`)
+    }
+  }
+  
   const actions = [
     {
       id: "create-trip",
@@ -73,7 +86,7 @@ export function QuickActions() {
               <Button
                 key={action.id}
                 className={`${getButtonStyles(action.variant, action.size)} flex flex-col items-center justify-center space-y-2 p-4`}
-                onClick={() => console.log(`Action: ${action.id}`)}
+                onClick={() => handleAction(action.id)}
               >
                 <Icon
                   className={`${action.size === "large" ? "w-8 h-8" : "w-6 h-6"} group-hover:scale-110 transition-transform`}
