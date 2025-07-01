@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/ui/Badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar"
 import { Users, UserPlus, Clock, Trophy, Phone, CheckCircle, X, Calendar, MapPin } from "lucide-react"
-import { createClient } from '@/lib/supabase'
+// import { createClient } from '@/lib/supabase' // TODO: Uncomment when implementing real data fetching
 import { useRouter } from 'next/navigation'
 
 interface PendingInvitation {
