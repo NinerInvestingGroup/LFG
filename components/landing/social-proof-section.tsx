@@ -23,7 +23,7 @@ export function SocialProofSection() {
     {
       name: "Sarah Chen",
       role: "Adventure Enthusiast",
-      avatar: "/placeholder.svg?height=48&width=48",
+      avatar: "https://ui-avatars.com/api/?name=Sarah+Chen&background=6366f1&color=fff&size=48",
       content: "LFG transformed how we plan group trips. No more endless group chats and confusion!",
       rating: 5,
       location: "Bali, Indonesia",
@@ -31,7 +31,7 @@ export function SocialProofSection() {
     {
       name: "Marcus Johnson",
       role: "Travel Blogger",
-      avatar: "/placeholder.svg?height=48&width=48",
+      avatar: "https://ui-avatars.com/api/?name=Marcus+Johnson&background=8b5cf6&color=fff&size=48",
       content: "The community aspect is incredible. I've met lifelong travel buddies through LFG.",
       rating: 5,
       location: "Tokyo, Japan",
@@ -39,7 +39,7 @@ export function SocialProofSection() {
     {
       name: "Elena Rodriguez",
       role: "Digital Nomad",
-      avatar: "/placeholder.svg?height=48&width=48",
+      avatar: "https://ui-avatars.com/api/?name=Elena+Rodriguez&background=06b6d4&color=fff&size=48",
       content: "Finally, a platform that gets group travel. The coordination tools are game-changing.",
       rating: 5,
       location: "Barcelona, Spain",
@@ -47,12 +47,12 @@ export function SocialProofSection() {
   ]
 
   const integrations = [
-    { name: "Stripe", logo: "/placeholder.svg?height=40&width=120" },
-    { name: "Google Maps", logo: "/placeholder.svg?height=40&width=120" },
-    { name: "Instagram", logo: "/placeholder.svg?height=40&width=120" },
-    { name: "WhatsApp", logo: "/placeholder.svg?height=40&width=120" },
-    { name: "Airbnb", logo: "/placeholder.svg?height=40&width=120" },
-    { name: "Booking.com", logo: "/placeholder.svg?height=40&width=120" },
+    { name: "Stripe", logo: "https://via.placeholder.com/120x40/635bff/ffffff?text=Stripe" },
+    { name: "Google Maps", logo: "https://via.placeholder.com/120x40/34a853/ffffff?text=Maps" },
+    { name: "Instagram", logo: "https://via.placeholder.com/120x40/e4405f/ffffff?text=Instagram" },
+    { name: "WhatsApp", logo: "https://via.placeholder.com/120x40/25d366/ffffff?text=WhatsApp" },
+    { name: "Airbnb", logo: "https://via.placeholder.com/120x40/ff5a5f/ffffff?text=Airbnb" },
+    { name: "Booking.com", logo: "https://via.placeholder.com/120x40/003580/ffffff?text=Booking" },
   ]
 
   return (
@@ -129,7 +129,7 @@ export function SocialProofSection() {
 
                   <div className="flex items-center gap-3">
                     <Avatar>
-                      <AvatarImage src={testimonial.avatar || "/placeholder.svg"} alt={testimonial.name} />
+                      <AvatarImage src={testimonial.avatar || "/placeholder.svg"} alt={`${testimonial.name} - ${testimonial.role} profile picture`} />
                       <AvatarFallback>
                         {testimonial.name
                           .split(" ")
@@ -183,7 +183,7 @@ export function SocialProofSection() {
               <div key={index} className="flex justify-center">
                 <Image
                   src={integration.logo || "/placeholder.svg"}
-                  alt={integration.name}
+                  alt={`${integration.name} integration logo`}
                   width={120}
                   height={40}
                   className="h-8 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-200"

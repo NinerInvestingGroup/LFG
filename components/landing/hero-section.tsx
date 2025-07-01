@@ -110,8 +110,8 @@ export function HeroSection() {
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-500">
               <Image
-                src="/placeholder.svg?height=600&width=500"
-                alt="Happy diverse group of friends celebrating their travel adventure"
+                src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=500&h=600&fit=crop&auto=format"
+                alt="Happy diverse group of friends celebrating their travel adventure with backpacks and excited expressions"
                 width={500}
                 height={600}
                 className="w-full h-auto object-cover"

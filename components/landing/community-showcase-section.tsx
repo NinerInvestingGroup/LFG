@@ -16,13 +16,13 @@ export function CommunityShowcaseSection() {
       id: 1,
       title: "Epic Southeast Asia Adventure",
       location: "Thailand, Vietnam, Cambodia",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&auto=format",
       travelers: 8,
       duration: "14 days",
       status: "Active",
       organizer: {
         name: "Alex Chen",
-        avatar: "/placeholder.svg?height=40&width=40",
+        avatar: "https://ui-avatars.com/api/?name=Alex+Chen&background=10b981&color=fff&size=40",
       },
       likes: 124,
       comments: 23,
@@ -31,13 +31,13 @@ export function CommunityShowcaseSection() {
       id: 2,
       title: "European Summer Festival Tour",
       location: "Spain, France, Netherlands",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&h=300&fit=crop&auto=format",
       travelers: 12,
       duration: "21 days",
       status: "Planning",
       organizer: {
         name: "Maria Santos",
-        avatar: "/placeholder.svg?height=40&width=40",
+        avatar: "https://ui-avatars.com/api/?name=Maria+Santos&background=f59e0b&color=fff&size=40",
       },
       likes: 89,
       comments: 15,
@@ -46,13 +46,13 @@ export function CommunityShowcaseSection() {
       id: 3,
       title: "African Safari Experience",
       location: "Kenya, Tanzania",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400&h=300&fit=crop&auto=format",
       travelers: 6,
       duration: "10 days",
       status: "Completed",
       organizer: {
         name: "David Kim",
-        avatar: "/placeholder.svg?height=40&width=40",
+        avatar: "https://ui-avatars.com/api/?name=David+Kim&background=ef4444&color=fff&size=40",
       },
       likes: 256,
       comments: 42,
@@ -65,21 +65,21 @@ export function CommunityShowcaseSection() {
       title: "Top Travel Organizer",
       description: "Organized 15+ successful group trips",
       user: "Sarah Johnson",
-      avatar: "/placeholder.svg?height=48&width=48",
+      avatar: "https://ui-avatars.com/api/?name=Sarah+Johnson&background=eab308&color=fff&size=48",
     },
     {
       icon: Camera,
       title: "Photography Master",
       description: "Shared 500+ travel photos",
       user: "Mike Rodriguez",
-      avatar: "/placeholder.svg?height=48&width=48",
+      avatar: "https://ui-avatars.com/api/?name=Mike+Rodriguez&background=3b82f6&color=fff&size=48",
     },
     {
       icon: Star,
       title: "Community Helper",
       description: "Helped 100+ travelers plan trips",
       user: "Emma Wilson",
-      avatar: "/placeholder.svg?height=48&width=48",
+      avatar: "https://ui-avatars.com/api/?name=Emma+Wilson&background=a855f7&color=fff&size=48",
     },
   ]
 
@@ -88,16 +88,16 @@ export function CommunityShowcaseSection() {
       title: "From Strangers to Best Friends",
       description: "How LFG helped me find my travel family in Japan",
       author: "Jessica Park",
-      avatar: "/placeholder.svg?height=40&width=40",
-      image: "/placeholder.svg?height=200&width=300",
+      avatar: "https://ui-avatars.com/api/?name=Jessica+Park&background=06b6d4&color=fff&size=40",
+      image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=300&h=200&fit=crop&auto=format",
       readTime: "3 min read",
     },
     {
       title: "Planning a 20-Person Wedding Trip",
       description: "Coordinating our dream destination wedding with LFG",
       author: "Tom & Lisa",
-      avatar: "/placeholder.svg?height=40&width=40",
-      image: "/placeholder.svg?height=200&width=300",
+      avatar: "https://ui-avatars.com/api/?name=Tom+Lisa&background=ec4899&color=fff&size=40",
+      image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=300&h=200&fit=crop&auto=format",
       readTime: "5 min read",
     },
   ]
@@ -154,7 +154,7 @@ export function CommunityShowcaseSection() {
                 <div className="relative">
                   <Image
                     src={trip.image || "/placeholder.svg"}
-                    alt={trip.title}
+                    alt={`${trip.title} - Beautiful destination photo of ${trip.location}`}
                     width={400}
                     height={300}
                     className="w-full h-48 object-cover"
@@ -194,7 +194,7 @@ export function CommunityShowcaseSection() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <Avatar className="w-8 h-8">
-                        <AvatarImage src={trip.organizer.avatar || "/placeholder.svg"} alt={trip.organizer.name} />
+                        <AvatarImage src={trip.organizer.avatar || "/placeholder.svg"} alt={`${trip.organizer.name} - Trip organizer profile picture`} />
                         <AvatarFallback>
                           {trip.organizer.name
                             .split(" ")
@@ -239,7 +239,7 @@ export function CommunityShowcaseSection() {
 
                     <div className="flex items-center justify-center gap-2">
                       <Avatar>
-                        <AvatarImage src={achievement.avatar || "/placeholder.svg"} alt={achievement.user} />
+                        <AvatarImage src={achievement.avatar || "/placeholder.svg"} alt={`${achievement.user} - ${achievement.title} profile picture`} />
                         <AvatarFallback>
                           {achievement.user
                             .split(" ")
@@ -263,7 +263,7 @@ export function CommunityShowcaseSection() {
               <Card key={index} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-200">
                 <Image
                   src={story.image || "/placeholder.svg"}
-                  alt={story.title}
+                  alt={`${story.title} - Travel story cover image`}
                   width={300}
                   height={200}
                   className="w-full h-48 object-cover"
@@ -273,19 +273,19 @@ export function CommunityShowcaseSection() {
                   <h3 className="font-bold text-lg mb-2">{story.title}</h3>
                   <p className="text-neutral-600 mb-4">{story.description}</p>
 
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Avatar className="w-8 h-8">
-                        <AvatarImage src={story.avatar || "/placeholder.svg"} alt={story.author} />
-                        <AvatarFallback>
-                          {story.author
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
-                        </AvatarFallback>
-                      </Avatar>
-                      <span className="text-sm font-medium">{story.author}</span>
-                    </div>
+                                      <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Avatar className="w-8 h-8">
+                          <AvatarImage src={story.avatar || "/placeholder.svg"} alt={`${story.author} - Story author profile picture`} />
+                          <AvatarFallback>
+                            {story.author
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")}
+                          </AvatarFallback>
+                        </Avatar>
+                        <span className="text-sm font-medium">{story.author}</span>
+                      </div>
 
                     <span className="text-sm text-neutral-500">{story.readTime}</span>
                   </div>
