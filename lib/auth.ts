@@ -27,6 +27,7 @@ export async function signUp(userData: SignupData): Promise<AuthResponse> {
       email: userData.email,
       password: userData.password,
       options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
         data: {
           full_name: userData.fullName,
           travel_style: userData.travelStyle,
@@ -118,7 +119,7 @@ export async function resetPassword(email: string): Promise<AuthResponse> {
     }
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/auth/reset-password`
+      redirectTo: `${window.location.origin}/auth/callback`
     })
 
     if (error) {

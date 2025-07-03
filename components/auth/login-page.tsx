@@ -2,16 +2,18 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { AuthLayout } from "./auth-layout"
-import { Eye, EyeOff, Mail, Lock, Loader2, ArrowRight } from "lucide-react"
+import { Eye, EyeOff, Mail, Lock, Loader2, ArrowRight, X } from "lucide-react"
 import Link from "next/link"
+import { useSearchParams } from "next/navigation"
 
 export function LoginPage() {
+  const searchParams = useSearchParams()
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -20,6 +22,15 @@ export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [callbackError, setCallbackError] = useState<string | null>(null)
+
+  useEffect(() => {
+    // Check for callback error from email confirmation
+    const error = searchParams.get('error')
+    if (error) {
+      setCallbackError(decodeURIComponent(error))
+    }
+  }, [searchParams])
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -73,6 +84,23 @@ export function LoginPage() {
   return (
     <AuthLayout title="Welcome Back, Adventurer!" subtitle="Sign in to continue your travel journey">
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Callback Error Message */}
+        {callbackError && (
+          <div className="bg-destructive-50 border border-destructive-200 rounded-lg p-4">
+            <div className="flex items-center gap-2">
+              <X className="w-4 h-4 text-destructive flex-shrink-0" />
+              <p className="text-sm text-destructive font-medium">{callbackError}</p>
+              <button
+                type="button"
+                onClick={() => setCallbackError(null)}
+                className="ml-auto text-destructive hover:text-destructive/80"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Email */}
         <div className="space-y-2">
           <Label htmlFor="email">Email Address</Label>
