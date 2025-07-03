@@ -1,114 +1,197 @@
 "use client"
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
 import { AuthLayout } from "./auth-layout"
-import { Mail, CheckCircle, Loader2, RefreshCw } from "lucide-react"
+import { Mail, ArrowRight, Loader2, CheckCircle, X } from "lucide-react"
+import Link from "next/link"
+import { useState, useEffect } from "react"
+import { useSearchParams } from "next/navigation"
+import { resendVerificationEmail } from "@/lib/auth"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 export function EmailVerificationPage() {
-  const [isResending, setIsResending] = useState(false)
-  const [resendSuccess, setResendSuccess] = useState(false)
+  const searchParams = useSearchParams()
+  const [email, setEmail] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const [message, setMessage] = useState("")
+  const [error, setError] = useState("")
+  const [showResendForm, setShowResendForm] = useState(false)
 
-  const handleResendEmail = async () => {
-    setIsResending(true)
+  useEffect(() => {
+    // Get email from URL params if available
+    const emailParam = searchParams.get('email')
+    if (emailParam) {
+      setEmail(emailParam)
+    }
+  }, [searchParams])
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+  const handleResendEmail = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (!email.trim()) {
+      setError("Please enter your email address")
+      return
+    }
 
-    setIsResending(false)
-    setResendSuccess(true)
+    setIsLoading(true)
+    setError("")
+    setMessage("")
 
-    // Reset success message after 3 seconds
-    setTimeout(() => setResendSuccess(false), 3000)
+    try {
+      const result = await resendVerificationEmail(email)
+      
+      if (result.success) {
+        setMessage("Verification email sent! Please check your inbox and spam folder.")
+        setShowResendForm(false)
+      } else {
+        setError(result.error || "Failed to send verification email. Please try again.")
+      }
+    } catch (error) {
+      setError("An unexpected error occurred. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
-  const handleContinueToApp = () => {
-    // Navigate to app dashboard
-    console.log("Continuing to app...")
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
   }
 
   return (
-    <AuthLayout title="Verify Your Email" subtitle="We've sent a verification link to your email address">
+    <AuthLayout
+      title="Verify Your Email"
+      subtitle="Complete your account setup"
+    >
       <div className="text-center space-y-6">
-        <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto">
+        {/* Email Icon */}
+        <div className="w-16 h-16 bg-primary-50 rounded-full flex items-center justify-center mx-auto">
           <Mail className="w-8 h-8 text-primary" />
         </div>
-
-        <div className="space-y-4">
+        
+        {/* Success Message */}
+        {message && (
           <div className="bg-success-50 border border-success-200 rounded-lg p-4">
-            <div className="flex items-center justify-center gap-2 text-success-700 mb-2">
-              <CheckCircle className="w-5 h-5" />
-              <span className="font-medium">Account Created Successfully!</span>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-5 h-5 text-success flex-shrink-0" />
+              <p className="text-sm text-success font-medium">{message}</p>
             </div>
-            <p className="text-sm text-success-600">
-              Welcome to the LFG community! Please verify your email to get started.
+          </div>
+        )}
+
+        {/* Error Message */}
+        {error && (
+          <div className="bg-destructive-50 border border-destructive-200 rounded-lg p-4">
+            <div className="flex items-center gap-2">
+              <X className="w-4 h-4 text-destructive flex-shrink-0" />
+              <p className="text-sm text-destructive font-medium">{error}</p>
+            </div>
+          </div>
+        )}
+        
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-neutral-900">
+            Check Your Email
+          </h3>
+          <p className="text-neutral-600">
+            We've sent a verification link to your email address. Please click the link to verify your account.
+          </p>
+          <p className="text-sm text-neutral-500">
+            Make sure to check your spam folder if you don't see the email in your inbox.
+          </p>
+        </div>
+
+        {/* Instructions */}
+        <div className="bg-neutral-50 rounded-lg p-4 space-y-3">
+          <h4 className="font-medium text-neutral-900">Next Steps:</h4>
+          <div className="text-sm text-neutral-600 space-y-1">
+            <p>1. Open the verification email</p>
+            <p>2. Click "Verify Email Address"</p>
+            <p>3. You'll be redirected to your dashboard</p>
+          </div>
+        </div>
+
+        {/* Resend Email Section */}
+        {!showResendForm ? (
+          <div className="space-y-3">
+            <p className="text-sm text-neutral-600">
+              Didn't receive the email?
             </p>
+            <Button
+              variant="outline"
+              onClick={() => setShowResendForm(true)}
+              className="w-full"
+            >
+              <Mail className="w-4 h-4 mr-2" />
+              Resend Verification Email
+            </Button>
           </div>
-
-          <div className="text-left bg-neutral-50 rounded-lg p-4 space-y-3">
-            <h4 className="font-medium text-neutral-900">Next Steps:</h4>
-            <ol className="text-sm text-neutral-600 space-y-2">
-              <li className="flex items-start gap-2">
-                <span className="flex-shrink-0 w-5 h-5 bg-primary text-white rounded-full flex items-center justify-center text-xs font-medium">
-                  1
-                </span>
-                Check your email inbox (and spam folder)
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="flex-shrink-0 w-5 h-5 bg-primary text-white rounded-full flex items-center justify-center text-xs font-medium">
-                  2
-                </span>
-                Click the verification link in the email
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="flex-shrink-0 w-5 h-5 bg-primary text-white rounded-full flex items-center justify-center text-xs font-medium">
-                  3
-                </span>
-                Start planning your first epic adventure!
-              </li>
-            </ol>
-          </div>
-        </div>
-
-        <div className="space-y-3">
-          <Button
-            onClick={handleResendEmail}
-            variant="outline"
-            className="w-full min-h-[44px] border-2 bg-transparent"
-            disabled={isResending}
-          >
-            {isResending ? (
-              <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Sending Email...
-              </>
-            ) : (
-              <>
-                <RefreshCw className="w-4 h-4 mr-2" />
-                Resend Verification Email
-              </>
-            )}
-          </Button>
-
-          {resendSuccess && (
-            <div className="text-sm text-success-600 bg-success-50 rounded-lg p-3">
-              ✓ Verification email sent successfully!
+        ) : (
+          <form onSubmit={handleResendEmail} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email Address</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="Enter your email address"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value)
+                  if (error) setError("")
+                }}
+                className={`${error ? "border-destructive focus:ring-destructive" : ""}`}
+                required
+              />
             </div>
-          )}
+            
+            <div className="flex gap-3">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  setShowResendForm(false)
+                  setError("")
+                }}
+                className="flex-1"
+                disabled={isLoading}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                className="flex-1 bg-primary hover:bg-primary-600"
+                disabled={isLoading || !validateEmail(email)}
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Mail className="w-4 h-4 mr-2" />
+                    Send Email
+                  </>
+                )}
+              </Button>
+            </div>
+          </form>
+        )}
 
-          <Button
-            onClick={handleContinueToApp}
-            className="w-full bg-primary hover:bg-primary-600 text-white font-semibold min-h-[44px]"
-          >
-            Continue to LFG
-          </Button>
-        </div>
-
-        <div className="text-xs text-neutral-500 bg-neutral-50 rounded-lg p-3">
-          <p>
-            <strong>Having trouble?</strong> Contact our support team at{" "}
-            <a href="mailto:support@lfgtravel.com" className="text-primary hover:underline">
-              support@lfgtravel.com
+        {/* Navigation Links */}
+        <div className="space-y-3 pt-4 border-t border-neutral-200">
+          <Link href="/auth/login">
+            <Button variant="outline" className="w-full">
+              Back to Login
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </Link>
+          
+          <p className="text-sm text-neutral-500">
+            Need help?{" "}
+            <a href="mailto:support@lfgetaway.com" className="text-primary hover:underline">
+              Contact Support
             </a>
           </p>
         </div>
