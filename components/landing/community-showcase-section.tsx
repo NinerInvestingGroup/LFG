@@ -2,214 +2,277 @@
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { TrendingUp, Clock, DollarSign, Users, MapPin, Calendar } from "lucide-react"
+import {
+  TrendingUp,
+  MapPin,
+  Users,
+  Calendar,
+  DollarSign,
+  Star,
+  Heart,
+  MessageSquare,
+  Share2,
+  Bookmark,
+} from "lucide-react"
+import Image from "next/image"
 
 export function CommunityShowcaseSection() {
   const trendingTrips = [
     {
-      id: "bali-adventure",
-      title: "Bali Squad Adventure",
-      location: "Bali, Indonesia",
-      image: "/images/hero-adventure-2.jpg",
+      id: 1,
+      title: "Bali Squad Goals",
+      destination: "Bali, Indonesia",
+      image: "/placeholder.svg?height=300&width=400&text=Bali+Beach+Vibes",
       participants: 8,
-      budget: "$1,200",
       duration: "10 days",
+      budget: "$1,200",
       savings: "$400",
-      vibe: "🏄‍♀️ Surf & Chill",
+      likes: 234,
+      comments: 18,
+      tags: ["Beach", "Culture", "Adventure"],
       status: "Planning",
-      progress: 75,
+      organizer: "Sarah M.",
     },
     {
-      id: "tokyo-foodie",
-      title: "Tokyo Foodie Tour",
-      location: "Tokyo, Japan",
-      image: "/images/hero-adventure-1.jpg",
+      id: 2,
+      title: "Tokyo Neon Nights",
+      destination: "Tokyo, Japan",
+      image: "/placeholder.svg?height=300&width=400&text=Tokyo+City+Lights",
       participants: 6,
-      budget: "$1,800",
       duration: "7 days",
+      budget: "$1,800",
       savings: "$600",
-      vibe: "🍜 Food Paradise",
-      status: "Booking",
-      progress: 90,
+      likes: 189,
+      comments: 24,
+      tags: ["City", "Food", "Culture"],
+      status: "Active",
+      organizer: "Mike K.",
     },
     {
-      id: "iceland-northern",
-      title: "Iceland Northern Lights",
-      location: "Reykjavik, Iceland",
-      image: "/images/hero-adventure-3.jpg",
-      participants: 5,
-      budget: "$2,200",
-      duration: "8 days",
+      id: 3,
+      title: "European Adventure",
+      destination: "Multi-City Europe",
+      image: "/placeholder.svg?height=300&width=400&text=European+Cities",
+      participants: 12,
+      duration: "14 days",
+      budget: "$2,500",
       savings: "$800",
-      vibe: "🌌 Aurora Magic",
-      status: "Confirmed",
-      progress: 100,
+      likes: 312,
+      comments: 31,
+      tags: ["Backpacking", "History", "Culture"],
+      status: "Planning",
+      organizer: "Emma L.",
     },
   ]
 
   const communityStats = [
-    { icon: TrendingUp, label: "Trending Now", value: "127 trips", color: "text-green-500" },
-    { icon: Clock, label: "Planning", value: "89 trips", color: "text-yellow-500" },
-    { icon: Users, label: "Active Squads", value: "2.3K", color: "text-blue-500" },
-    { icon: DollarSign, label: "Saved Today", value: "$12K", color: "text-purple-500" },
+    { label: "Active Trips", value: "1,247", trend: "+12%", icon: TrendingUp },
+    { label: "Countries", value: "89", trend: "+5", icon: MapPin },
+    { label: "Travel Squads", value: "15K+", trend: "+23%", icon: Users },
+    { label: "Money Saved", value: "$2.1M", trend: "+45%", icon: DollarSign },
   ]
 
   return (
-    <section className="py-20 bg-neutral-900 text-white">
+    <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <Badge className="bg-gradient-to-r from-primary to-secondary text-white mb-6 px-6 py-2 text-lg font-bold">
+          <Badge className="bg-warning text-white mb-6 px-6 py-2 text-lg font-bold">
             <TrendingUp className="w-5 h-5 mr-2" />
-            Live Community
+            Community Spotlight
           </Badge>
-          <h2 className="text-4xl sm:text-5xl font-black mb-6">
-            See What's
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 ml-4">
-              Trending
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-neutral-900 mb-6">
+            Join the
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-warning to-primary ml-4">
+              Movement
             </span>
           </h2>
-          <p className="text-xl text-neutral-300 max-w-2xl mx-auto font-medium">
-            Real trips being planned right now by travelers like you
+          <p className="text-xl text-neutral-600 max-w-3xl mx-auto font-medium">
+            Discover trending trips, connect with fellow adventurers, and get inspired by the LFG community
           </p>
         </div>
 
         {/* Community Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {communityStats.map((stat, index) => {
             const Icon = stat.icon
             return (
-              <Card key={index} className="bg-neutral-800 border-neutral-700">
-                <CardContent className="p-6 text-center">
-                  <Icon className={`w-8 h-8 ${stat.color} mx-auto mb-3`} />
-                  <div className="text-2xl font-black text-white mb-1">{stat.value}</div>
-                  <div className="text-neutral-400 text-sm font-medium">{stat.label}</div>
+              <Card
+                key={index}
+                className="text-center p-6 border-2 border-primary-100 hover:border-primary-200 transition-all duration-300 hover:shadow-lg"
+              >
+                <CardContent className="p-0">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <Icon className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="text-3xl font-black text-neutral-900 mb-1">{stat.value}</div>
+                  <div className="text-sm text-neutral-600 mb-2">{stat.label}</div>
+                  <Badge className="bg-success-100 text-success-700 text-xs">{stat.trend} this month</Badge>
                 </CardContent>
               </Card>
             )
           })}
         </div>
 
-        {/* Trending Trips Tabs */}
+        {/* Trending Trips Showcase */}
         <Tabs defaultValue="trending" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 bg-neutral-800 mb-8">
-            <TabsTrigger value="trending" className="data-[state=active]:bg-primary">
+          <TabsList className="grid w-full grid-cols-3 mb-8">
+            <TabsTrigger value="trending" className="text-lg font-semibold">
               🔥 Trending
             </TabsTrigger>
-            <TabsTrigger value="planning" className="data-[state=active]:bg-primary">
-              ⚡ Planning
+            <TabsTrigger value="new" className="text-lg font-semibold">
+              ✨ New
             </TabsTrigger>
-            <TabsTrigger value="confirmed" className="data-[state=active]:bg-primary">
-              ✅ Confirmed
+            <TabsTrigger value="featured" className="text-lg font-semibold">
+              ⭐ Featured
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="trending" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {trendingTrips.map((trip, index) => (
+          <TabsContent value="trending" className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {trendingTrips.map((trip) => (
                 <Card
                   key={trip.id}
-                  className="bg-neutral-800 border-neutral-700 overflow-hidden group hover:scale-105 transition-all duration-300"
+                  className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105"
                 >
                   <div className="relative">
-                    <img src={trip.image || "/placeholder.svg"} alt={trip.title} className="w-full h-48 object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <Image
+                      src={trip.image || "/placeholder.svg"}
+                      alt={trip.title}
+                      width={400}
+                      height={300}
+                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
 
                     {/* Status Badge */}
                     <Badge
-                      className={`absolute top-3 right-3 ${
-                        trip.status === "Confirmed"
-                          ? "bg-green-500"
-                          : trip.status === "Booking"
-                            ? "bg-yellow-500"
-                            : "bg-blue-500"
+                      className={`absolute top-4 left-4 ${
+                        trip.status === "Active" ? "bg-success text-white" : "bg-warning text-white"
                       }`}
                     >
                       {trip.status}
                     </Badge>
 
-                    {/* Vibe Badge */}
-                    <Badge className="absolute bottom-3 left-3 bg-black/50 backdrop-blur-sm">{trip.vibe}</Badge>
+                    {/* Savings Badge */}
+                    <Badge className="absolute top-4 right-4 bg-primary text-white font-bold">
+                      Saved {trip.savings}
+                    </Badge>
+
+                    {/* Quick Actions Overlay */}
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                      <Button size="sm" className="bg-white text-primary hover:bg-white/90">
+                        <Heart className="w-4 h-4 mr-1" />
+                        Save
+                      </Button>
+                      <Button size="sm" className="bg-white text-primary hover:bg-white/90">
+                        <Share2 className="w-4 h-4 mr-1" />
+                        Share
+                      </Button>
+                    </div>
                   </div>
 
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-white mb-2">{trip.title}</h3>
-
-                    <div className="flex items-center gap-2 text-neutral-300 mb-4">
-                      <MapPin className="w-4 h-4" />
-                      <span className="text-sm">{trip.location}</span>
+                    {/* Trip Header */}
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <h3 className="text-xl font-black text-neutral-900 mb-1">{trip.title}</h3>
+                        <div className="flex items-center gap-1 text-neutral-600">
+                          <MapPin className="w-4 h-4" />
+                          <span className="text-sm font-medium">{trip.destination}</span>
+                        </div>
+                      </div>
+                      <Button variant="ghost" size="sm">
+                        <Bookmark className="w-4 h-4" />
+                      </Button>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4 mb-4">
+                    {/* Trip Details */}
+                    <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
                       <div className="flex items-center gap-2">
-                        <Users className="w-4 h-4 text-blue-400" />
-                        <span className="text-sm text-neutral-300">{trip.participants} people</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-green-400" />
-                        <span className="text-sm text-neutral-300">{trip.duration}</span>
+                        <Users className="w-4 h-4 text-primary" />
+                        <span>{trip.participants} people</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <DollarSign className="w-4 h-4 text-yellow-400" />
-                        <span className="text-sm text-neutral-300">{trip.budget}</span>
+                        <Calendar className="w-4 h-4 text-secondary" />
+                        <span>{trip.duration}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <TrendingUp className="w-4 h-4 text-purple-400" />
-                        <span className="text-sm text-green-400">Saved {trip.savings}</span>
+                        <DollarSign className="w-4 h-4 text-success" />
+                        <span>{trip.budget}/person</span>
                       </div>
-                    </div>
-
-                    {/* Progress Bar */}
-                    <div className="mb-4">
-                      <div className="flex justify-between text-sm text-neutral-400 mb-2">
-                        <span>Progress</span>
-                        <span>{trip.progress}%</span>
-                      </div>
-                      <div className="w-full bg-neutral-700 rounded-full h-2">
-                        <div
-                          className="bg-gradient-to-r from-primary to-secondary h-2 rounded-full transition-all duration-300"
-                          style={{ width: `${trip.progress}%` }}
-                        />
+                      <div className="flex items-center gap-2">
+                        <Star className="w-4 h-4 text-warning" />
+                        <span>by {trip.organizer}</span>
                       </div>
                     </div>
 
-                    <button className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-bold py-3 rounded-xl transition-all duration-300 transform group-hover:scale-105">
-                      Join This Adventure
-                    </button>
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {trip.tags.map((tag, tagIndex) => (
+                        <Badge key={tagIndex} variant="outline" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+
+                    {/* Social Stats */}
+                    <div className="flex items-center justify-between pt-4 border-t border-neutral-100">
+                      <div className="flex items-center gap-4 text-sm text-neutral-600">
+                        <div className="flex items-center gap-1">
+                          <Heart className="w-4 h-4" />
+                          {trip.likes}
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <MessageSquare className="w-4 h-4" />
+                          {trip.comments}
+                        </div>
+                      </div>
+                      <Button size="sm" className="bg-gradient-to-r from-primary to-secondary text-white">
+                        Join Trip
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
             </div>
           </TabsContent>
 
-          <TabsContent value="planning">
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">⚡</div>
-              <h3 className="text-2xl font-bold mb-2">Planning Mode Activated</h3>
-              <p className="text-neutral-400">89 squads are actively planning their next adventure</p>
-            </div>
+          <TabsContent value="new" className="text-center py-16">
+            <div className="text-6xl mb-4">🚀</div>
+            <h3 className="text-2xl font-bold text-neutral-900 mb-2">New Trips Coming Soon!</h3>
+            <p className="text-neutral-600">Fresh adventures are being planned every day.</p>
           </TabsContent>
 
-          <TabsContent value="confirmed">
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">🎉</div>
-              <h3 className="text-2xl font-bold mb-2">Dreams Becoming Reality</h3>
-              <p className="text-neutral-400">34 trips confirmed and ready to go this month</p>
-            </div>
+          <TabsContent value="featured" className="text-center py-16">
+            <div className="text-6xl mb-4">⭐</div>
+            <h3 className="text-2xl font-bold text-neutral-900 mb-2">Featured Adventures</h3>
+            <p className="text-neutral-600">Hand-picked epic trips by our travel experts.</p>
           </TabsContent>
         </Tabs>
 
-        {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-primary to-secondary rounded-3xl p-8 max-w-2xl mx-auto">
-            <h3 className="text-3xl font-black mb-4">Ready to Start Your Own Adventure?</h3>
-            <p className="text-xl mb-6 opacity-90">Join thousands creating epic memories together</p>
-            <button className="bg-white text-primary hover:bg-neutral-100 font-black px-8 py-4 rounded-2xl text-lg transition-all duration-300 transform hover:scale-105">
-              Create Your Trip Now 🚀
-            </button>
-          </div>
-        </div>
+        {/* Community CTA */}
+        <Card className="mt-16 bg-gradient-to-r from-primary to-secondary border-0 text-white">
+          <CardContent className="p-8 text-center">
+            <h3 className="text-3xl font-black mb-4">Ready to Start Your Own Epic Adventure?</h3>
+            <p className="text-xl mb-6 opacity-90">
+              Join thousands of travelers creating unforgettable memories together
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-bold px-8 py-4">
+                Create Your Trip
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-2 border-white text-white hover:bg-white hover:text-primary font-bold px-8 py-4 bg-transparent"
+              >
+                Explore Community
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </section>
   )

@@ -1,130 +1,193 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { MapPin, Mail, Phone, Instagram, Twitter, Facebook, Youtube } from "lucide-react"
+import { Plane, Instagram, Twitter, Facebook, Youtube, Mail, MapPin, Phone, Heart } from "lucide-react"
+import Link from "next/link"
 
 export function Footer() {
   const footerLinks = {
-    Product: [
+    product: [
       { name: "Features", href: "#features" },
-      { name: "How it Works", href: "#how-it-works" },
-      { name: "Pricing", href: "#pricing" },
-      { name: "Mobile App", href: "#app" },
+      { name: "How It Works", href: "#how-it-works" },
+      { name: "Pricing", href: "/pricing" },
+      { name: "Mobile App", href: "/app" },
     ],
-    Company: [
+    company: [
       { name: "About Us", href: "/about" },
       { name: "Careers", href: "/careers" },
       { name: "Press", href: "/press" },
       { name: "Blog", href: "/blog" },
     ],
-    Support: [
+    support: [
       { name: "Help Center", href: "/help" },
       { name: "Contact Us", href: "/contact" },
-      { name: "Travel Guides", href: "/guides" },
       { name: "Community", href: "/community" },
+      { name: "Travel Guides", href: "/guides" },
     ],
-    Legal: [
+    legal: [
       { name: "Privacy Policy", href: "/privacy" },
       { name: "Terms of Service", href: "/terms" },
       { name: "Cookie Policy", href: "/cookies" },
-      { name: "Refund Policy", href: "/refunds" },
+      { name: "Safety", href: "/safety" },
     ],
   }
 
   const socialLinks = [
-    { icon: Instagram, href: "#", color: "hover:text-pink-500" },
-    { icon: Twitter, href: "#", color: "hover:text-blue-400" },
-    { icon: Facebook, href: "#", color: "hover:text-blue-600" },
-    { icon: Youtube, href: "#", color: "hover:text-red-500" },
+    { name: "Instagram", icon: Instagram, href: "https://instagram.com/lfgtravel", color: "hover:text-pink-500" },
+    { name: "Twitter", icon: Twitter, href: "https://twitter.com/lfgtravel", color: "hover:text-blue-400" },
+    { name: "Facebook", icon: Facebook, href: "https://facebook.com/lfgtravel", color: "hover:text-blue-600" },
+    { name: "YouTube", icon: Youtube, href: "https://youtube.com/lfgtravel", color: "hover:text-red-500" },
   ]
 
   return (
     <footer className="bg-neutral-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Footer Content */}
-        <div className="py-16">
+      {/* Newsletter Section */}
+      <div className="bg-gradient-to-r from-primary to-secondary py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h3 className="text-3xl font-black mb-4">Stay in the Loop</h3>
+          <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+            Get travel inspiration, exclusive deals, and epic trip ideas delivered to your inbox
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="flex-1 px-6 py-4 rounded-2xl text-neutral-900 font-medium focus:outline-none focus:ring-4 focus:ring-white/30"
+            />
+            <Button className="bg-white text-primary hover:bg-white/90 font-bold px-8 py-4 rounded-2xl">
+              <Mail className="w-5 h-5 mr-2" />
+              Subscribe
+            </Button>
+          </div>
+          <p className="text-sm opacity-70 mt-4">Join 50,000+ travelers getting weekly inspiration</p>
+        </div>
+      </div>
+
+      {/* Main Footer */}
+      <div className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
             {/* Brand Section */}
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center">
-                  <span className="text-white font-black text-lg">LFG</span>
+                  <Plane className="w-6 h-6 text-white" />
                 </div>
-                <span className="text-2xl font-black">LFG Travel</span>
+                <span className="text-2xl font-black">LFG</span>
               </div>
 
-              <p className="text-neutral-300 mb-6 max-w-sm">
-                Turn friends into travel squad. Create epic adventures that actually happen. Join the community that's
-                redefining group travel.
+              <p className="text-neutral-400 mb-6 leading-relaxed">
+                The world's first unified social travel ecosystem. Turn friends into travel squad and create epic
+                adventures together.
               </p>
 
               <div className="space-y-3 mb-6">
-                <div className="flex items-center gap-3 text-neutral-300">
+                <div className="flex items-center gap-3 text-neutral-400">
                   <MapPin className="w-5 h-5 text-primary" />
                   <span>San Francisco, CA</span>
                 </div>
-                <div className="flex items-center gap-3 text-neutral-300">
-                  <Mail className="w-5 h-5 text-primary" />
-                  <span>hello@lfgtravel.com</span>
-                </div>
-                <div className="flex items-center gap-3 text-neutral-300">
+                <div className="flex items-center gap-3 text-neutral-400">
                   <Phone className="w-5 h-5 text-primary" />
                   <span>+1 (555) 123-4567</span>
                 </div>
+                <div className="flex items-center gap-3 text-neutral-400">
+                  <Mail className="w-5 h-5 text-primary" />
+                  <span>hello@lfgtravel.com</span>
+                </div>
               </div>
 
-              {/* Social Links */}
               <div className="flex gap-4">
-                {socialLinks.map((social, index) => {
+                {socialLinks.map((social) => {
                   const Icon = social.icon
                   return (
-                    <a
-                      key={index}
+                    <Link
+                      key={social.name}
                       href={social.href}
-                      className={`w-10 h-10 bg-neutral-800 rounded-xl flex items-center justify-center transition-all duration-300 ${social.color} hover:scale-110`}
+                      className={`w-10 h-10 bg-neutral-800 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 ${social.color}`}
                     >
                       <Icon className="w-5 h-5" />
-                    </a>
+                    </Link>
                   )
                 })}
               </div>
             </div>
 
             {/* Links Sections */}
-            {Object.entries(footerLinks).map(([category, links]) => (
-              <div key={category}>
-                <h3 className="text-lg font-bold mb-4">{category}</h3>
-                <ul className="space-y-3">
-                  {links.map((link, index) => (
-                    <li key={index}>
-                      <a href={link.href} className="text-neutral-300 hover:text-white transition-colors duration-200">
-                        {link.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <Separator className="bg-neutral-800" />
-
-        {/* Bottom Footer */}
-        <div className="py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-4">
-              <p className="text-neutral-400">© 2024 LFG Travel. All rights reserved.</p>
-              <Badge className="bg-green-500/20 text-green-400 border-green-500/30">🌱 Carbon Neutral</Badge>
+            <div>
+              <h4 className="text-lg font-bold mb-6">Product</h4>
+              <ul className="space-y-3">
+                {footerLinks.product.map((link) => (
+                  <li key={link.name}>
+                    <Link href={link.href} className="text-neutral-400 hover:text-white transition-colors duration-200">
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <div className="flex items-center gap-6 text-neutral-400">
-              <span>Made with ❤️ for travelers</span>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-sm">All systems operational</span>
-              </div>
+            <div>
+              <h4 className="text-lg font-bold mb-6">Company</h4>
+              <ul className="space-y-3">
+                {footerLinks.company.map((link) => (
+                  <li key={link.name}>
+                    <Link href={link.href} className="text-neutral-400 hover:text-white transition-colors duration-200">
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-lg font-bold mb-6">Support</h4>
+              <ul className="space-y-3">
+                {footerLinks.support.map((link) => (
+                  <li key={link.name}>
+                    <Link href={link.href} className="text-neutral-400 hover:text-white transition-colors duration-200">
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-lg font-bold mb-6">Legal</h4>
+              <ul className="space-y-3">
+                {footerLinks.legal.map((link) => (
+                  <li key={link.name}>
+                    <Link href={link.href} className="text-neutral-400 hover:text-white transition-colors duration-200">
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <Separator className="bg-neutral-800" />
+
+      {/* Bottom Bar */}
+      <div className="py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <p className="text-neutral-400 text-sm">© 2024 LFG Travel. All rights reserved.</p>
+              <Badge className="bg-success text-white">
+                <Heart className="w-3 h-3 mr-1" />
+                Made with love for travelers
+              </Badge>
+            </div>
+
+            <div className="flex items-center gap-6 text-sm text-neutral-400">
+              <span>🌍 Available worldwide</span>
+              <span>📱 iOS & Android</span>
+              <span>🔒 Secure & trusted</span>
             </div>
           </div>
         </div>

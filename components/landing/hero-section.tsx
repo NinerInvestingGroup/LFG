@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Play, ArrowRight, Users, MapPin, Calendar, Star } from "lucide-react"
+import { ArrowRight, Users, MapPin, Calendar, Star } from "lucide-react"
 import { useState, useEffect } from "react"
 
 export function HeroSection() {
@@ -92,7 +92,7 @@ export function HeroSection() {
         >
           {/* Badge */}
           <Badge className="bg-white/20 backdrop-blur-sm text-white border-white/30 mb-6 px-6 py-2 text-lg font-bold">
-            <Play className="w-5 h-5 mr-2" />
+            <Star className="w-5 h-5 mr-2" />
             #1 Group Travel App
           </Badge>
 
@@ -110,23 +110,14 @@ export function HeroSection() {
             Turn friends into travel squad. Plan trips that actually happen. Create memories that last forever.
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+          {/* CTA Button */}
+          <div className="flex justify-center mb-12">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-bold px-8 py-4 rounded-2xl text-lg shadow-2xl transform hover:scale-105 transition-all duration-300"
+              className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-bold px-12 py-6 rounded-2xl text-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
             >
               Start Your Adventure
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 font-bold px-8 py-4 rounded-2xl text-lg"
-            >
-              <Play className="w-5 h-5 mr-2" />
-              Watch Demo
+              <ArrowRight className="w-6 h-6 ml-3" />
             </Button>
           </div>
 

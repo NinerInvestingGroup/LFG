@@ -33,9 +33,9 @@ export function SocialProofSection() {
     },
     {
       name: "The Adventure Gang",
-      location: "Iceland",
+      location: "Swiss Alps",
       image: "/images/social-proof-3.jpg",
-      text: "Best travel app ever! Our Iceland trip was absolutely legendary.",
+      text: "Best travel app ever! Our Swiss Alps trip was absolutely legendary.",
       likes: 312,
       comments: 31,
       savings: "$1,500",
