@@ -44,7 +44,7 @@ The domain was showing the Trip Creation Wizard instead of the homepage/landing 
 4. **Clicks "Create Epic Trip"** → Trip Creation Wizard (`/dashboard/create-trip`)
 
 ## File Structure
-```
+\`\`\`
 app/
 ├── page.tsx                    # ✅ Homepage/Landing Page
 ├── layout.tsx                  # Root layout
@@ -55,7 +55,7 @@ app/
     ├── page.tsx               # Dashboard
     ├── layout.tsx             # ✅ Dashboard layout (auth protection)
     └── create-trip/page.tsx   # ✅ Trip Creation Wizard
-```
+\`\`\`
 
 ## Next Steps Needed
 1. **Implement Authentication**: Add actual auth checks to dashboard layout
