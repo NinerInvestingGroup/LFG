@@ -125,9 +125,9 @@ export function SignupPage() {
 
       if (result.success) {
         setIsSuccess(true)
-        // Redirect to confirmation page or dashboard after a short delay
+        // Redirect to verification page after a short delay
         setTimeout(() => {
-          router.push('/auth/confirm-email')
+          router.push(`/auth/verify-email?email=${encodeURIComponent(formData.email)}`)
         }, 2000)
       } else {
         setAuthError(result.error || "An error occurred during signup")

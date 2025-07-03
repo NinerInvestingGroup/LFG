@@ -8,12 +8,15 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { AuthLayout } from "./auth-layout"
-import { Eye, EyeOff, Mail, Lock, Loader2, ArrowRight, X } from "lucide-react"
+import { Eye, EyeOff, Mail, Lock, Loader2, ArrowRight, X, AlertCircle } from "lucide-react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
+import { signIn } from "@/lib/auth"
+import { useRouter } from "next/navigation"
 
 export function LoginPage() {
   const searchParams = useSearchParams()
+  const router = useRouter()
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -23,6 +26,8 @@ export function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [callbackError, setCallbackError] = useState<string | null>(null)
+  const [authError, setAuthError] = useState<string>("")
+  const [showVerificationHelper, setShowVerificationHelper] = useState(false)
 
   useEffect(() => {
     // Check for callback error from email confirmation
@@ -43,6 +48,10 @@ export function LoginPage() {
     // Clear error when user starts typing
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: "" }))
+    }
+    if (authError) {
+      setAuthError("")
+      setShowVerificationHelper(false)
     }
   }
 
@@ -69,16 +78,32 @@ export function LoginPage() {
     if (!validateForm()) return
 
     setIsLoading(true)
+    setAuthError("")
+    setShowVerificationHelper(false)
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    try {
+      const result = await signIn(formData.email, formData.password)
 
-    setIsLoading(false)
-    // Handle successful login
+      if (result.success) {
+        // Redirect to dashboard on successful login
+        router.push('/dashboard')
+      } else {
+        setAuthError(result.error || "An error occurred during login")
+        
+        // Check if error is about email confirmation
+        if (result.error?.includes("email") && result.error?.includes("confirm")) {
+          setShowVerificationHelper(true)
+        }
+      }
+    } catch (error) {
+      setAuthError("An unexpected error occurred. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const handleSocialLogin = (provider: string) => {
-    console.log(`Logging in with ${provider}`)
+    setAuthError(`${provider} login is coming soon! Please use email login for now.`)
   }
 
   return (
@@ -97,6 +122,43 @@ export function LoginPage() {
               >
                 <X className="w-4 h-4" />
               </button>
+            </div>
+          </div>
+        )}
+
+        {/* Auth Error Message */}
+        {authError && (
+          <div className="bg-destructive-50 border border-destructive-200 rounded-lg p-4">
+            <div className="flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-destructive flex-shrink-0" />
+              <p className="text-sm text-destructive font-medium">{authError}</p>
+            </div>
+          </div>
+        )}
+
+        {/* Email Verification Helper */}
+        {showVerificationHelper && (
+          <div className="bg-warning-50 border border-warning-200 rounded-lg p-4">
+            <div className="flex items-start gap-3">
+              <Mail className="w-5 h-5 text-warning-600 flex-shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <p className="text-sm text-warning-800 font-medium mb-2">
+                  Email verification required
+                </p>
+                <p className="text-sm text-warning-700 mb-3">
+                  Please verify your email address to access your account.
+                </p>
+                <Link href={`/auth/verify-email?email=${encodeURIComponent(formData.email)}`}>
+                  <Button 
+                    type="button" 
+                    size="sm" 
+                    className="bg-warning text-white hover:bg-warning/90"
+                  >
+                    Verify Email
+                    <ArrowRight className="w-4 h-4 ml-1" />
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         )}

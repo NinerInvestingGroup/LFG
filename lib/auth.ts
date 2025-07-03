@@ -140,6 +140,41 @@ export async function resetPassword(email: string): Promise<AuthResponse> {
   }
 }
 
+export async function resendVerificationEmail(email: string): Promise<AuthResponse> {
+  try {
+    if (!supabase) {
+      return {
+        success: false,
+        error: 'Authentication service is not available. Please contact support.'
+      }
+    }
+
+    const { error } = await supabase.auth.resend({
+      type: 'signup',
+      email: email,
+      options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback`
+      }
+    })
+
+    if (error) {
+      return {
+        success: false,
+        error: getAuthErrorMessage(error)
+      }
+    }
+
+    return {
+      success: true
+    }
+  } catch (error) {
+    return {
+      success: false,
+      error: 'An unexpected error occurred. Please try again.'
+    }
+  }
+}
+
 export async function getCurrentUser() {
   try {
     const { data: { user }, error } = await supabase.auth.getUser()
