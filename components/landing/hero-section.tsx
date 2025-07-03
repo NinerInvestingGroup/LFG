@@ -15,7 +15,7 @@ export function HeroSection() {
     { icon: Users, label: "Squad Size", value: "6 friends", color: "bg-blue-500" },
     { icon: MapPin, label: "Destination", value: "Bali, Indonesia", color: "bg-green-500" },
     { icon: Calendar, label: "Duration", value: "7 days", color: "bg-purple-500" },
-    { icon: Star, label: "Vibe Check", value: "Epic AF", color: "bg-yellow-500" },
+    { icon: Star, label: "Vibe Check", value: "Adventure Ready", color: "bg-yellow-500" },
   ]
 
   useEffect(() => {
