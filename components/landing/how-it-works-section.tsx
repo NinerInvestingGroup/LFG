@@ -80,9 +80,3 @@ export function HowItWorksSection() {
         </div>
 
         {/* Steps */}
-        <div className="space-y-8 mb-16">
-          {steps.map((step, index) => {
-            const Icon = step.icon
-            const isEven = index % 2 === 1
-
-            return (
