@@ -9,7 +9,7 @@ export function HeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
 
-  const heroImages = ["/images/hero-adventure-1.jpg", "/images/hero-adventure-2.jpg", "/images/hero-adventure-3.png"]
+  const heroImages = ["/images/hero-adventure-1.jpg", "/images/hero-adventure-2.jpg", "/images/hero-adventure-3.jpg"]
 
   const floatingStats = [
     { icon: Users, label: "Squad Size", value: "6 friends", color: "bg-blue-500" },
