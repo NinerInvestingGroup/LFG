@@ -8,44 +8,44 @@ import { Search, Users, Calendar, CreditCard, Camera, ArrowRight, Sparkles, Chec
 export function HowItWorksSection() {
   const steps = [
     {
-      step: 1,
+      id: 1,
       icon: Search,
       title: "Dream It",
-      description: "Pick your destination & vibe",
-      color: "from-blue-500 to-purple-500",
+      desc: "Pick your destination & vibe",
       emoji: "🌍",
+      gradient: "from-blue-500 to-purple-500",
     },
     {
-      step: 2,
+      id: 2,
       icon: Users,
       title: "Squad Up",
-      description: "Invite friends or find buddies",
-      color: "from-purple-500 to-pink-500",
+      desc: "Invite friends or find buddies",
       emoji: "👥",
+      gradient: "from-purple-500 to-pink-500",
     },
     {
-      step: 3,
+      id: 3,
       icon: Calendar,
       title: "Plan Together",
-      description: "Collaborate on dates & ideas",
-      color: "from-pink-500 to-red-500",
+      desc: "Create the perfect itinerary",
       emoji: "📅",
+      gradient: "from-pink-500 to-red-500",
     },
     {
-      step: 4,
+      id: 4,
       icon: CreditCard,
       title: "Split & Pay",
-      description: "Handle expenses drama-free",
-      color: "from-green-500 to-emerald-500",
+      desc: "Handle money drama-free",
       emoji: "💳",
+      gradient: "from-green-500 to-emerald-500",
     },
     {
-      step: 5,
+      id: 5,
       icon: Camera,
       title: "Live It Up",
-      description: "Capture epic memories",
-      color: "from-yellow-500 to-orange-500",
+      desc: "Capture epic memories",
       emoji: "📸",
+      gradient: "from-yellow-500 to-orange-500",
     },
   ]
 
@@ -54,61 +54,55 @@ export function HowItWorksSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <Badge className="bg-secondary text-white mb-6 px-6 py-2 text-lg font-bold inline-flex items-center gap-2">
+          <Badge className="inline-flex items-center gap-2 bg-secondary text-white px-6 py-2 text-lg font-bold">
             <Sparkles className="w-5 h-5" />
             How It Works
           </Badge>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-neutral-900 mb-6">
-            From Idea to
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-warning ml-3">
-              Epic Trip
-            </span>
+          <h2 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-black text-neutral-900">
+            From Idea to{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-warning">Epic Trip</span>
           </h2>
-          <p className="text-xl text-neutral-600 max-w-3xl mx-auto font-medium">
+          <p className="mt-4 text-xl text-neutral-600 max-w-3xl mx-auto font-medium">
             Five simple steps to turn your travel dreams into unforgettable adventures
           </p>
         </div>
 
-        {/* Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-16">
-          {steps.map(({ step, icon: Icon, title, description, color, emoji }) => (
+        {/* Steps Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+          {steps.map(({ id, icon: Icon, title, desc, emoji, gradient }) => (
             <Card
-              key={step}
-              className="group hover:shadow-2xl transition-all duration-300 border-0 bg-white hover:scale-105"
+              key={id}
+              className="group border-0 bg-white hover:shadow-2xl hover:scale-105 transition-all duration-300"
             >
-              <CardContent className="p-8 text-center">
-                {/* Step number */}
-                <div className="text-6xl font-black text-neutral-100 mb-4">{String(step).padStart(2, "0")}</div>
+              <CardContent className="p-8 text-center flex flex-col items-center">
+                <div className="text-6xl font-black text-neutral-100 mb-4">{String(id).padStart(2, "0")}</div>
 
-                {/* Emoji */}
-                <div className="text-4xl mb-4 transform transition-transform duration-300 group-hover:scale-125">
-                  {emoji}
-                </div>
+                <div className="text-4xl mb-4 transition-transform duration-300 group-hover:scale-125">{emoji}</div>
 
-                {/* Icon with gradient background */}
                 <div
-                  className={`w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center transform transition-transform duration-300 group-hover:rotate-12`}
+                  className={`w-16 h-16 mb-6 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center transition-transform duration-300 group-hover:rotate-12`}
                 >
                   <Icon className="w-8 h-8 text-white" />
                 </div>
 
-                {/* Text */}
                 <h3 className="text-xl font-black text-neutral-900 mb-2">{title}</h3>
-                <p className="text-neutral-600 font-medium">{description}</p>
+                <p className="text-neutral-600 font-medium">{desc}</p>
               </CardContent>
             </Card>
           ))}
         </div>
 
         {/* Bottom CTA */}
-        <Card className="max-w-3xl mx-auto bg-gradient-to-r from-primary to-secondary border-0 text-white">
+        <Card className="max-w-3xl mx-auto mt-16 bg-gradient-to-r from-primary to-secondary border-0 text-white">
           <CardContent className="p-8 text-center">
             <CheckCircle className="w-10 h-10 mx-auto mb-4" />
             <h3 className="text-3xl font-black mb-4">Ready to Skip the Chaos?</h3>
-            <p className="text-xl mb-6 opacity-90">Join thousands who’ve made group travel effortless and epic.</p>
+            <p className="text-xl mb-6 opacity-90">
+              Join thousands who’ve made group travel effortless and unforgettable.
+            </p>
             <Button
               size="lg"
-              className="bg-white text-primary hover:bg-white/90 font-bold px-8 py-4 rounded-2xl text-lg flex items-center gap-2"
+              className="inline-flex items-center gap-2 bg-white text-primary hover:bg-white/90 font-bold px-8 py-4 rounded-2xl text-lg"
             >
               Start Planning Now
               <ArrowRight className="w-5 h-5" />
