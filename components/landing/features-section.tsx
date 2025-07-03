@@ -11,8 +11,8 @@ export function FeaturesSection() {
   const features = [
     {
       icon: MessageSquare,
-      title: "End Group Chat Hell",
-      subtitle: "One space, zero chaos",
+      title: "End Group Chat Chaos",
+      subtitle: "One space, zero drama",
       color: "from-red-500 to-pink-500",
       bgColor: "bg-red-50",
       emoji: "🔥",

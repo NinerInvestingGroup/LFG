@@ -1,203 +1,181 @@
 "use client"
 
 import { Card, CardContent } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Star, Heart, MessageCircle, TrendingUp, Zap } from "lucide-react"
+import { Star, Heart, MessageCircle, MapPin, Users } from "lucide-react"
 import { useState, useEffect } from "react"
-import Image from "next/image"
 
 export function SocialProofSection() {
-  const [activeTrips, setActiveTrips] = useState(1247)
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
 
-  const visualTestimonials = [
+  const testimonials = [
     {
-      name: "Maya & Squad",
-      handle: "@mayaadventures",
-      avatar: "/placeholder.svg?height=60&width=60",
-      image: "/placeholder.svg?height=400&width=600&text=Tulum+Beach+Vibes",
-      content: "LFG turned our chaotic group chat into the most epic Tulum trip ever! 🏝️",
-      likes: 247,
-      location: "Tulum, Mexico",
-      verified: true,
-    },
-    {
-      name: "Jake's Crew",
-      handle: "@jakesquad",
-      avatar: "/placeholder.svg?height=60&width=60",
-      image: "/placeholder.svg?height=400&width=600&text=Tokyo+Neon+Nights",
-      content: "From planning disaster to Tokyo magic in 48 hours. This app is INSANE! ⚡",
-      likes: 189,
+      name: "Sarah & Squad",
       location: "Tokyo, Japan",
-      verified: true,
+      image: "/images/social-proof-1.jpg",
+      text: "LFG turned our chaotic group chat into the most organized trip ever!",
+      likes: 247,
+      comments: 18,
+      savings: "$1,200",
+      groupSize: 5,
+      rating: 5,
     },
     {
-      name: "Priya's Girls",
-      handle: "@priyastravel",
-      avatar: "/placeholder.svg?height=60&width=60",
-      image: "/placeholder.svg?height=400&width=600&text=Barcelona+Squad+Goals",
-      content: "8 girls, 3 countries, ZERO drama. LFG is pure magic! ✨",
-      likes: 356,
-      location: "Barcelona, Spain",
-      verified: true,
+      name: "Mike's Crew",
+      location: "Bali, Indonesia",
+      image: "/images/social-proof-2.jpg",
+      text: "From planning to splitting bills - everything just worked perfectly.",
+      likes: 189,
+      comments: 23,
+      savings: "$890",
+      groupSize: 4,
+      rating: 5,
+    },
+    {
+      name: "The Adventure Gang",
+      location: "Iceland",
+      image: "/images/social-proof-3.jpg",
+      text: "Best travel app ever! Our Iceland trip was absolutely legendary.",
+      likes: 312,
+      comments: 31,
+      savings: "$1,500",
+      groupSize: 6,
+      rating: 5,
     },
   ]
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveTrips((prev) => prev + Math.floor(Math.random() * 2) + 1)
-    }, 4000)
-    return () => clearInterval(interval)
-  }, [])
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % visualTestimonials.length)
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
     }, 5000)
     return () => clearInterval(interval)
   }, [])
 
   return (
-    <section className="py-20 bg-white overflow-hidden">
+    <section className="py-20 bg-gradient-to-br from-primary-50 to-secondary-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
           <Badge className="bg-success text-white mb-6 px-6 py-2 text-lg font-bold">
-            <TrendingUp className="w-5 h-5 mr-2" />
-            Social Proof
+            <Heart className="w-5 h-5 mr-2" />
+            Loved by Travelers
           </Badge>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-neutral-900 mb-6">
-            Real Squads,
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-success to-primary ml-4">
-              Real Adventures
+          <h2 className="text-4xl sm:text-5xl font-black text-neutral-900 mb-6">
+            Real Adventures,
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary ml-4">
+              Real Stories
             </span>
           </h2>
+          <p className="text-xl text-neutral-600 max-w-2xl mx-auto font-medium">
+            See how LFG is transforming group travel around the world
+          </p>
         </div>
 
-        {/* Live Stats Bar */}
-        <div className="bg-gradient-to-r from-primary to-secondary rounded-2xl p-6 mb-16 text-white">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-            <div>
-              <div className="text-3xl font-black mb-1">{activeTrips.toLocaleString()}</div>
-              <div className="text-sm opacity-80 flex items-center justify-center gap-1">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                Planning Right Now
+        {/* Instagram-style Testimonial Carousel */}
+        <div className="max-w-md mx-auto mb-16">
+          <Card className="bg-white border-0 shadow-2xl rounded-3xl overflow-hidden">
+            <div className="relative">
+              {/* Image */}
+              <div className="aspect-square relative overflow-hidden">
+                <img
+                  src={testimonials[currentTestimonial].image || "/placeholder.svg"}
+                  alt={testimonials[currentTestimonial].name}
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Overlay Stats */}
+                <div className="absolute top-4 left-4 right-4 flex justify-between">
+                  <Badge className="bg-black/50 text-white backdrop-blur-sm">
+                    <MapPin className="w-4 h-4 mr-1" />
+                    {testimonials[currentTestimonial].location}
+                  </Badge>
+                  <Badge className="bg-success/90 text-white backdrop-blur-sm">
+                    <Users className="w-4 h-4 mr-1" />
+                    {testimonials[currentTestimonial].groupSize} friends
+                  </Badge>
+                </div>
+
+                {/* Savings Badge */}
+                <div className="absolute bottom-4 right-4">
+                  <Badge className="bg-primary text-white font-bold px-3 py-2">
+                    Saved {testimonials[currentTestimonial].savings}
+                  </Badge>
+                </div>
               </div>
-            </div>
-            <div>
-              <div className="text-3xl font-black mb-1">4.9★</div>
-              <div className="text-sm opacity-80">App Store Rating</div>
-            </div>
-            <div>
-              <div className="text-3xl font-black mb-1">127K+</div>
-              <div className="text-sm opacity-80">Happy Travelers</div>
-            </div>
-            <div>
-              <div className="text-3xl font-black mb-1">2.3M</div>
-              <div className="text-sm opacity-80">Hours Saved</div>
-            </div>
-          </div>
-        </div>
 
-        {/* Visual Testimonials Carousel */}
-        <div className="relative mb-16">
-          <div className="overflow-hidden rounded-3xl">
-            {visualTestimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className={`transition-all duration-1000 ${
-                  index === currentTestimonial
-                    ? "opacity-100 translate-x-0"
-                    : index < currentTestimonial
-                      ? "opacity-0 -translate-x-full absolute inset-0"
-                      : "opacity-0 translate-x-full absolute inset-0"
-                }`}
-              >
-                <Card className="border-0 shadow-2xl overflow-hidden">
-                  <div className="relative">
-                    <Image
-                      src={testimonial.image || "/placeholder.svg"}
-                      alt={`${testimonial.name} adventure`}
-                      width={600}
-                      height={400}
-                      className="w-full h-64 sm:h-80 object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-                    {/* Social Media Style Overlay */}
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <div className="flex items-start gap-3">
-                        <Avatar className="w-12 h-12 border-2 border-white">
-                          <AvatarImage src={testimonial.avatar || "/placeholder.svg"} alt={testimonial.name} />
-                          <AvatarFallback className="bg-primary text-white">
-                            {testimonial.name.split(" ")[0][0]}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="font-bold text-white">{testimonial.name}</span>
-                            {testimonial.verified && (
-                              <div className="w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
-                                <div className="w-2 h-2 bg-white rounded-full"></div>
-                              </div>
-                            )}
-                            <span className="text-white/70 text-sm">{testimonial.handle}</span>
-                          </div>
-                          <p className="text-white font-medium mb-2">{testimonial.content}</p>
-                          <div className="flex items-center gap-4 text-white/80 text-sm">
-                            <div className="flex items-center gap-1">
-                              <Heart className="w-4 h-4" />
-                              {testimonial.likes}
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <MessageCircle className="w-4 h-4" />
-                              {Math.floor(testimonial.likes / 5)}
-                            </div>
-                            <span>{testimonial.location}</span>
-                          </div>
-                        </div>
+              {/* Content */}
+              <CardContent className="p-6">
+                {/* User Info */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
+                      <span className="text-white font-bold text-sm">
+                        {testimonials[currentTestimonial].name.charAt(0)}
+                      </span>
+                    </div>
+                    <div>
+                      <p className="font-bold text-neutral-900">{testimonials[currentTestimonial].name}</p>
+                      <div className="flex items-center gap-1">
+                        {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                        ))}
                       </div>
                     </div>
                   </div>
-                </Card>
-              </div>
-            ))}
-          </div>
+                </div>
+
+                {/* Testimonial Text */}
+                <p className="text-neutral-700 mb-4 font-medium">{testimonials[currentTestimonial].text}</p>
+
+                {/* Social Actions */}
+                <div className="flex items-center justify-between pt-4 border-t border-neutral-100">
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-1">
+                      <Heart className="w-5 h-5 text-red-500 fill-red-500" />
+                      <span className="text-sm font-medium">{testimonials[currentTestimonial].likes}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <MessageCircle className="w-5 h-5 text-neutral-500" />
+                      <span className="text-sm font-medium">{testimonials[currentTestimonial].comments}</span>
+                    </div>
+                  </div>
+                  <Badge variant="outline" className="text-xs">
+                    Verified Trip
+                  </Badge>
+                </div>
+              </CardContent>
+            </div>
+          </Card>
 
           {/* Carousel Indicators */}
           <div className="flex justify-center gap-2 mt-6">
-            {visualTestimonials.map((_, index) => (
+            {testimonials.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentTestimonial(index)}
                 className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentTestimonial ? "bg-primary scale-125" : "bg-neutral-300"
+                  index === currentTestimonial ? "bg-primary" : "bg-neutral-300"
                 }`}
+                onClick={() => setCurrentTestimonial(index)}
               />
             ))}
           </div>
         </div>
 
-        {/* App Store Reviews */}
-        <Card className="bg-gradient-to-r from-primary-50 to-secondary-50 border-0 p-8">
-          <CardContent className="p-0 text-center">
-            <div className="flex justify-center items-center gap-2 mb-4">
-              <div className="flex">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-8 h-8 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-              <span className="text-3xl font-black">4.9</span>
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {[
+            { number: "50K+", label: "Happy Travelers", emoji: "✈️" },
+            { number: "15K+", label: "Epic Trips", emoji: "🌍" },
+            { number: "$2M+", label: "Money Saved", emoji: "💰" },
+            { number: "4.9★", label: "App Rating", emoji: "⭐" },
+          ].map((stat, index) => (
+            <div key={index} className="text-center">
+              <div className="text-4xl mb-2">{stat.emoji}</div>
+              <div className="text-3xl font-black text-neutral-900 mb-1">{stat.number}</div>
+              <div className="text-neutral-600 font-medium">{stat.label}</div>
             </div>
-            <h3 className="text-2xl font-black text-neutral-900 mb-2">"This app is pure travel magic! ✨"</h3>
-            <p className="text-neutral-700 mb-4 text-lg">50,000+ five-star reviews can't be wrong</p>
-            <Badge className="bg-success text-white px-4 py-2">
-              <Zap className="w-4 h-4 mr-1" />
-              #1 Travel App
-            </Badge>
-          </CardContent>
-        </Card>
+          ))}
+        </div>
       </div>
     </section>
   )
