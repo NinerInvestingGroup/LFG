@@ -27,6 +27,7 @@ export async function signUp(userData: SignupData): Promise<AuthResponse> {
       email: userData.email,
       password: userData.password,
       options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
         data: {
           full_name: userData.fullName,
           travel_style: userData.travelStyle,

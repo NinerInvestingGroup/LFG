@@ -7,8 +7,14 @@ import { CommunityFeed } from "@/components/dashboard/community-feed"
 import { Recommendations } from "@/components/dashboard/recommendations"
 import { TravelIntelligence } from "@/components/dashboard/travel-intelligence"
 import { DashboardSidebar } from "@/components/dashboard/dashboard-sidebar"
+import { useSearchParams } from "next/navigation"
+import { useEffect, useState, Suspense } from "react"
+import { CheckCircle, X } from "lucide-react"
 
-export default function DashboardPage() {
+function DashboardContent() {
+  const searchParams = useSearchParams()
+  const [showConfirmation, setShowConfirmation] = useState(false)
+  
   const user = {
     name: "Alex Rodriguez",
     firstName: "Alex",
@@ -16,8 +22,38 @@ export default function DashboardPage() {
     isOnline: true,
   }
 
+  useEffect(() => {
+    // Check if user just confirmed their email
+    if (searchParams.get('confirmed') === 'true') {
+      setShowConfirmation(true)
+      // Auto-hide after 5 seconds
+      const timer = setTimeout(() => {
+        setShowConfirmation(false)
+      }, 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [searchParams])
+
   return (
     <div className="min-h-screen bg-neutral-50">
+      {/* Email Confirmation Success Banner */}
+      {showConfirmation && (
+        <div className="bg-success text-white p-4 text-center relative">
+          <div className="flex items-center justify-center gap-2">
+            <CheckCircle className="w-5 h-5" />
+            <span className="font-semibold">
+              Welcome to LFG! Your email has been confirmed successfully. 🎉
+            </span>
+          </div>
+          <button
+            onClick={() => setShowConfirmation(false)}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-neutral-200"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+      )}
+
       {/* Header */}
       <DashboardHeader user={user} notifications={7} />
 
@@ -51,5 +87,13 @@ export default function DashboardPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DashboardContent />
+    </Suspense>
   )
 }
