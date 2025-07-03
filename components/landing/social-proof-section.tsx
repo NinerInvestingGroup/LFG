@@ -3,195 +3,201 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Star, MapPin, Users, TrendingUp } from "lucide-react"
+import { Star, Heart, MessageCircle, TrendingUp, Zap } from "lucide-react"
 import { useState, useEffect } from "react"
 import Image from "next/image"
 
 export function SocialProofSection() {
   const [activeTrips, setActiveTrips] = useState(1247)
-  const [liveUsers, setLiveUsers] = useState(3892)
+  const [currentTestimonial, setCurrentTestimonial] = useState(0)
+
+  const visualTestimonials = [
+    {
+      name: "Maya & Squad",
+      handle: "@mayaadventures",
+      avatar: "/placeholder.svg?height=60&width=60",
+      image: "/placeholder.svg?height=400&width=600&text=Tulum+Beach+Vibes",
+      content: "LFG turned our chaotic group chat into the most epic Tulum trip ever! 🏝️",
+      likes: 247,
+      location: "Tulum, Mexico",
+      verified: true,
+    },
+    {
+      name: "Jake's Crew",
+      handle: "@jakesquad",
+      avatar: "/placeholder.svg?height=60&width=60",
+      image: "/placeholder.svg?height=400&width=600&text=Tokyo+Neon+Nights",
+      content: "From planning disaster to Tokyo magic in 48 hours. This app is INSANE! ⚡",
+      likes: 189,
+      location: "Tokyo, Japan",
+      verified: true,
+    },
+    {
+      name: "Priya's Girls",
+      handle: "@priyastravel",
+      avatar: "/placeholder.svg?height=60&width=60",
+      image: "/placeholder.svg?height=400&width=600&text=Barcelona+Squad+Goals",
+      content: "8 girls, 3 countries, ZERO drama. LFG is pure magic! ✨",
+      likes: 356,
+      location: "Barcelona, Spain",
+      verified: true,
+    },
+  ]
 
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveTrips((prev) => prev + Math.floor(Math.random() * 2) + 1)
-      setLiveUsers((prev) => prev + Math.floor(Math.random() * 5) + 1)
     }, 4000)
     return () => clearInterval(interval)
   }, [])
 
-  const testimonials = [
-    {
-      name: "Sarah Chen",
-      role: "Adventure Enthusiast",
-      avatar: "/placeholder.svg?height=48&width=48",
-      content: "LFG transformed how we plan group trips. No more endless group chats and confusion!",
-      rating: 5,
-      location: "Bali, Indonesia",
-    },
-    {
-      name: "Marcus Johnson",
-      role: "Travel Blogger",
-      avatar: "/placeholder.svg?height=48&width=48",
-      content: "The community aspect is incredible. I've met lifelong travel buddies through LFG.",
-      rating: 5,
-      location: "Tokyo, Japan",
-    },
-    {
-      name: "Elena Rodriguez",
-      role: "Digital Nomad",
-      avatar: "/placeholder.svg?height=48&width=48",
-      content: "Finally, a platform that gets group travel. The coordination tools are game-changing.",
-      rating: 5,
-      location: "Barcelona, Spain",
-    },
-  ]
-
-  const integrations = [
-    { name: "Stripe", logo: "/placeholder.svg?height=40&width=120" },
-    { name: "Google Maps", logo: "/placeholder.svg?height=40&width=120" },
-    { name: "Instagram", logo: "/placeholder.svg?height=40&width=120" },
-    { name: "WhatsApp", logo: "/placeholder.svg?height=40&width=120" },
-    { name: "Airbnb", logo: "/placeholder.svg?height=40&width=120" },
-    { name: "Booking.com", logo: "/placeholder.svg?height=40&width=120" },
-  ]
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % visualTestimonials.length)
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <Badge className="bg-primary-100 text-primary-700 mb-4">
-            <TrendingUp className="w-4 h-4 mr-1" />
-            Growing Community
+          <Badge className="bg-success text-white mb-6 px-6 py-2 text-lg font-bold">
+            <TrendingUp className="w-5 h-5 mr-2" />
+            Social Proof
           </Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
-            Join 100,000+ travelers in the LFG community
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-neutral-900 mb-6">
+            Real Squads,
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-success to-primary ml-4">
+              Real Adventures
+            </span>
           </h2>
-          <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
-            Trusted by adventure seekers worldwide to plan unforgettable experiences
-          </p>
         </div>
 
-        {/* Live Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-          <Card className="text-center p-6 border-2 border-primary-100 hover:border-primary-200 transition-colors">
-            <CardContent className="p-0">
-              <div className="text-3xl font-bold text-primary mb-2">{activeTrips.toLocaleString()}</div>
-              <div className="text-sm text-neutral-600 flex items-center justify-center gap-1">
-                <div className="w-2 h-2 bg-success rounded-full animate-pulse"></div>
-                Active Trips Planning
+        {/* Live Stats Bar */}
+        <div className="bg-gradient-to-r from-primary to-secondary rounded-2xl p-6 mb-16 text-white">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+            <div>
+              <div className="text-3xl font-black mb-1">{activeTrips.toLocaleString()}</div>
+              <div className="text-sm opacity-80 flex items-center justify-center gap-1">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                Planning Right Now
               </div>
-            </CardContent>
-          </Card>
-
-          <Card className="text-center p-6 border-2 border-secondary-100 hover:border-secondary-200 transition-colors">
-            <CardContent className="p-0">
-              <div className="text-3xl font-bold text-secondary mb-2">{liveUsers.toLocaleString()}</div>
-              <div className="text-sm text-neutral-600 flex items-center justify-center gap-1">
-                <div className="w-2 h-2 bg-success rounded-full animate-pulse"></div>
-                Online Now
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="text-center p-6 border-2 border-success-100 hover:border-success-200 transition-colors">
-            <CardContent className="p-0">
-              <div className="text-3xl font-bold text-success mb-2">4.9</div>
-              <div className="text-sm text-neutral-600 flex items-center justify-center gap-1">
-                <Star className="w-3 h-3 fill-warning text-warning" />
-                Average Rating
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="text-center p-6 border-2 border-warning-100 hover:border-warning-200 transition-colors">
-            <CardContent className="p-0">
-              <div className="text-3xl font-bold text-warning mb-2">150+</div>
-              <div className="text-sm text-neutral-600">Countries Covered</div>
-            </CardContent>
-          </Card>
+            </div>
+            <div>
+              <div className="text-3xl font-black mb-1">4.9★</div>
+              <div className="text-sm opacity-80">App Store Rating</div>
+            </div>
+            <div>
+              <div className="text-3xl font-black mb-1">127K+</div>
+              <div className="text-sm opacity-80">Happy Travelers</div>
+            </div>
+            <div>
+              <div className="text-3xl font-black mb-1">2.3M</div>
+              <div className="text-sm opacity-80">Hours Saved</div>
+            </div>
+          </div>
         </div>
 
-        {/* Testimonials */}
-        <div className="mb-16">
-          <h3 className="text-2xl font-bold text-center mb-8">What travelers are saying</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="p-6 shadow-lg hover:shadow-xl transition-shadow duration-200">
-                <CardContent className="p-0 space-y-4">
-                  <div className="flex items-center gap-1">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-warning text-warning" />
-                    ))}
-                  </div>
+        {/* Visual Testimonials Carousel */}
+        <div className="relative mb-16">
+          <div className="overflow-hidden rounded-3xl">
+            {visualTestimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                className={`transition-all duration-1000 ${
+                  index === currentTestimonial
+                    ? "opacity-100 translate-x-0"
+                    : index < currentTestimonial
+                      ? "opacity-0 -translate-x-full absolute inset-0"
+                      : "opacity-0 translate-x-full absolute inset-0"
+                }`}
+              >
+                <Card className="border-0 shadow-2xl overflow-hidden">
+                  <div className="relative">
+                    <Image
+                      src={testimonial.image || "/placeholder.svg"}
+                      alt={`${testimonial.name} adventure`}
+                      width={600}
+                      height={400}
+                      className="w-full h-64 sm:h-80 object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-                  <p className="text-neutral-700 italic">"{testimonial.content}"</p>
-
-                  <div className="flex items-center gap-3">
-                    <Avatar>
-                      <AvatarImage src={testimonial.avatar || "/placeholder.svg"} alt={testimonial.name} />
-                      <AvatarFallback>
-                        {testimonial.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <div className="font-semibold text-neutral-900">{testimonial.name}</div>
-                      <div className="text-sm text-neutral-600">{testimonial.role}</div>
-                      <div className="text-xs text-neutral-500 flex items-center gap-1">
-                        <MapPin className="w-3 h-3" />
-                        {testimonial.location}
+                    {/* Social Media Style Overlay */}
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <div className="flex items-start gap-3">
+                        <Avatar className="w-12 h-12 border-2 border-white">
+                          <AvatarImage src={testimonial.avatar || "/placeholder.svg"} alt={testimonial.name} />
+                          <AvatarFallback className="bg-primary text-white">
+                            {testimonial.name.split(" ")[0][0]}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="font-bold text-white">{testimonial.name}</span>
+                            {testimonial.verified && (
+                              <div className="w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
+                                <div className="w-2 h-2 bg-white rounded-full"></div>
+                              </div>
+                            )}
+                            <span className="text-white/70 text-sm">{testimonial.handle}</span>
+                          </div>
+                          <p className="text-white font-medium mb-2">{testimonial.content}</p>
+                          <div className="flex items-center gap-4 text-white/80 text-sm">
+                            <div className="flex items-center gap-1">
+                              <Heart className="w-4 h-4" />
+                              {testimonial.likes}
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <MessageCircle className="w-4 h-4" />
+                              {Math.floor(testimonial.likes / 5)}
+                            </div>
+                            <span>{testimonial.location}</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
+                </Card>
+              </div>
+            ))}
+          </div>
+
+          {/* Carousel Indicators */}
+          <div className="flex justify-center gap-2 mt-6">
+            {visualTestimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentTestimonial(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === currentTestimonial ? "bg-primary scale-125" : "bg-neutral-300"
+                }`}
+              />
             ))}
           </div>
         </div>
 
-        {/* Travel Advisor Endorsement */}
-        <Card className="mb-16 bg-gradient-to-r from-primary-50 to-secondary-50 border-0">
-          <CardContent className="p-8">
-            <div className="flex flex-col md:flex-row items-center gap-6">
-              <div className="flex-shrink-0">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
-                  <Users className="w-8 h-8 text-white" />
-                </div>
+        {/* App Store Reviews */}
+        <Card className="bg-gradient-to-r from-primary-50 to-secondary-50 border-0 p-8">
+          <CardContent className="p-0 text-center">
+            <div className="flex justify-center items-center gap-2 mb-4">
+              <div className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-8 h-8 fill-yellow-400 text-yellow-400" />
+                ))}
               </div>
-              <div className="text-center md:text-left">
-                <h3 className="text-xl font-bold text-neutral-900 mb-2">Endorsed by Professional Travel Advisors</h3>
-                <p className="text-neutral-700">
-                  "LFG has revolutionized group travel coordination. It's the platform we recommend to all our clients
-                  for seamless trip planning."
-                </p>
-                <div className="mt-3 text-sm text-neutral-600">- Travel Professionals Association</div>
-              </div>
+              <span className="text-3xl font-black">4.9</span>
             </div>
+            <h3 className="text-2xl font-black text-neutral-900 mb-2">"This app is pure travel magic! ✨"</h3>
+            <p className="text-neutral-700 mb-4 text-lg">50,000+ five-star reviews can't be wrong</p>
+            <Badge className="bg-success text-white px-4 py-2">
+              <Zap className="w-4 h-4 mr-1" />
+              #1 Travel App
+            </Badge>
           </CardContent>
         </Card>
-
-        {/* Integration Logos */}
-        <div className="text-center">
-          <h3 className="text-lg font-semibold text-neutral-700 mb-8">
-            Trusted integrations with your favorite platforms
-          </h3>
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-8 items-center opacity-60 hover:opacity-80 transition-opacity">
-            {integrations.map((integration, index) => (
-              <div key={index} className="flex justify-center">
-                <Image
-                  src={integration.logo || "/placeholder.svg"}
-                  alt={integration.name}
-                  width={120}
-                  height={40}
-                  className="h-8 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-200"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   )

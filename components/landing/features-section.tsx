@@ -1,140 +1,124 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+"use client"
+
+import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Users, Calendar, CreditCard, Compass, ArrowRight } from "lucide-react"
+import { Users, Zap, Sparkles, MessageSquare, CreditCard, MapPin, Camera } from "lucide-react"
+import { useState } from "react"
 
 export function FeaturesSection() {
+  const [hoveredFeature, setHoveredFeature] = useState<number | null>(null)
+
   const features = [
     {
-      icon: Users,
-      title: "Squad Assembly",
-      description: "Social networking, friend discovery, travel matching",
-      details: [
-        "Connect with like-minded travelers",
-        "Smart matching based on interests",
-        "Build your travel network",
-        "Verified traveler profiles",
-      ],
-      color: "primary",
-      badge: "Social",
+      icon: MessageSquare,
+      title: "End Group Chat Hell",
+      subtitle: "One space, zero chaos",
+      color: "from-red-500 to-pink-500",
+      bgColor: "bg-red-50",
+      emoji: "🔥",
     },
     {
-      icon: Calendar,
-      title: "Epic Planning",
-      description: "Collaborative itineraries, polls, real-time editing",
-      details: [
-        "Real-time collaborative planning",
-        "Group polls and voting",
-        "Smart itinerary suggestions",
-        "Professional advisor support",
-      ],
-      color: "secondary",
-      badge: "Planning",
+      icon: Zap,
+      title: "Plan Like a Pro",
+      subtitle: "AI does the heavy lifting",
+      color: "from-yellow-500 to-orange-500",
+      bgColor: "bg-yellow-50",
+      emoji: "⚡",
     },
     {
       icon: CreditCard,
-      title: "Smart Coordination",
-      description: "Expense splitting, payments, booking management",
-      details: ["Automatic expense splitting", "Secure group payments", "Booking management", "Budget tracking tools"],
-      color: "success",
-      badge: "Finance",
+      title: "Split Bills Easy",
+      subtitle: "No math, no drama",
+      color: "from-green-500 to-emerald-500",
+      bgColor: "bg-green-50",
+      emoji: "💰",
     },
     {
-      icon: Compass,
-      title: "Community Discovery",
-      description: "Travel advisor marketplace, trip inspiration",
-      details: [
-        "Expert travel advisor network",
-        "Curated trip inspiration",
-        "Local insider recommendations",
-        "Community-driven content",
-      ],
-      color: "warning",
-      badge: "Discovery",
+      icon: Users,
+      title: "Squad Goals",
+      subtitle: "Find your travel tribe",
+      color: "from-blue-500 to-purple-500",
+      bgColor: "bg-blue-50",
+      emoji: "👥",
+    },
+    {
+      icon: MapPin,
+      title: "Epic Destinations",
+      subtitle: "Discover hidden gems",
+      color: "from-purple-500 to-pink-500",
+      bgColor: "bg-purple-50",
+      emoji: "🗺️",
+    },
+    {
+      icon: Camera,
+      title: "Share Memories",
+      subtitle: "Instant photo magic",
+      color: "from-indigo-500 to-blue-500",
+      bgColor: "bg-indigo-50",
+      emoji: "📸",
     },
   ]
 
-  const getColorClasses = (color: string) => {
-    const colorMap = {
-      primary: {
-        bg: "bg-primary-50",
-        border: "border-primary-200",
-        icon: "text-primary",
-        iconBg: "bg-primary",
-        badge: "bg-primary-100 text-primary-700",
-      },
-      secondary: {
-        bg: "bg-secondary-50",
-        border: "border-secondary-200",
-        icon: "text-secondary",
-        iconBg: "bg-secondary",
-        badge: "bg-secondary-100 text-secondary-700",
-      },
-      success: {
-        bg: "bg-success-50",
-        border: "border-success-200",
-        icon: "text-success",
-        iconBg: "bg-success",
-        badge: "bg-success-100 text-success-700",
-      },
-      warning: {
-        bg: "bg-warning-50",
-        border: "border-warning-200",
-        icon: "text-warning",
-        iconBg: "bg-warning",
-        badge: "bg-warning-100 text-warning-700",
-      },
-    }
-    return colorMap[color as keyof typeof colorMap]
-  }
-
   return (
-    <section className="py-20 bg-neutral-50">
+    <section className="py-20 bg-gradient-to-br from-neutral-50 to-primary-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <Badge className="bg-primary-100 text-primary-700 mb-4">Features</Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
-            Everything you need for epic group travel
+          <Badge className="bg-primary text-white mb-6 px-6 py-2 text-lg font-bold">
+            <Sparkles className="w-5 h-5 mr-2" />
+            Everything You Need
+          </Badge>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-neutral-900 mb-6">
+            Travel Made
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary ml-4">
+              Simple
+            </span>
           </h2>
-          <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
-            From finding your travel squad to sharing memories, LFG handles every aspect of group travel coordination
+          <p className="text-xl text-neutral-600 max-w-2xl mx-auto font-medium">
+            Six powerful tools that turn travel chaos into epic adventures
           </p>
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => {
-            const colors = getColorClasses(feature.color)
             const Icon = feature.icon
+            const isHovered = hoveredFeature === index
 
             return (
               <Card
                 key={index}
-                className={`group hover:shadow-xl transition-all duration-300 border-2 ${colors.border} ${colors.bg} hover:scale-105`}
+                className={`group cursor-pointer transition-all duration-500 border-0 shadow-lg hover:shadow-2xl ${
+                  isHovered ? "scale-105 -translate-y-2" : ""
+                } ${feature.bgColor}`}
+                onMouseEnter={() => setHoveredFeature(index)}
+                onMouseLeave={() => setHoveredFeature(null)}
               >
-                <CardHeader className="text-center pb-4">
+                <CardContent className="p-8 text-center">
+                  {/* Emoji */}
+                  <div className="text-4xl mb-4 transform transition-transform duration-300 group-hover:scale-125">
+                    {feature.emoji}
+                  </div>
+
+                  {/* Icon with Gradient */}
                   <div
-                    className={`w-16 h-16 ${colors.iconBg} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-200`}
+                    className={`w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center transform transition-all duration-300 group-hover:rotate-12 group-hover:scale-110`}
                   >
                     <Icon className="w-8 h-8 text-white" />
                   </div>
 
-                  <Badge className={`${colors.badge} mb-2 w-fit mx-auto`}>{feature.badge}</Badge>
+                  {/* Content */}
+                  <h3 className="text-xl font-black text-neutral-900 mb-2">{feature.title}</h3>
+                  <p className="text-neutral-600 font-medium">{feature.subtitle}</p>
 
-                  <CardTitle className="text-xl font-bold text-neutral-900">{feature.title}</CardTitle>
-                </CardHeader>
-
-                <CardContent className="pt-0">
-                  <p className="text-neutral-600 mb-6 text-center">{feature.description}</p>
-
-                  <ul className="space-y-3">
-                    {feature.details.map((detail, detailIndex) => (
-                      <li key={detailIndex} className="flex items-start gap-2 text-sm text-neutral-700">
-                        <ArrowRight className={`w-4 h-4 ${colors.icon} mt-0.5 flex-shrink-0`} />
-                        {detail}
-                      </li>
-                    ))}
-                  </ul>
+                  {/* Hover Effect */}
+                  <div
+                    className={`mt-4 transition-all duration-300 ${
+                      isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                    }`}
+                  >
+                    <div className="w-12 h-1 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto"></div>
+                  </div>
                 </CardContent>
               </Card>
             )
@@ -143,22 +127,13 @@ export function FeaturesSection() {
 
         {/* Bottom CTA */}
         <div className="text-center mt-16">
-          <Card className="max-w-2xl mx-auto bg-gradient-to-r from-primary to-secondary border-0 text-white">
-            <CardContent className="p-8">
-              <h3 className="text-2xl font-bold mb-4">Ready to revolutionize your group travel?</h3>
-              <p className="text-white/90 mb-6">
-                Join thousands of travelers who've already discovered the LFG difference
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="bg-white text-primary hover:bg-white/90 font-semibold px-6 py-3 rounded-lg transition-colors">
-                  Start Your First Trip
-                </button>
-                <button className="border-2 border-white text-white hover:bg-white hover:text-primary font-semibold px-6 py-3 rounded-lg transition-colors">
-                  Explore Features
-                </button>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="bg-gradient-to-r from-primary to-secondary rounded-3xl p-8 text-white max-w-4xl mx-auto">
+            <h3 className="text-3xl font-black mb-4">Ready to Level Up Your Travel Game?</h3>
+            <p className="text-xl mb-6 opacity-90">Join the squad that's redefining group travel</p>
+            <button className="bg-white text-primary hover:bg-neutral-100 font-black px-8 py-4 rounded-2xl text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+              Let's Go! 🚀
+            </button>
+          </div>
         </div>
       </div>
     </section>

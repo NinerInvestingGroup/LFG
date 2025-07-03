@@ -4,186 +4,184 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { MapPin, Users, Calendar, Heart, MessageCircle, Share2, Trophy, Camera, Star } from "lucide-react"
+import { MapPin, Users, Calendar, Heart, MessageCircle, Share2, Trophy, Camera, Star, TrendingUp } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
 
 export function CommunityShowcaseSection() {
   const [activeTab, setActiveTab] = useState("trips")
 
-  const featuredTrips = [
+  const trendingTrips = [
     {
       id: 1,
-      title: "Epic Southeast Asia Adventure",
-      location: "Thailand, Vietnam, Cambodia",
-      image: "/placeholder.svg?height=300&width=400",
+      title: "Bali Squad Goals",
+      location: "Bali, Indonesia",
+      image: "/placeholder.svg?height=300&width=400&text=Bali+Beach+Vibes",
       travelers: 8,
-      duration: "14 days",
-      status: "Active",
+      duration: "10 days",
+      status: "🔥 Trending",
       organizer: {
-        name: "Alex Chen",
+        name: "Alex & Crew",
         avatar: "/placeholder.svg?height=40&width=40",
       },
-      likes: 124,
-      comments: 23,
+      likes: 324,
+      comments: 67,
+      vibe: "🏝️ Beach + Culture",
+      savings: "$2,400 saved",
     },
     {
       id: 2,
-      title: "European Summer Festival Tour",
-      location: "Spain, France, Netherlands",
-      image: "/placeholder.svg?height=300&width=400",
+      title: "European Festival Run",
+      location: "Amsterdam → Berlin → Barcelona",
+      image: "/placeholder.svg?height=300&width=400&text=Festival+Lights",
       travelers: 12,
       duration: "21 days",
-      status: "Planning",
+      status: "⚡ Live Planning",
       organizer: {
-        name: "Maria Santos",
+        name: "Maria's Squad",
         avatar: "/placeholder.svg?height=40&width=40",
       },
-      likes: 89,
-      comments: 15,
+      likes: 189,
+      comments: 43,
+      vibe: "🎵 Music + Vibes",
+      savings: "Group rates locked",
     },
     {
       id: 3,
-      title: "African Safari Experience",
-      location: "Kenya, Tanzania",
-      image: "/placeholder.svg?height=300&width=400",
+      title: "Safari Adventure",
+      location: "Kenya → Tanzania",
+      image: "/placeholder.svg?height=300&width=400&text=Safari+Wildlife",
       travelers: 6,
-      duration: "10 days",
-      status: "Completed",
+      duration: "12 days",
+      status: "✨ Just Finished",
       organizer: {
-        name: "David Kim",
+        name: "David's Crew",
         avatar: "/placeholder.svg?height=40&width=40",
       },
-      likes: 256,
-      comments: 42,
+      likes: 456,
+      comments: 89,
+      vibe: "🦁 Wildlife + Adventure",
+      savings: "Once in a lifetime",
     },
   ]
 
-  const achievements = [
+  const communityStats = [
     {
       icon: Trophy,
-      title: "Top Travel Organizer",
-      description: "Organized 15+ successful group trips",
-      user: "Sarah Johnson",
+      title: "Squad Master",
+      stat: "15 Epic Trips",
+      user: "Sarah J.",
       avatar: "/placeholder.svg?height=48&width=48",
+      badge: "🏆",
     },
     {
       icon: Camera,
-      title: "Photography Master",
-      description: "Shared 500+ travel photos",
-      user: "Mike Rodriguez",
+      title: "Memory Maker",
+      stat: "500+ Photos Shared",
+      user: "Mike R.",
       avatar: "/placeholder.svg?height=48&width=48",
+      badge: "📸",
     },
     {
       icon: Star,
-      title: "Community Helper",
-      description: "Helped 100+ travelers plan trips",
-      user: "Emma Wilson",
+      title: "Travel Guru",
+      stat: "4.9★ Trip Rating",
+      user: "Emma W.",
       avatar: "/placeholder.svg?height=48&width=48",
-    },
-  ]
-
-  const successStories = [
-    {
-      title: "From Strangers to Best Friends",
-      description: "How LFG helped me find my travel family in Japan",
-      author: "Jessica Park",
-      avatar: "/placeholder.svg?height=40&width=40",
-      image: "/placeholder.svg?height=200&width=300",
-      readTime: "3 min read",
-    },
-    {
-      title: "Planning a 20-Person Wedding Trip",
-      description: "Coordinating our dream destination wedding with LFG",
-      author: "Tom & Lisa",
-      avatar: "/placeholder.svg?height=40&width=40",
-      image: "/placeholder.svg?height=200&width=300",
-      readTime: "5 min read",
+      badge: "⭐",
     },
   ]
 
   return (
-    <section className="py-20 bg-neutral-50">
+    <section className="py-20 bg-gradient-to-br from-secondary-50 to-primary-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <Badge className="bg-success-100 text-success-700 mb-4">Community</Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
-            Discover amazing trips from our community
+          <Badge className="bg-gradient-to-r from-primary to-secondary text-white mb-6 px-6 py-2 text-lg font-bold">
+            <TrendingUp className="w-5 h-5 mr-2" />
+            Community Vibes
+          </Badge>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-neutral-900 mb-6">
+            Epic Adventures
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary ml-4">
+              Happening Now
+            </span>
           </h2>
-          <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
-            Get inspired by real travelers sharing their epic adventures and planning new ones
+          <p className="text-xl text-neutral-600 max-w-2xl mx-auto font-medium">
+            Real trips, real people, real magic ✨
           </p>
         </div>
 
         {/* Tab Navigation */}
         <div className="flex justify-center mb-12">
-          <div className="bg-white rounded-lg p-1 shadow-sm border">
+          <div className="bg-white rounded-2xl p-2 shadow-lg border">
             <button
               onClick={() => setActiveTab("trips")}
-              className={`px-6 py-2 rounded-md font-medium transition-colors ${
-                activeTab === "trips" ? "bg-primary text-white" : "text-neutral-600 hover:text-neutral-800"
+              className={`px-6 py-3 rounded-xl font-bold transition-all duration-300 ${
+                activeTab === "trips"
+                  ? "bg-gradient-to-r from-primary to-secondary text-white shadow-lg"
+                  : "text-neutral-600 hover:text-neutral-800"
               }`}
             >
-              Featured Trips
+              🔥 Trending Trips
             </button>
             <button
-              onClick={() => setActiveTab("achievements")}
-              className={`px-6 py-2 rounded-md font-medium transition-colors ${
-                activeTab === "achievements" ? "bg-primary text-white" : "text-neutral-600 hover:text-neutral-800"
+              onClick={() => setActiveTab("stats")}
+              className={`px-6 py-3 rounded-xl font-bold transition-all duration-300 ${
+                activeTab === "stats"
+                  ? "bg-gradient-to-r from-primary to-secondary text-white shadow-lg"
+                  : "text-neutral-600 hover:text-neutral-800"
               }`}
             >
-              Achievements
-            </button>
-            <button
-              onClick={() => setActiveTab("stories")}
-              className={`px-6 py-2 rounded-md font-medium transition-colors ${
-                activeTab === "stories" ? "bg-primary text-white" : "text-neutral-600 hover:text-neutral-800"
-              }`}
-            >
-              Success Stories
+              🏆 Community Stars
             </button>
           </div>
         </div>
 
-        {/* Featured Trips */}
+        {/* Trending Trips */}
         {activeTab === "trips" && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {featuredTrips.map((trip) => (
-              <Card key={trip.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-200">
+            {trendingTrips.map((trip) => (
+              <Card
+                key={trip.id}
+                className="overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border-0 group hover:scale-105"
+              >
                 <div className="relative">
                   <Image
                     src={trip.image || "/placeholder.svg"}
                     alt={trip.title}
                     width={400}
                     height={300}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                   />
-                  <Badge
-                    className={`absolute top-3 left-3 ${
-                      trip.status === "Active"
-                        ? "bg-success text-white"
-                        : trip.status === "Planning"
-                          ? "bg-warning text-white"
-                          : "bg-neutral-500 text-white"
-                    }`}
-                  >
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+                  <Badge className="absolute top-3 left-3 bg-white/90 text-neutral-900 border-0 font-bold">
                     {trip.status}
                   </Badge>
+
+                  <div className="absolute top-3 right-3 bg-black/50 backdrop-blur-sm rounded-xl px-3 py-1 text-white text-sm font-bold">
+                    {trip.vibe}
+                  </div>
+
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <div className="bg-primary/90 backdrop-blur-sm rounded-xl p-3 text-white">
+                      <div className="text-xs opacity-80 mb-1">💰 {trip.savings}</div>
+                      <div className="font-bold">{trip.title}</div>
+                    </div>
+                  </div>
                 </div>
 
                 <CardContent className="p-6">
-                  <h3 className="font-bold text-lg mb-2">{trip.title}</h3>
-
                   <div className="flex items-center text-sm text-neutral-600 mb-4">
-                    <MapPin className="w-4 h-4 mr-1" />
-                    {trip.location}
+                    <MapPin className="w-4 h-4 mr-1 flex-shrink-0" />
+                    <span className="truncate">{trip.location}</span>
                   </div>
 
                   <div className="flex items-center justify-between text-sm text-neutral-600 mb-4">
                     <div className="flex items-center gap-1">
                       <Users className="w-4 h-4" />
-                      {trip.travelers} travelers
+                      {trip.travelers} squad
                     </div>
                     <div className="flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
@@ -195,19 +193,16 @@ export function CommunityShowcaseSection() {
                     <div className="flex items-center gap-2">
                       <Avatar className="w-8 h-8">
                         <AvatarImage src={trip.organizer.avatar || "/placeholder.svg"} alt={trip.organizer.name} />
-                        <AvatarFallback>
-                          {trip.organizer.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
+                        <AvatarFallback className="bg-primary text-white text-xs">
+                          {trip.organizer.name.split(" ")[0][0]}
                         </AvatarFallback>
                       </Avatar>
-                      <span className="text-sm font-medium">{trip.organizer.name}</span>
+                      <span className="text-sm font-bold">{trip.organizer.name}</span>
                     </div>
 
-                    <div className="flex items-center gap-4 text-sm text-neutral-600">
+                    <div className="flex items-center gap-3 text-sm text-neutral-600">
                       <div className="flex items-center gap-1">
-                        <Heart className="w-4 h-4" />
+                        <Heart className="w-4 h-4 text-red-500" />
                         {trip.likes}
                       </div>
                       <div className="flex items-center gap-1">
@@ -222,72 +217,28 @@ export function CommunityShowcaseSection() {
           </div>
         )}
 
-        {/* Achievements */}
-        {activeTab === "achievements" && (
+        {/* Community Stats */}
+        {activeTab === "stats" && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            {achievements.map((achievement, index) => {
-              const Icon = achievement.icon
-              return (
-                <Card key={index} className="p-6 text-center shadow-lg hover:shadow-xl transition-shadow duration-200">
-                  <CardContent className="p-0">
-                    <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Icon className="w-8 h-8 text-white" />
-                    </div>
+            {communityStats.map((stat, index) => (
+              <Card
+                key={index}
+                className="p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-500 border-0 group hover:scale-105"
+              >
+                <CardContent className="p-0">
+                  <div className="text-4xl mb-4 transform transition-transform duration-300 group-hover:scale-125">
+                    {stat.badge}
+                  </div>
 
-                    <h3 className="font-bold text-lg mb-2">{achievement.title}</h3>
-                    <p className="text-neutral-600 mb-4">{achievement.description}</p>
+                  <h3 className="font-black text-xl mb-2">{stat.title}</h3>
+                  <div className="text-2xl font-black text-primary mb-4">{stat.stat}</div>
 
-                    <div className="flex items-center justify-center gap-2">
-                      <Avatar>
-                        <AvatarImage src={achievement.avatar || "/placeholder.svg"} alt={achievement.user} />
-                        <AvatarFallback>
-                          {achievement.user
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
-                        </AvatarFallback>
-                      </Avatar>
-                      <span className="font-medium">{achievement.user}</span>
-                    </div>
-                  </CardContent>
-                </Card>
-              )
-            })}
-          </div>
-        )}
-
-        {/* Success Stories */}
-        {activeTab === "stories" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            {successStories.map((story, index) => (
-              <Card key={index} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-200">
-                <Image
-                  src={story.image || "/placeholder.svg"}
-                  alt={story.title}
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover"
-                />
-
-                <CardContent className="p-6">
-                  <h3 className="font-bold text-lg mb-2">{story.title}</h3>
-                  <p className="text-neutral-600 mb-4">{story.description}</p>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Avatar className="w-8 h-8">
-                        <AvatarImage src={story.avatar || "/placeholder.svg"} alt={story.author} />
-                        <AvatarFallback>
-                          {story.author
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
-                        </AvatarFallback>
-                      </Avatar>
-                      <span className="text-sm font-medium">{story.author}</span>
-                    </div>
-
-                    <span className="text-sm text-neutral-500">{story.readTime}</span>
+                  <div className="flex items-center justify-center gap-2">
+                    <Avatar className="w-10 h-10">
+                      <AvatarImage src={stat.avatar || "/placeholder.svg"} alt={stat.user} />
+                      <AvatarFallback className="bg-primary text-white">{stat.user.split(" ")[0][0]}</AvatarFallback>
+                    </Avatar>
+                    <span className="font-bold">{stat.user}</span>
                   </div>
                 </CardContent>
               </Card>
@@ -295,28 +246,30 @@ export function CommunityShowcaseSection() {
           </div>
         )}
 
-        {/* Social Media Integration */}
-        <Card className="bg-gradient-to-r from-primary to-secondary text-white">
+        {/* Join Community CTA */}
+        <Card className="bg-gradient-to-r from-primary to-secondary text-white border-0 shadow-2xl">
           <CardContent className="p-8 text-center">
-            <h3 className="text-2xl font-bold mb-4">Share your adventures with the world</h3>
-            <p className="text-white/90 mb-6 max-w-2xl mx-auto">
-              Connect your social media accounts and automatically share your travel highlights with friends and the LFG
-              community
+            <div className="text-4xl mb-4">🚀</div>
+            <h3 className="text-3xl font-black mb-4">Ready to Join the Adventure?</h3>
+            <p className="text-xl mb-6 opacity-90 max-w-2xl mx-auto">
+              Your squad is waiting. Your next epic trip is one click away.
             </p>
 
             <div className="flex justify-center gap-4 mb-6">
-              <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
                 <Share2 className="w-6 h-6" />
               </div>
-              <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
                 <Camera className="w-6 h-6" />
               </div>
-              <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
                 <Heart className="w-6 h-6" />
               </div>
             </div>
 
-            <Button className="bg-white text-primary hover:bg-white/90 font-semibold">Connect Social Accounts</Button>
+            <Button className="bg-white text-primary hover:bg-neutral-100 font-black px-8 py-4 rounded-2xl text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+              Start Your Epic Journey ✨
+            </Button>
           </CardContent>
         </Card>
       </div>
