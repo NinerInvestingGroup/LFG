@@ -119,7 +119,7 @@ export async function resetPassword(email: string): Promise<AuthResponse> {
     }
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/auth/callback`
+      redirectTo: `${window.location.origin}/auth/reset-password`
     })
 
     if (error) {
