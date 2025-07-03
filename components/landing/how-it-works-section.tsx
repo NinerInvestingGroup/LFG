@@ -8,107 +8,166 @@ import { Search, Users, Calendar, CreditCard, Camera, ArrowRight, Sparkles, Chec
 export function HowItWorksSection() {
   const steps = [
     {
-      id: 1,
+      step: 1,
       icon: Search,
       title: "Dream It",
-      desc: "Pick your destination & vibe",
+      description: "Pick your destination and vibe",
+      details: ["Smart destination search", "AI-powered suggestions", "Vibe matching"],
+      color: "from-blue-500 to-purple-500",
+      bgColor: "bg-blue-50",
       emoji: "🌍",
-      gradient: "from-blue-500 to-purple-500",
     },
     {
-      id: 2,
+      step: 2,
       icon: Users,
       title: "Squad Up",
-      desc: "Invite friends or find buddies",
+      description: "Invite friends or find travel buddies",
+      details: ["Easy friend invites", "Travel buddy matching", "Group chat integration"],
+      color: "from-purple-500 to-pink-500",
+      bgColor: "bg-purple-50",
       emoji: "👥",
-      gradient: "from-purple-500 to-pink-500",
     },
     {
-      id: 3,
+      step: 3,
       icon: Calendar,
       title: "Plan Together",
-      desc: "Create the perfect itinerary",
+      description: "Collaborate on the perfect itinerary",
+      details: ["Real-time planning", "Group voting", "Smart scheduling"],
+      color: "from-pink-500 to-red-500",
+      bgColor: "bg-pink-50",
       emoji: "📅",
-      gradient: "from-pink-500 to-red-500",
     },
     {
-      id: 4,
+      step: 4,
       icon: CreditCard,
       title: "Split & Pay",
-      desc: "Handle money drama-free",
+      description: "Handle money stuff without drama",
+      details: ["Auto expense splitting", "Secure payments", "Budget tracking"],
+      color: "from-green-500 to-emerald-500",
+      bgColor: "bg-green-50",
       emoji: "💳",
-      gradient: "from-green-500 to-emerald-500",
     },
     {
-      id: 5,
+      step: 5,
       icon: Camera,
       title: "Live It Up",
-      desc: "Capture epic memories",
+      description: "Create memories that last forever",
+      details: ["Photo sharing", "Live updates", "Memory timeline"],
+      color: "from-yellow-500 to-orange-500",
+      bgColor: "bg-yellow-50",
       emoji: "📸",
-      gradient: "from-yellow-500 to-orange-500",
     },
   ]
 
   return (
-    <section id="how-it-works" className="py-20 bg-gradient-to-br from-neutral-50 to-primary-50">
+    <section className="py-20 bg-gradient-to-br from-neutral-50 to-primary-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <Badge className="inline-flex items-center gap-2 bg-secondary text-white px-6 py-2 text-lg font-bold">
-            <Sparkles className="w-5 h-5" />
+          <Badge className="bg-secondary text-white mb-6 px-6 py-2 text-lg font-bold">
+            <Sparkles className="w-5 h-5 mr-2" />
             How It Works
           </Badge>
-          <h2 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-black text-neutral-900">
-            From Idea to{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-warning">Epic Trip</span>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-neutral-900 mb-6">
+            From Idea to
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-warning ml-4">
+              Epic Trip
+            </span>
           </h2>
-          <p className="mt-4 text-xl text-neutral-600 max-w-3xl mx-auto font-medium">
+          <p className="text-xl text-neutral-600 max-w-3xl mx-auto font-medium">
             Five simple steps to turn your travel dreams into unforgettable adventures
           </p>
         </div>
 
-        {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          {steps.map(({ id, icon: Icon, title, desc, emoji, gradient }) => (
-            <Card
-              key={id}
-              className="group border-0 bg-white hover:shadow-2xl hover:scale-105 transition-all duration-300"
-            >
-              <CardContent className="p-8 text-center flex flex-col items-center">
-                <div className="text-6xl font-black text-neutral-100 mb-4">{String(id).padStart(2, "0")}</div>
+        {/* Steps */}
+        <div className="space-y-8 mb-16">
+          {steps.map((step, index) => {
+            const Icon = step.icon
+            const isEven = index % 2 === 1
 
-                <div className="text-4xl mb-4 transition-transform duration-300 group-hover:scale-125">{emoji}</div>
+            return (
+              <div
+                key={index}
+                className={`flex flex-col ${isEven ? "lg:flex-row-reverse" : "lg:flex-row"} items-center gap-8 lg:gap-16`}
+              >
+                {/* Content */}
+                <div className="flex-1 text-center lg:text-left">
+                  <div className="flex items-center justify-center lg:justify-start gap-4 mb-6">
+                    <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white font-black text-xl">
+                      {step.step}
+                    </div>
+                    <div className="text-4xl">{step.emoji}</div>
+                  </div>
 
-                <div
-                  className={`w-16 h-16 mb-6 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center transition-transform duration-300 group-hover:rotate-12`}
-                >
-                  <Icon className="w-8 h-8 text-white" />
+                  <h3 className="text-3xl font-black text-neutral-900 mb-4">{step.title}</h3>
+                  <p className="text-xl text-neutral-600 mb-6 font-medium">{step.description}</p>
+
+                  <div className="space-y-3 mb-6">
+                    {step.details.map((detail, detailIndex) => (
+                      <div key={detailIndex} className="flex items-center justify-center lg:justify-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-success flex-shrink-0" />
+                        <span className="text-neutral-700 font-medium">{detail}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {index < steps.length - 1 && (
+                    <div className="flex items-center justify-center lg:justify-start gap-2 text-primary font-bold">
+                      <span>Next Step</span>
+                      <ArrowRight className="w-5 h-5" />
+                    </div>
+                  )}
                 </div>
 
-                <h3 className="text-xl font-black text-neutral-900 mb-2">{title}</h3>
-                <p className="text-neutral-600 font-medium">{desc}</p>
-              </CardContent>
-            </Card>
-          ))}
+                {/* Visual */}
+                <div className="flex-1 max-w-md">
+                  <Card
+                    className={`${step.bgColor} border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105`}
+                  >
+                    <CardContent className="p-8 text-center">
+                      <div
+                        className={`w-20 h-20 mx-auto mb-6 rounded-3xl bg-gradient-to-br ${step.color} flex items-center justify-center transform transition-all duration-300 hover:rotate-12 hover:scale-110`}
+                      >
+                        <Icon className="w-10 h-10 text-white" />
+                      </div>
+
+                      <div className="text-6xl mb-4">{step.emoji}</div>
+
+                      <h4 className="text-xl font-black text-neutral-900 mb-2">{step.title}</h4>
+                      <p className="text-neutral-600 font-medium">{step.description}</p>
+
+                      <div className="mt-6 w-full h-2 bg-neutral-200 rounded-full overflow-hidden">
+                        <div
+                          className={`h-full bg-gradient-to-r ${step.color} rounded-full transition-all duration-1000`}
+                          style={{ width: `${(step.step / steps.length) * 100}%` }}
+                        ></div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            )
+          })}
         </div>
 
         {/* Bottom CTA */}
-        <Card className="max-w-3xl mx-auto mt-16 bg-gradient-to-r from-primary to-secondary border-0 text-white">
-          <CardContent className="p-8 text-center">
-            <CheckCircle className="w-10 h-10 mx-auto mb-4" />
-            <h3 className="text-3xl font-black mb-4">Ready to Skip the Chaos?</h3>
-            <p className="text-xl mb-6 opacity-90">
-              Join thousands who’ve made group travel effortless and unforgettable.
-            </p>
-            <Button
-              size="lg"
-              className="inline-flex items-center gap-2 bg-white text-primary hover:bg-white/90 font-bold px-8 py-4 rounded-2xl text-lg"
-            >
-              Start Planning Now
-              <ArrowRight className="w-5 h-5" />
-            </Button>
-          </CardContent>
-        </Card>
+        <div className="text-center">
+          <Card className="bg-gradient-to-r from-primary to-secondary border-0 text-white max-w-4xl mx-auto">
+            <CardContent className="p-8">
+              <h3 className="text-3xl font-black mb-4">Ready to Turn Your Travel Dreams Into Reality?</h3>
+              <p className="text-xl mb-6 opacity-90">
+                Join thousands of travelers who've already discovered the magic of LFG
+              </p>
+              <Button
+                size="lg"
+                className="bg-white text-primary hover:bg-white/90 font-black px-12 py-4 rounded-2xl text-lg shadow-lg"
+              >
+                Start Your Adventure Now
+                <ArrowRight className="w-6 h-6 ml-3" />
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </section>
   )
