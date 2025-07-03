@@ -27,8 +27,8 @@ export function Footer() {
       { name: "Travel Guides", href: "/guides" },
     ],
     legal: [
-      { name: "Privacy Policy", href: "/privacy" },
-      { name: "Terms of Service", href: "/terms" },
+      { name: "Privacy Policy", href: "/privacy-policy" },
+      { name: "Terms of Service", href: "/terms-of-service" },
       { name: "Cookie Policy", href: "/cookies" },
       { name: "Safety", href: "/safety" },
     ],

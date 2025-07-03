@@ -95,7 +95,7 @@ export function LoginPage() {
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <Label htmlFor="password">Password</Label>
-            <Link href="/forgot-password" className="text-sm text-primary hover:underline">
+            <Link href="/auth/forgot-password" className="text-sm text-primary hover:underline">
               Forgot Password?
             </Link>
           </div>
@@ -219,7 +219,7 @@ export function LoginPage() {
         <div className="text-center">
           <p className="text-sm text-neutral-600">
             New to LFG?{" "}
-            <Link href="/signup" className="text-primary hover:underline font-medium">
+            <Link href="/auth/signup" className="text-primary hover:underline font-medium">
               Sign up free
             </Link>
           </p>

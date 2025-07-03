@@ -4,12 +4,17 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Users, MapPin, Calendar, Star } from "lucide-react"
 import { useState, useEffect } from "react"
+import Link from "next/link"
 
 export function HeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
 
-  const heroImages = ["/images/hero-adventure-1.jpg", "/images/hero-adventure-2.jpg", "/images/hero-adventure-3.jpg"]
+  const heroImages = [
+    "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    "https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    "https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+  ]
 
   const floatingStats = [
     { icon: Users, label: "Squad Size", value: "6 friends", color: "bg-blue-500" },
@@ -112,13 +117,15 @@ export function HeroSection() {
 
           {/* CTA Button */}
           <div className="flex justify-center mb-12">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-bold px-12 py-6 rounded-2xl text-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
-            >
-              Start Your Adventure
-              <ArrowRight className="w-6 h-6 ml-3" />
-            </Button>
+            <Link href="/auth/signup">
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-bold px-12 py-6 rounded-2xl text-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
+              >
+                Start Your Adventure
+                <ArrowRight className="w-6 h-6 ml-3" />
+              </Button>
+            </Link>
           </div>
 
           {/* Social Proof */}
